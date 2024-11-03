@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class FootPrintLight : MonoBehaviour
 {
-    public float fadeDirection = 2.0f; //Œõ‚ÌƒtƒF[ƒhƒAƒEƒg‚É‚©‚©‚éŠÔ
-    private Light light;
+    public float fadeDirection = 2.0f; //å…‰ã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã«ã‹ã‹ã‚‹æ™‚é–“
+    private Light footLight;
     private float startTime;
 
     void Start()
     {
-        light = GetComponent<Light> ();
+        footLight = GetComponent<Light> ();
         startTime = Time.time;
 
     }
@@ -22,9 +22,9 @@ public class FootPrintLight : MonoBehaviour
 
         if (eleapsed < fadeDirection)
         {
-            Color color = light.color;
+            Color color = footLight.color;
             color.a = Mathf.Lerp(1, 0, eleapsed / fadeDirection);
-           light.color = color;
+           footLight.color = color;
         }
 
         else
