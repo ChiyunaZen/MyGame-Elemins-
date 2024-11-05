@@ -7,29 +7,26 @@ public class FootPrintLight : MonoBehaviour
     public float fadeDirection = 2.0f; //光のフェードアウトにかかる時間
     private Light footLight;
     private float startTime;
+    Animator animator;
 
     void Start()
     {
         footLight = GetComponent<Light> ();
-        startTime = Time.time;
+        animator = GetComponent<Animator> ();
 
+        StartCoroutine(LightEnd());
     }
 
     // Update is called once per frame
     void Update()
     {
-        float eleapsed = Time.time - startTime;
+        
+    }
 
-        if (eleapsed < fadeDirection)
-        {
-            Color color = footLight.color;
-            color.a = Mathf.Lerp(1, 0, eleapsed / fadeDirection);
-           footLight.color = color;
-        }
+    IEnumerator LightEnd()
+    {
+        yield return new WaitForSeconds(fadeDirection);
+        animator.SetTrigger("FootLightEnd");
 
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 }

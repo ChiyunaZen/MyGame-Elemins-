@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     //　下方向に強制的に加える力
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
 
+    [SerializeField] private GameObject footPrint;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -58,5 +60,11 @@ public class PlayerController : MonoBehaviour
         velocity.y += Physics.gravity.y * Time.deltaTime;
         //　下向きのオフセット値を足して動かす
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void GenerateFootprint()
+    {
+        Vector3 footPosition = transform.position;
+        Instantiate(footPrint, footPosition, Quaternion.identity);
     }
 }
