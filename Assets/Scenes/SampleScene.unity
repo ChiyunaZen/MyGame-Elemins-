@@ -333,6 +333,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &478734897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4918129219013936871, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
+  m_PrefabInstance: {fileID: 424875293588463901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &478734902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478734897}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.05, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &533061741
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,7 +451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.213
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1328,7 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c816778dfbba64cbbd8adc3a1c948d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 2da6885d652058c4aa612239f8d5c88b, type: 2}
+  material: {fileID: 2100000, guid: 2da6885d652058c4aa612239f8d5c88b, type: 2}
   transparencyDecreaseAmount: 0.02
 --- !u!136 &1711243540
 CapsuleCollider:
@@ -1529,6 +1555,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1864230006815539762, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864230006815539762, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
@@ -1540,9 +1570,17 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4918129219013936871, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
+      propertyPath: m_TagString
+      value: FootLight
+      objectReference: {fileID: 0}
     - target: {fileID: 4936671330429251407, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
       propertyPath: m_Name
       value: FootPrint
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082435087903876900, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0435
       objectReference: {fileID: 0}
     - target: {fileID: 7110787089076914328, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
       propertyPath: fadeDirection
@@ -1591,7 +1629,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4918129219013936871, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 478734902}
   m_SourcePrefab: {fileID: 100100000, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

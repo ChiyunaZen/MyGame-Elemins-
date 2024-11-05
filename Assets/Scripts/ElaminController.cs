@@ -57,6 +57,5 @@ public class ElaminController : MonoBehaviour
     public void OnDetectObject(Collider collider)
     {
         navMeshAgent.destination = collider.transform.position;
-
     }
 }
