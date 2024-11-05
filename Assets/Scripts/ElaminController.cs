@@ -6,19 +6,28 @@ using UnityEngine.AI;
 
 public class ElaminController : MonoBehaviour
 {
-    PlayerController _playerCon;
+   
     NavMeshAgent navMeshAgent;
+    Animator animator;
+
     void Start()
     {
-        _playerCon = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+      
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        navMeshAgent.destination = _playerCon.transform.position;
-        
+       
+        animator.SetFloat("Speed",navMeshAgent.velocity.magnitude);
 
+    }
+
+    public void OnDetectObject(Collider collider)
+    {
+            navMeshAgent.destination = collider.transform.position;
+       
     }
 }

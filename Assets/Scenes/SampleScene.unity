@@ -343,6 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 533061742}
   - component: {fileID: 533061743}
+  - component: {fileID: 533061744}
   m_Layer: 0
   m_Name: El_CollisionDetector
   m_TagString: Untagged
@@ -384,8 +385,20 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.8
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &533061744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533061741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa61f6c1a691014a84a0a9458d03bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &627143914
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.09
+      value: 7.56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       propertyPath: m_LocalRotation.w
