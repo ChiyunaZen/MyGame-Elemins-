@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterControllerCheckGround : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     private CharacterController controller;
