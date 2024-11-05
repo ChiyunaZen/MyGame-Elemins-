@@ -13,11 +13,11 @@ namespace UnityChan
 		static EditorWindow window;
 		bool _RemovedUnusedParameter = false; 
 
-		[MenuItem("CONTEXT/Material/Copy Material Parameter")]
+		[MenuItem("CONTEXT/material/Copy material Parameter")]
 		static void Init (MenuCommand command)
 		{
 			source = (Material) command.context;
-			window = EditorWindow.GetWindow<CopyMaterialParameter> (true, "Copy Material Parameter : Select Materials", true);
+			window = EditorWindow.GetWindow<CopyMaterialParameter> (true, "Copy material Parameter : Select Materials", true);
 			window.Show ();
 		}
 
@@ -46,7 +46,7 @@ namespace UnityChan
 			}
 
 			if(_RemovedUnusedParameter){
-				EditorGUILayout.HelpBox("Unused Material Properties are removed.",MessageType.Info);
+				EditorGUILayout.HelpBox("Unused material Properties are removed.",MessageType.Info);
 			}
 		}
 

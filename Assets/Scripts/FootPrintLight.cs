@@ -29,7 +29,7 @@ public class FootPrintLight : MonoBehaviour
         yield return new WaitForSeconds(fadeDirection);
         animator.SetTrigger("FootLightEnd");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 

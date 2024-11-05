@@ -8,7 +8,7 @@ using UnityEditor;
 
 public class Example {
 
-    [MenuItem("CONTEXT/Material/Remove Unused Properties")]
+    [MenuItem("CONTEXT/material/Remove Unused Properties")]
     private static void RemoveUnusedMaterialProperties(MenuCommand menuCommand)
     {
         var material    = menuCommand.context as Material;
