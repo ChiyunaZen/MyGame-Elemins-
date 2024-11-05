@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CharacterControllerCheckGround : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 
     private CharacterController controller;
@@ -13,6 +13,8 @@ public class CharacterControllerCheckGround : MonoBehaviour
     
     //　下方向に強制的に加える力
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
+
+    [SerializeField] private GameObject footPrint;
 
     void Start()
     {
@@ -58,5 +60,11 @@ public class CharacterControllerCheckGround : MonoBehaviour
         velocity.y += Physics.gravity.y * Time.deltaTime;
         //　下向きのオフセット値を足して動かす
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void GenerateFootprint()
+    {
+        Vector3 footPosition = transform.position;
+        Instantiate(footPrint, footPosition, Quaternion.identity);
     }
 }
