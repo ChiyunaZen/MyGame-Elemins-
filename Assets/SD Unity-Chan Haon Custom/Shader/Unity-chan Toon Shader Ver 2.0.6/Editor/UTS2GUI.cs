@@ -714,7 +714,7 @@ namespace UnityChan
 
             //v.2.0.7
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PrefixLabel("Remove Unused Keywords/Properties from Material");
+            EditorGUILayout.PrefixLabel("Remove Unused Keywords/Properties from material");
             //GUILayout.Space(60);
             if (GUILayout.Button("Execute",middleButtonStyle))
             {
@@ -723,7 +723,7 @@ namespace UnityChan
             }
             EditorGUILayout.EndHorizontal();
             if(_RemovedUnusedKeywordsMessage){
-                EditorGUILayout.HelpBox("UTS2 : Unused Material Properties and ShaderKeywords are removed.",MessageType.Info);
+                EditorGUILayout.HelpBox("UTS2 : Unused material Properties and ShaderKeywords are removed.",MessageType.Info);
             }
             //
         }

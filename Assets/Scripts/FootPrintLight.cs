@@ -15,6 +15,7 @@ public class FootPrintLight : MonoBehaviour
         animator = GetComponent<Animator> ();
 
         StartCoroutine(LightEnd());
+        
     }
 
     // Update is called once per frame
@@ -28,5 +29,18 @@ public class FootPrintLight : MonoBehaviour
         yield return new WaitForSeconds(fadeDirection);
         animator.SetTrigger("FootLightEnd");
 
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("eating"))
+        {
+            other.GetComponentInParent<ElaminController>().DecreaseTransparency();
+            Destroy(gameObject);
+            
+        }
+    }
+
 }

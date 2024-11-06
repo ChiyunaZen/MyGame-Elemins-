@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Vector3 velocity = Vector3.zero; //
 
-    [SerializeField]private float moveSpeed = 1.5f;
-    [SerializeField]private float jumpPower = 5f;
-    
+    [SerializeField] private float walkSpeed = 1.5f;
+    [SerializeField] private float runSpeed = 3.0f;
+    [SerializeField] private float jumpPower = 5f;
+
     //　下方向に強制的に加える力
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
 
@@ -30,13 +31,25 @@ public class PlayerController : MonoBehaviour
 
             velocity = Vector3.zero;
 
+            // 入力の取得とノーマライズ処理
             var input = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
             if (input.magnitude > 0f)
             {
-                animator.SetFloat("Speed", input.magnitude);
-                transform.LookAt(transform.position + input);
-                velocity += input * moveSpeed;
+                //スペースキーが押されているかで速度を切り替える
+                float currentSpeed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? runSpeed : walkSpeed;
+
+                // ノーマライズして移動速度を掛けることで、斜め方向でも同じ速度にする
+                Vector3 normalizedInput = input.normalized;
+               
+
+                // キャラクターの向きを移動方向に合わせる
+                transform.LookAt(transform.position + normalizedInput);
+
+                // 移動速度を掛け合わせてvelocityを設定
+                velocity += normalizedInput * currentSpeed;
+
+                animator.SetFloat("Speed", currentSpeed); // 入力の強さをアニメーションに反映
             }
             else
             {
@@ -47,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 && !animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")
                 )
             {
-                animator.SetBool("Jump", true);
+                animator.SetTrigger ("Jump");
                 velocity.y += jumpPower;
             }
             else

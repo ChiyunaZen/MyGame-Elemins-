@@ -15,11 +15,11 @@ namespace UnityChan
 		static EditorWindow window;
 		bool _RemovedUnusedParameterMessage = false; 
 
-    	[MenuItem("CONTEXT/Material/Remove Unused ShaderKeywords from UTS2 Material")]
+    	[MenuItem("CONTEXT/material/Remove Unused ShaderKeywords from UTS2 material")]
 		static void Init (MenuCommand command)
 		{
 			source = (Material) command.context;
-			window = EditorWindow.GetWindow<RemoveUnusedShaderKeywordsFromUTS2Material> (true, "Remove Unused ShaderKeywords : Select UTS2 Material", true);
+			window = EditorWindow.GetWindow<RemoveUnusedShaderKeywordsFromUTS2Material> (true, "Remove Unused ShaderKeywords : Select UTS2 material", true);
 			window.Show ();
 		}
 
@@ -38,7 +38,7 @@ namespace UnityChan
 			}
 
 			if(_RemovedUnusedParameterMessage){
-				EditorGUILayout.HelpBox("Unused Material Properties and ShaderKeywords are removed.",MessageType.Info);
+				EditorGUILayout.HelpBox("Unused material Properties and ShaderKeywords are removed.",MessageType.Info);
 			}
 
 			if(source != oldSource){
