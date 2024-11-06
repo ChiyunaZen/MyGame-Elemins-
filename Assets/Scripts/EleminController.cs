@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ElaminController : MonoBehaviour
+public class EleminController : MonoBehaviour
 {
     public Material material;
     public float transparencyDecreaseAmount = 0.1f; // 透明度を揚げる量

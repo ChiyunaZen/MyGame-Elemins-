@@ -36,7 +36,7 @@ public class FootPrintLight : MonoBehaviour
     {
         if (other.CompareTag("eating"))
         {
-            other.GetComponentInParent<ElaminController>().DecreaseTransparency();
+            other.GetComponentInParent<EleminController>().DecreaseTransparency();
             animator.SetTrigger("FootLightEaten");
             StartCoroutine (LightDestroy(0.5f));
 
