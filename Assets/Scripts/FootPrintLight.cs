@@ -11,17 +11,17 @@ public class FootPrintLight : MonoBehaviour
 
     void Start()
     {
-        footLight = GetComponent<Light> ();
-        animator = GetComponent<Animator> ();
+        footLight = GetComponent<Light>();
+        animator = GetComponent<Animator>();
 
         StartCoroutine(LightEnd());
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator LightEnd()
@@ -29,18 +29,24 @@ public class FootPrintLight : MonoBehaviour
         yield return new WaitForSeconds(fadeDirection);
         animator.SetTrigger("FootLightEnd");
 
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        StartCoroutine(LightDestroy(1));
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("eating"))
+        if (other.CompareTag("eating"))
         {
             other.GetComponentInParent<ElaminController>().DecreaseTransparency();
-            Destroy(gameObject);
-            
+            animator.SetTrigger("FootLightEaten");
+            StartCoroutine (LightDestroy(0.5f));
+
         }
+    }
+
+    IEnumerator LightDestroy(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
 }

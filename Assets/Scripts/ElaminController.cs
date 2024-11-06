@@ -20,7 +20,7 @@ public class ElaminController : MonoBehaviour
         animator = GetComponent<Animator>();
 
 
-        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.1f)); //マテリアルを透明よりに設定
+        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.01f)); //マテリアルを透明よりに設定
 
     }
 

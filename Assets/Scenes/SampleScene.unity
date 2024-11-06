@@ -1388,7 +1388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 2da6885d652058c4aa612239f8d5c88b, type: 2}
-  transparencyDecreaseAmount: 0.02
+  transparencyDecreaseAmount: 0.01
 --- !u!136 &1711243540
 CapsuleCollider:
   m_ObjectHideFlags: 0
