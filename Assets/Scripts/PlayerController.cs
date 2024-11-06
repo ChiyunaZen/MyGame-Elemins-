@@ -41,13 +41,15 @@ public class PlayerController : MonoBehaviour
 
                 // ノーマライズして移動速度を掛けることで、斜め方向でも同じ速度にする
                 Vector3 normalizedInput = input.normalized;
-                animator.SetFloat("Speed", input.magnitude); // 入力の強さをアニメーションに反映
+               
 
                 // キャラクターの向きを移動方向に合わせる
                 transform.LookAt(transform.position + normalizedInput);
 
                 // 移動速度を掛け合わせてvelocityを設定
                 velocity += normalizedInput * currentSpeed;
+
+                animator.SetFloat("Speed", currentSpeed); // 入力の強さをアニメーションに反映
             }
             else
             {
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 && !animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")
                 )
             {
-                animator.SetBool("Jump", true);
+                animator.SetTrigger ("Jump");
                 velocity.y += jumpPower;
             }
             else
