@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Vector3 velocity = Vector3.zero; //
 
-    [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float walkSpeed = 1.5f;
+    [SerializeField] private float runSpeed = 3.0f;
     [SerializeField] private float jumpPower = 5f;
 
     //　下方向に強制的に加える力
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour
 
             if (input.magnitude > 0f)
             {
+                //スペースキーが押されているかで速度を切り替える
+                float currentSpeed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? runSpeed : walkSpeed;
+
                 // ノーマライズして移動速度を掛けることで、斜め方向でも同じ速度にする
                 Vector3 normalizedInput = input.normalized;
                 animator.SetFloat("Speed", input.magnitude); // 入力の強さをアニメーションに反映
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
                 transform.LookAt(transform.position + normalizedInput);
 
                 // 移動速度を掛け合わせてvelocityを設定
-                velocity += normalizedInput * moveSpeed;
+                velocity += normalizedInput * currentSpeed;
             }
             else
             {
