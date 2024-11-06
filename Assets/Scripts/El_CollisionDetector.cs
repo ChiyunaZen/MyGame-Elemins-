@@ -5,11 +5,11 @@ using UnityEngine.Events;
 
 public class El_CollisionDetector : MonoBehaviour
 {
-    ElaminController elaminController;
+    EleminController elaminController;
 
     void Start()
     {
-        elaminController = GetComponentInParent<ElaminController>();
+        elaminController = GetComponentInParent<EleminController>();
     }
 
     // Update is called once per frame

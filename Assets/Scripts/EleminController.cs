@@ -5,22 +5,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ElaminController : MonoBehaviour
+public class EleminController : MonoBehaviour
 {
     public Material material;
     public float transparencyDecreaseAmount = 0.1f; // 透明度を揚げる量
 
     NavMeshAgent navMeshAgent;
     Animator animator;
+    Light eleminLight;
 
     void Start()
     {
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        eleminLight = GetComponentInChildren<Light>();
+        eleminLight.range = 0;
+        eleminLight.intensity = 0;
 
-
-        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.1f)); //マテリアルを透明よりに設定
+        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.02f)); //マテリアルを透明よりに設定
 
     }
 
@@ -45,6 +48,23 @@ public class ElaminController : MonoBehaviour
 
         // マテリアルに新しい色を設定
         material.SetColor("_Color", currentColor);
+
+        if(currentColor.a <=0.9f)
+        {
+            eleminLight.range = currentColor.a;
+        }
+        else
+        {
+            eleminLight.range += 0.1f;
+
+            if (eleminLight.intensity <= 3.5f)
+            {
+                eleminLight.intensity += 0.1f;
+            }
+        }
+        
+
+        
     }
 
 
