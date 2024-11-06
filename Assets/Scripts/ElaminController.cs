@@ -56,6 +56,15 @@ public class ElaminController : MonoBehaviour
 
     public void OnDetectObject(Collider collider)
     {
+        if ( collider.CompareTag("FootLight"))
+        {
+
+            navMeshAgent.destination = collider.transform.position;
+        }
+
+        if (collider.CompareTag("Player"))
+        {
         navMeshAgent.destination = collider.transform.position;
+        }
     }
 }
