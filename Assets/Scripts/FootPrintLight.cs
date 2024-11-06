@@ -33,7 +33,14 @@ public class FootPrintLight : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("eating"))
+        {
+            other.GetComponentInParent<ElaminController>().DecreaseTransparency();
+            Destroy(gameObject);
+            
+        }
+    }
 
 }

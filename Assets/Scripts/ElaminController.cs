@@ -30,15 +30,11 @@ public class ElaminController : MonoBehaviour
 
         animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
 
-            DecreaseTransparency();
-        }
     }
 
     // 透明度を上げるメソッド
-    private void DecreaseTransparency()
+    public void DecreaseTransparency()
     {
         // 現在の色を取得
         Color currentColor = material.GetColor("_Color");
@@ -56,15 +52,66 @@ public class ElaminController : MonoBehaviour
 
     public void OnDetectObject(Collider collider)
     {
-        if ( collider.CompareTag("FootLight"))
-        {
-
-            navMeshAgent.destination = collider.transform.position;
-        }
+        //if ( collider.CompareTag("FootLight"))
+        //{
+        //    Debug.Log("FootLightに触れている");
+        //    navMeshAgent.destination = collider.transform.position;
+        //    DecreaseTransparency();
+        //    Destroy(collider.gameObject); 
+        //}
 
         if (collider.CompareTag("Player"))
         {
-        navMeshAgent.destination = collider.transform.position;
+           // if (GameObject.FindWithTag("FootLight") == null)
+            //{
+                //Debug.Log("Playerのほうに行く");
+                navMeshAgent.destination = collider.transform.position;
+            //}
         }
+
+        //Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); //1f以内のコライダーを取得して配列に格納する
+        //GameObject nearistObject = null; //一番近いオブジェクトの変数
+        //float closedDistance = Mathf.Infinity; //最初は無限大より小さいものがセットされる
+
+        //foreach (Collider other in colliders)　//配列の中で繰り返す処理
+        //{
+        //    if (other.CompareTag("FootLight"))
+        //    {
+        //        float distance = Vector3.Distance(collider.transform.position, other.transform.position);
+
+        //        if (distance < closedDistance)
+        //        {
+        //            closedDistance = distance;
+        //            nearistObject = other.gameObject;
+        //        }
+        //    }
+        //}
+
+        //if (nearistObject != null)
+        //{
+        //    //一番近いFootLightの位置に移動
+        //    navMeshAgent.destination = nearistObject.transform.position;
+        //    StartCoroutine(DestroyObjectWhenArrived(nearistObject));
+        //}
+        //else
+        //{
+        //    if (collider.CompareTag("Player"))
+        //    {
+        //        navMeshAgent.destination = collider.transform.position;
+        //    }
+
+        //}
+    }
+
+    private IEnumerator DestroyObjectWhenArrived(GameObject target)
+    {
+        // 移動中
+        while (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+        {
+            yield return null;
+        }
+
+        // 移動が完了したらオブジェクトを破棄
+        Destroy(target);
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SubCharacter
   - FootLight
+  - eating
   layers:
   - Default
   - TransparentFX
