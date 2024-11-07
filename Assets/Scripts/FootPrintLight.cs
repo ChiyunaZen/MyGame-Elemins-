@@ -9,11 +9,14 @@ public class FootPrintLight : MonoBehaviour
     private float startTime;
     Animator animator;
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        footLight = GetComponent<Light>();
+    }
     void Start()
     {
-        footLight = GetComponent<Light>();
-        animator = GetComponent<Animator>();
-
+        
         StartCoroutine(LightEnd());
 
     }
@@ -36,9 +39,17 @@ public class FootPrintLight : MonoBehaviour
     {
         if (other.CompareTag("eating"))
         {
-            other.GetComponentInParent<EleminController>().DecreaseTransparency();
-            animator.SetTrigger("FootLightEaten");
-            StartCoroutine (LightDestroy(0.5f));
+            if (other.GetComponentInParent<EleminController>() == null) Debug.Log("EleminContorollerが見つかりません");
+
+            if (animator == null) Debug.Log("Animatorが見つかりません");
+
+            
+
+                other.GetComponentInParent<EleminController>().DecreaseTransparency();
+
+                animator.SetTrigger("FootLightEaten");
+                StartCoroutine(LightDestroy(0.51f));
+            
 
         }
     }
