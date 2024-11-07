@@ -49,7 +49,7 @@ public class EleminController : MonoBehaviour
         // マテリアルに新しい色を設定
         material.SetColor("_Color", currentColor);
 
-        if(currentColor.a <=0.9f)
+        if (currentColor.a <= 0.9f)
         {
             eleminLight.range = currentColor.a;
         }
@@ -62,9 +62,9 @@ public class EleminController : MonoBehaviour
                 eleminLight.intensity += 0.1f;
             }
         }
-        
 
-        
+
+
     }
 
 
@@ -82,10 +82,10 @@ public class EleminController : MonoBehaviour
 
         if (collider.CompareTag("Player"))
         {
-           // if (GameObject.FindWithTag("FootLight") == null)
+            // if (GameObject.FindWithTag("FootLight") == null)
             //{
-                //Debug.Log("Playerのほうに行く");
-                navMeshAgent.destination = collider.transform.position;
+            //Debug.Log("Playerのほうに行く");
+            navMeshAgent.destination = collider.transform.position;
             //}
         }
 
@@ -134,4 +134,9 @@ public class EleminController : MonoBehaviour
     //    // 移動が完了したらオブジェクトを破棄
     //    Destroy(target);
     //}
+
+    public void GoToSymbol(GameObject gameObject)
+    {
+
+    }
 }
