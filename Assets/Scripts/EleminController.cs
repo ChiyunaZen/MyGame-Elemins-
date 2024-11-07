@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class EleminController : MonoBehaviour
 {
     public Material material;
-    public float transparencyDecreaseAmount = 0.1f; // 透明度を揚げる量
+    public float alphaDecreaseAmount = 0.1f; // 透明度を揚げる量
 
     NavMeshAgent navMeshAgent;
     Animator animator;
@@ -43,7 +43,7 @@ public class EleminController : MonoBehaviour
         Color currentColor = material.GetColor("_Color");
 
         // アルファ値を減少させる
-        float newAlpha = Mathf.Clamp(currentColor.a + transparencyDecreaseAmount, 0f, 1f); // 0未満にならないように制限
+        float newAlpha = Mathf.Clamp(currentColor.a + alphaDecreaseAmount, 0f, 1f); // 0未満にならないように制限
         currentColor.a = newAlpha; // 新しいアルファ値を設定
 
         // マテリアルに新しい色を設定
