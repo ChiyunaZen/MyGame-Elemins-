@@ -696,7 +696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -1412,8 +1412,8 @@ MonoBehaviour:
   m_Roots:
   - {fileID: 827590341}
   - {fileID: 1158670550}
-  m_UpdateRate: 60
-  m_UpdateMode: 3
+  m_UpdateRate: 30
+  m_UpdateMode: 2
   m_Damping: 0.773
   m_DampingDistrib:
     serializedVersion: 2

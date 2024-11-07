@@ -6,7 +6,12 @@ public class GameManager : MonoBehaviour
 {
     EleminController eleminController;
     GameObject[] footPaints;
+    GameObject directionalLight;
 
+    private void Awake()
+    {
+       // directionalLight = GameObject.Find("Directional Light");
+    }
     void Start()
     {
         eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
@@ -20,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Escape pushed");
             footPaints = GameObject.FindGameObjectsWithTag("FootPrint");
+           // directionalLight.SetActive(true);
 
             foreach (GameObject footPrint in footPaints)
             {
@@ -27,7 +33,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-       
+
     }
 }
 
