@@ -32,7 +32,7 @@ public class FootPrintController : MonoBehaviour
             Vector3 randomPosition = transform.position + (Random.insideUnitSphere * bloomRadius);
             randomPosition.y = transform.position.y+0.1f ; // Y座標を固定
 
-            // 選ばれた花のプレハブをランダムな位置に生成し、親オブジェクトとしてこのオブジェクトを設定
+            // 花のプレハブをランダムな位置に生成
             GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, Quaternion.identity);
             spawnedFlower.transform.parent = transform; // このオブジェクトの子として配置
         }

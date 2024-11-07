@@ -123,15 +123,15 @@ public class EleminController : MonoBehaviour
         //}
     }
 
-    private IEnumerator DestroyObjectWhenArrived(GameObject target)
-    {
-        // 移動中
-        while (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
-        {
-            yield return null;
-        }
+    //private IEnumerator DestroyObjectWhenArrived(GameObject target)
+    //{
+    //    // 移動中
+    //    while (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
+    //    {
+    //        yield return null;
+    //    }
 
-        // 移動が完了したらオブジェクトを破棄
-        Destroy(target);
-    }
+    //    // 移動が完了したらオブジェクトを破棄
+    //    Destroy(target);
+    //}
 }

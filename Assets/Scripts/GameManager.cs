@@ -10,18 +10,25 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-        footPaints = GameObject.FindGameObjectsWithTag("FootPrint");
-    }
 
+    }
     // Update is called once per frame
     void Update()
+
     {
-        if ( Input.GetKeyDown(KeyCode.Escape) )
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-           foreach ( GameObject footPrint in footPaints )
+            Debug.Log("Escape pushed");
+            footPaints = GameObject.FindGameObjectsWithTag("FootPrint");
+
+            foreach (GameObject footPrint in footPaints)
             {
                 footPrint.GetComponent<FootPrintController>().Bloomflowers();
             }
         }
+
+       
     }
 }
+
+
