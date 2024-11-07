@@ -8,6 +8,9 @@ TagManager:
   - FootLight
   - eating
   - FootPrint
+  - DirectionalLight
+  - LightSymbol
+  - SymbolSercher
   layers:
   - Default
   - TransparentFX
