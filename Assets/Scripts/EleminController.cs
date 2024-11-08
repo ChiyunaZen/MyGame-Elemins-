@@ -149,7 +149,7 @@ public class EleminController : MonoBehaviour
             //    eleminLight.range = 1f;
             //}
 
-            eleminLight.range = Mathf.Max(eleminLight.range - value, 1.5f); // 最小値を1にする
+            eleminLight.range = Mathf.Max(eleminLight.range - value, 0f); // 最小値を1にする
         }
 
         //Eleminライトの明るさを減らすメソッド
@@ -165,6 +165,6 @@ public class EleminController : MonoBehaviour
 
             //}
 
-            eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 1.5f); // 最小値を0.1にする
+            eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
         }
     }
