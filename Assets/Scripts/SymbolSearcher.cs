@@ -11,6 +11,7 @@ public class SymbolSearcher : MonoBehaviour
     void Start()
     {
         eleminController = GetComponentInParent<EleminController>();
+
     }
 
     // Update is called once per frame
@@ -19,7 +20,7 @@ public class SymbolSearcher : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("LightSymbol"))
         {

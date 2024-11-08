@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ele_White
-  m_Shader: {fileID: 4800000, guid: 165365ab7100a044ca85fc8c33548a62, type: 3}
+  m_Name: symbpl
+  m_Shader: {fileID: 4800000, guid: 6a77405f7dfdc1447af58854c7f43f39, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -352,7 +352,7 @@ Material:
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cull: 2
-    - _Cutoff: 0.001
+    - _Cutoff: -0
     - _DetailNormalMapScale: 1
     - _DissolveNoiseStrength: 0.1
     - _DistanceFadeMode: 0
@@ -666,7 +666,7 @@ Material:
     - _UVSec: 0
     - _UseAnisotropy: 0
     - _UseAudioLink: 0
-    - _UseBacklight: 0
+    - _UseBacklight: 1
     - _UseBump2ndMap: 0
     - _UseBumpMap: 0
     - _UseClippingCanceller: 0

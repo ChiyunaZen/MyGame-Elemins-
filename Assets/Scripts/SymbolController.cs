@@ -11,9 +11,12 @@ public class SymbolController : MonoBehaviour
 
     private GameObject currentLightInstance;
     private Light pointLight;
+ 
 
     void Start()
     {
+    
+
     }
 
     // Update is called once per frame
@@ -54,8 +57,10 @@ public class SymbolController : MonoBehaviour
         while (pointLight.intensity < getLightIntensity || pointLight.range < getLightRange)
         {
             // IntensityとRangeを徐々に増加
-            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity, lightIncreaseSpeed * Time.deltaTime);
-            pointLight.range = Mathf.MoveTowards(pointLight.range, getLightRange, lightIncreaseSpeed * Time.deltaTime);
+            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity*5, lightIncreaseSpeed * Time.deltaTime);
+            pointLight.range = Mathf.MoveTowards(pointLight.range, getLightRange*3, lightIncreaseSpeed * Time.deltaTime);
+            
+          
 
             yield return null; // 次のフレームまで待機
         }
