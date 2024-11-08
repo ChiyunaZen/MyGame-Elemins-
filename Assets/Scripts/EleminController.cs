@@ -1,6 +1,7 @@
 using lilToon;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,11 +9,16 @@ using UnityEngine.AI;
 public class EleminController : MonoBehaviour
 {
     public Material material;
-    public float alphaDecreaseAmount = 0.1f; // 透明度を揚げる量
+    public float alphaDecreaseAmount = 0.1f; // 透明度をあげる量
 
     NavMeshAgent navMeshAgent;
     Animator animator;
     Light eleminLight;
+    Transform playerTransform;
+
+    bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
+
+
 
     void Start()
     {
@@ -24,7 +30,7 @@ public class EleminController : MonoBehaviour
         eleminLight.intensity = 0;
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.02f)); //マテリアルを透明よりに設定
-
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
     }
 
     // Update is called once per frame
@@ -42,7 +48,7 @@ public class EleminController : MonoBehaviour
         // 現在の色を取得
         Color currentColor = material.GetColor("_Color");
 
-        // アルファ値を減少させる
+        // アルファ値を増加させる
         float newAlpha = Mathf.Clamp(currentColor.a + alphaDecreaseAmount, 0f, 1f); // 0未満にならないように制限
         currentColor.a = newAlpha; // 新しいアルファ値を設定
 
@@ -62,9 +68,6 @@ public class EleminController : MonoBehaviour
                 eleminLight.intensity += 0.1f;
             }
         }
-
-
-
     }
 
 
@@ -72,71 +75,96 @@ public class EleminController : MonoBehaviour
 
     public void OnDetectObject(Collider collider)
     {
-        //if ( collider.CompareTag("FootLight"))
-        //{
-        //    Debug.Log("FootLightに触れている");
-        //    navMeshAgent.destination = collider.transform.position;
-        //    DecreaseTransparency();
-        //    Destroy(collider.gameObject); 
-        //}
 
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag("Player") && !isNearSymbol)
         {
-            // if (GameObject.FindWithTag("FootLight") == null)
-            //{
-            //Debug.Log("Playerのほうに行く");
-            navMeshAgent.destination = collider.transform.position;
-            //}
+            navMeshAgent.destination = playerTransform.position;
         }
 
-        //Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); //1f以内のコライダーを取得して配列に格納する
-        //GameObject nearistObject = null; //一番近いオブジェクトの変数
-        //float closedDistance = Mathf.Infinity; //最初は無限大より小さいものがセットされる
-
-        //foreach (Collider other in colliders)　//配列の中で繰り返す処理
-        //{
-        //    if (other.CompareTag("FootLight"))
-        //    {
-        //        float distance = Vector3.Distance(collider.transform.position, other.transform.position);
-
-        //        if (distance < closedDistance)
-        //        {
-        //            closedDistance = distance;
-        //            nearistObject = other.gameObject;
-        //        }
-        //    }
-        //}
-
-        //if (nearistObject != null)
-        //{
-        //    //一番近いFootLightの位置に移動
-        //    navMeshAgent.destination = nearistObject.transform.position;
-        //    StartCoroutine(DestroyObjectWhenArrived(nearistObject));
-        //}
-        //else
-        //{
-        //    if (collider.CompareTag("Player"))
-        //    {
-        //        navMeshAgent.destination = collider.transform.position;
-        //    }
-
-        //}
     }
 
-    //private IEnumerator DestroyObjectWhenArrived(GameObject target)
-    //{
-    //    // 移動中
-    //    while (navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance)
-    //    {
-    //        yield return null;
-    //    }
-
-    //    // 移動が完了したらオブジェクトを破棄
-    //    Destroy(target);
-    //}
-
-    public void GoToSymbol(GameObject gameObject)
+    public void GoToSymbol(GameObject symbolObject)
     {
 
+        //NavMeshのターゲット(移動先)をシンボルに変更
+        navMeshAgent.destination = symbolObject.transform.position;
+        isNearSymbol = true;
+
+        // シンボルに到達するまで確認するコルーチンを開始
+        StartCoroutine(MoveToSymbolAndReturn(symbolObject));
     }
-}
+
+
+    // シンボルへ移動し、光を分けた後プレイヤーに戻るコルーチン
+    private IEnumerator MoveToSymbolAndReturn(GameObject symbolObject)
+    {
+       
+
+        // シンボルに向かって移動
+        while (Vector3.Distance(transform.position, symbolObject.transform.position) > 0.5f)
+        {
+            yield return null; // シンボルに到達するまで待機
+        }
+
+        
+            SymbolController symbolController = symbolObject.GetComponent<SymbolController>();
+            if (symbolController != null)
+            {
+                symbolController.ActivateSymbolLight();
+
+                // SymbolControllerで設定された範囲と強度を取得して光を減少
+                float decreaseRange = symbolController.getLightRange;
+                float decreaseIntensity = symbolController.getLightIntensity;
+
+                // 光の範囲と強度を一度だけ減少
+                DecreaseLightRange(decreaseRange);
+                DecreaseLightIntensity(decreaseIntensity);
+
+                Collider collider = symbolObject.GetComponent<Collider>();
+                Destroy(collider);
+            }
+
+          
+
+
+        yield return new WaitForSeconds(1.5f);
+
+
+            // ターゲットをプレイヤーに戻す
+            navMeshAgent.destination = playerTransform.position;
+            isNearSymbol = false;
+
+        }
+
+
+        //Eleminライトの範囲を減らすメソッド
+        public void DecreaseLightRange(float value)
+        {
+            //if (eleminLight.range - value >= 1)
+            //{
+            //    eleminLight.range -= value;
+            //}
+            //else
+            //{
+            //    eleminLight.range = 1f;
+            //}
+
+            eleminLight.range = Mathf.Max(eleminLight.range - value, 0f); // 最小値を1にする
+        }
+
+        //Eleminライトの明るさを減らすメソッド
+        public void DecreaseLightIntensity(float value)
+        {
+            //if (eleminLight.intensity - value >= 0.1)
+            //{
+            //    eleminLight.intensity -= value;
+            //}
+            //else
+            //{
+            //    eleminLight.intensity = 0.1f;
+
+            //}
+
+            eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
+        }
+    }
