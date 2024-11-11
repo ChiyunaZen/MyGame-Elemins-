@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Animator animator;
-    private Vector3 velocity = Vector3.zero; //
+    private Vector3 velocity = Vector3.zero; 
 
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float runSpeed = 3.0f;
@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
 
     [SerializeField] private GameObject footPrint;
+
+    //カメラの参照
+    [SerializeField]private Camera Camera;
 
     void Start()
     {
@@ -41,13 +44,29 @@ public class PlayerController : MonoBehaviour
 
                 // ノーマライズして移動速度を掛けることで、斜め方向でも同じ速度にする
                 Vector3 normalizedInput = input.normalized;
-               
+
+                //カメラの正面方向を取得
+                Vector3 cameraForward = Camera.transform.forward;
+                cameraForward.y = 0; //高さは無視する
+                cameraForward.Normalize();
+
+                //カメラの右方向
+                Vector3 cameraRight = Camera.transform.right;
+                cameraRight.y = 0;
+                cameraRight.Normalize();
+
+                //カメラの方向に基づいて移動ベクトルを計算
+                Vector3 moveDirection = cameraForward * normalizedInput.z + cameraRight * normalizedInput.x;
 
                 // キャラクターの向きを移動方向に合わせる
-                transform.LookAt(transform.position + normalizedInput);
+                if (moveDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * 10f);
+
+                }
 
                 // 移動速度を掛け合わせてvelocityを設定
-                velocity += normalizedInput * currentSpeed;
+                velocity += moveDirection * currentSpeed;
 
                 animator.SetFloat("Speed", currentSpeed); // 入力の強さをアニメーションに反映
             }

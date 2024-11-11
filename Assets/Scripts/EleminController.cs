@@ -9,7 +9,7 @@ using UnityEngine.AI;
 public class EleminController : MonoBehaviour
 {
     public Material material;
-    public float alphaDecreaseAmount = 0.1f; // 透明度をあげる量
+    public float alphaDecreaseAmount = 0.05f; // 透明度をあげる量
 
     NavMeshAgent navMeshAgent;
     Animator animator;
@@ -17,6 +17,8 @@ public class EleminController : MonoBehaviour
     Transform playerTransform;
 
     bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
+
+    
 
 
 
@@ -29,7 +31,7 @@ public class EleminController : MonoBehaviour
         eleminLight.range = 0;
         eleminLight.intensity = 0;
 
-        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.02f)); //マテリアルを透明よりに設定
+        material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
     }
 
@@ -98,7 +100,7 @@ public class EleminController : MonoBehaviour
     // シンボルへ移動し、光を分けた後プレイヤーに戻るコルーチン
     private IEnumerator MoveToSymbolAndReturn(GameObject symbolObject)
     {
-       
+
 
         // シンボルに向かって移動
         while (Vector3.Distance(transform.position, symbolObject.transform.position) > 0.5f)
@@ -106,65 +108,71 @@ public class EleminController : MonoBehaviour
             yield return null; // シンボルに到達するまで待機
         }
 
-        
-            SymbolController symbolController = symbolObject.GetComponent<SymbolController>();
-            if (symbolController != null)
-            {
-                symbolController.ActivateSymbolLight();
 
-                // SymbolControllerで設定された範囲と強度を取得して光を減少
-                float decreaseRange = symbolController.getLightRange;
-                float decreaseIntensity = symbolController.getLightIntensity;
+        SymbolController symbolController = symbolObject.GetComponent<SymbolController>();
+        if (symbolController != null)
+        {
+            symbolController.ActivateSymbolLight();
 
-                // 光の範囲と強度を一度だけ減少
-                DecreaseLightRange(decreaseRange);
-                DecreaseLightIntensity(decreaseIntensity);
+            // SymbolControllerで設定された範囲と強度を取得して光を減少
+            float decreaseRange = symbolController.getLightRange;
+            float decreaseIntensity = symbolController.getLightIntensity;
 
-                Collider collider = symbolObject.GetComponent<Collider>();
-                Destroy(collider);
-            }
+            // 光の範囲と強度を一度だけ減少
+            DecreaseLightRange(decreaseRange);
+            DecreaseLightIntensity(decreaseIntensity);
 
-          
+            Collider collider = symbolObject.GetComponent<Collider>();
+            Destroy(collider);
+        }
+
+
 
 
         yield return new WaitForSeconds(1.5f);
 
 
-            // ターゲットをプレイヤーに戻す
-            navMeshAgent.destination = playerTransform.position;
-            isNearSymbol = false;
+        // ターゲットをプレイヤーに戻す
+        navMeshAgent.destination = playerTransform.position;
+        isNearSymbol = false;
 
-        }
-
-
-        //Eleminライトの範囲を減らすメソッド
-        public void DecreaseLightRange(float value)
-        {
-            //if (eleminLight.range - value >= 1)
-            //{
-            //    eleminLight.range -= value;
-            //}
-            //else
-            //{
-            //    eleminLight.range = 1f;
-            //}
-
-            eleminLight.range = Mathf.Max(eleminLight.range - value, 0f); // 最小値を1にする
-        }
-
-        //Eleminライトの明るさを減らすメソッド
-        public void DecreaseLightIntensity(float value)
-        {
-            //if (eleminLight.intensity - value >= 0.1)
-            //{
-            //    eleminLight.intensity -= value;
-            //}
-            //else
-            //{
-            //    eleminLight.intensity = 0.1f;
-
-            //}
-
-            eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
-        }
     }
+
+
+    //Eleminライトの範囲を減らすメソッド
+    public void DecreaseLightRange(float value)
+    {
+        //if (eleminLight.range - value >= 1)
+        //{
+        //    eleminLight.range -= value;
+        //}
+        //else
+        //{
+        //    eleminLight.range = 1f;
+        //}
+
+        eleminLight.range = Mathf.Max(eleminLight.range - value, 0f); // 最小値を1にする
+    }
+
+    //Eleminライトの明るさを減らすメソッド
+    public void DecreaseLightIntensity(float value)
+    {
+        //if (eleminLight.intensity - value >= 0.1)
+        //{
+        //    eleminLight.intensity -= value;
+        //}
+        //else
+        //{
+        //    eleminLight.intensity = 0.1f;
+
+        //}
+
+        eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
+    }
+
+    public void StartPlayerTarget()
+    {
+        navMeshAgent.destination = playerTransform.position;
+
+    }
+}
