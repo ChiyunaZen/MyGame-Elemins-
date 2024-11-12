@@ -73,13 +73,13 @@ public class ShadowController : MonoBehaviour, IFollowMov
     public void StopFollowing()
     {
         navMeshAgent.isStopped = true;
-        navMeshAgent.speed -= 0.1f;
+        navMeshAgent.speed -= 0.2f;
         StartCoroutine(RestartFollowing());
     }
 
     public IEnumerator RestartFollowing()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(8);
         navMeshAgent.isStopped = false;
     }
 

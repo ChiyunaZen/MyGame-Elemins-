@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shadow
-  m_Shader: {fileID: 4800000, guid: dce3f3e248acc7b4daeda00daf616b4d, type: 3}
+  m_Shader: {fileID: 4800000, guid: 764282ad1ad49c747b2330cfde1d2ddc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -624,6 +624,7 @@ Material:
     - _ReflectionCubeEnableLighting: 1
     - _ReflectionCubeOverride: 0
     - _ReflectionNormalStrength: 1
+    - _RefractionAmount: 0.05
     - _RefractionColorFromMain: 0
     - _RefractionFresnelPower: 0.95
     - _RefractionStrength: -0.29
