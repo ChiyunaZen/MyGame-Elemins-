@@ -57,7 +57,7 @@ public class SymbolController : MonoBehaviour
         while (pointLight.intensity < getLightIntensity || pointLight.range < getLightRange)
         {
             // IntensityとRangeを徐々に増加
-            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity*5, lightIncreaseSpeed * Time.deltaTime);
+            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity*10, lightIncreaseSpeed * Time.deltaTime);
             pointLight.range = Mathf.MoveTowards(pointLight.range, getLightRange*3, lightIncreaseSpeed * Time.deltaTime);
             
           

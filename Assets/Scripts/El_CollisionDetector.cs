@@ -20,7 +20,10 @@ public class El_CollisionDetector : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-            elaminController.OnDetectObject(other);
+        if (other.CompareTag("Player"))
+        {
+            elaminController.OnDetectPlayer();
+        }
         
     }
 }

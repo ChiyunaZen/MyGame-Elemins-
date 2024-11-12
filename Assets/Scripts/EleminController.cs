@@ -19,6 +19,9 @@ public class EleminController : MonoBehaviour,IFollowMov
 
     bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
 
+    public float addLightRange = 0.1f;　//照らす範囲の増え幅
+    public float addLightIntensity = 0.1f; //ライトの強さの増え幅
+
     
 
 
@@ -45,10 +48,7 @@ public class EleminController : MonoBehaviour,IFollowMov
     // Update is called once per frame
     void Update()
     {
-
         animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
-
-
     }
 
     // 透明度を上げるメソッド
@@ -70,22 +70,20 @@ public class EleminController : MonoBehaviour,IFollowMov
         }
         else
         {
-            eleminLight.range += 0.1f;
+            eleminLight.range += addLightRange;
 
             if (eleminLight.intensity <= 3.5f)
             {
-                eleminLight.intensity += 0.1f;
+                eleminLight.intensity += addLightIntensity;
             }
         }
     }
 
 
-
-
-    public void OnDetectObject(Collider collider)
+    public void OnDetectPlayer()
     {
 
-        if (collider.CompareTag("Player") && !isNearSymbol)
+        if (!isNearSymbol)
         {
             navMeshAgent.destination = playerTransform.position;
         }
@@ -95,7 +93,7 @@ public class EleminController : MonoBehaviour,IFollowMov
     public void GoToSymbol(GameObject symbolObject)
     {
 
-        //NavMeshのターゲット(移動先)をシンボルに変更
+        //NavMeshのターゲットをシンボルに変更
         navMeshAgent.destination = symbolObject.transform.position;
         isNearSymbol = true;
 
@@ -133,11 +131,7 @@ public class EleminController : MonoBehaviour,IFollowMov
             Destroy(collider);
         }
 
-
-
-
         yield return new WaitForSeconds(1.5f);
-
 
         // ターゲットをプレイヤーに戻す
         navMeshAgent.destination = playerTransform.position;
@@ -149,14 +143,6 @@ public class EleminController : MonoBehaviour,IFollowMov
     //Eleminライトの範囲を減らすメソッド
     public void DecreaseLightRange(float value)
     {
-        //if (eleminLight.range - value >= 1)
-        //{
-        //    eleminLight.range -= value;
-        //}
-        //else
-        //{
-        //    eleminLight.range = 1f;
-        //}
 
         eleminLight.range = Mathf.Max(eleminLight.range - value, 0f); // 最小値を1にする
     }
@@ -164,15 +150,6 @@ public class EleminController : MonoBehaviour,IFollowMov
     //Eleminライトの明るさを減らすメソッド
     public void DecreaseLightIntensity(float value)
     {
-        //if (eleminLight.intensity - value >= 0.1)
-        //{
-        //    eleminLight.intensity -= value;
-        //}
-        //else
-        //{
-        //    eleminLight.intensity = 0.1f;
-
-        //}
 
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
     }
@@ -186,13 +163,14 @@ public class EleminController : MonoBehaviour,IFollowMov
 
     public void StopFollowing()
     {
+        Debug.Log("Eleminを止める");
         navMeshAgent.isStopped = true;
         StartCoroutine(RestartFollowing());
     }
 
     public IEnumerator RestartFollowing()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         navMeshAgent.isStopped = false;
     }
 }

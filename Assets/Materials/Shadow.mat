@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: 4800000, guid: 3fb94a39b2685ee4d9817dcaf6542d99, type: 3}
+  m_Name: Shadow
+  m_Shader: {fileID: 4800000, guid: dce3f3e248acc7b4daeda00daf616b4d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -367,7 +367,7 @@ Material:
     - _Bump2ndScale: 1
     - _BumpScale: 1
     - _ColorMask: 15
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: -0.001
     - _DetailNormalMapScale: 1
     - _DissolveNoiseStrength: 0.1
@@ -625,8 +625,8 @@ Material:
     - _ReflectionCubeOverride: 0
     - _ReflectionNormalStrength: 1
     - _RefractionColorFromMain: 0
-    - _RefractionFresnelPower: 3.26
-    - _RefractionStrength: 0.36
+    - _RefractionFresnelPower: 0.95
+    - _RefractionStrength: -0.29
     - _RimApplyTransparency: 1
     - _RimBackfaceMask: 1
     - _RimBlendMode: 1
