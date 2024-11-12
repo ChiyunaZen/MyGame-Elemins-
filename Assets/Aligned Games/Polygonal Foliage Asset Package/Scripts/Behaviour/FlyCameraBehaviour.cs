@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FlyCameraBehaviour : MonoBehaviour
@@ -14,6 +14,7 @@ public class FlyCameraBehaviour : MonoBehaviour
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
+    [System.Obsolete]
     void Start()
 
     {
@@ -22,6 +23,7 @@ public class FlyCameraBehaviour : MonoBehaviour
 
     }
 
+    [System.Obsolete]
     void Update()
 
     {
@@ -65,7 +67,7 @@ public class FlyCameraBehaviour : MonoBehaviour
 
         {
 
-            Screen.lockCursor = (Screen.lockCursor == false) ? true : false;
+            Screen.lockCursor = (Screen.lockCursor == false);
 
         }
 

@@ -1,4 +1,5 @@
 using lilToon;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -6,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EleminController : MonoBehaviour
+public class EleminController : MonoBehaviour,IFollowMov
 {
     public Material material;
     public float alphaDecreaseAmount = 0.05f; // 透明度をあげる量
@@ -33,6 +34,12 @@ public class EleminController : MonoBehaviour
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
+
+        if (navMeshAgent != null)
+        {
+            // エージェントとシャドウレイヤーとの衝突を無効にする
+            navMeshAgent.gameObject.layer = LayerMask.NameToLayer("Shadow"); // シャドウレイヤーを設定
+        }
     }
 
     // Update is called once per frame
@@ -170,9 +177,22 @@ public class EleminController : MonoBehaviour
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
     }
 
-    public void StartPlayerTarget()
+  
+    public void StartFollowing()
     {
         navMeshAgent.destination = playerTransform.position;
+    }
+    
 
+    public void StopFollowing()
+    {
+        navMeshAgent.isStopped = true;
+        StartCoroutine(RestartFollowing());
+    }
+
+    public IEnumerator RestartFollowing()
+    {
+        yield return new WaitForSeconds(1f);
+        navMeshAgent.isStopped = false;
     }
 }
