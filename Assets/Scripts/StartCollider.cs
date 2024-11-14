@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartCollider : MonoBehaviour
 {
-    [SerializeField] EleminController eleminController;
+    [SerializeField]GameObject followObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +17,11 @@ public class StartCollider : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            eleminController.StartPlayerTarget();
+           followObj.GetComponent<IFollowMov>().StartFollowing();
         }
     }
 }
