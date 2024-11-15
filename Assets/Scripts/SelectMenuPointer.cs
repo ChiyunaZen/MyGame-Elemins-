@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectMenuPointer : MonoBehaviour
 {
-    public Light pointerLight;
+    
     void Start()
     {
 
@@ -17,11 +17,11 @@ public class SelectMenuPointer : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             if (Physics.Raycast(ray, out hit))
             {
-               Instantiate(pointerLight,hit.point,Quaternion.identity);
+              transform.LookAt(hit.point);
             }
         }
     }
