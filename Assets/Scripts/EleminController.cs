@@ -36,7 +36,11 @@ public class EleminController : MonoBehaviour,IFollowMov
         eleminLight.intensity = 0;
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
+        if (GameObject.FindGameObjectWithTag("Player")!=null)
+        {
+
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
+        }
 
         if (navMeshAgent != null)
         {

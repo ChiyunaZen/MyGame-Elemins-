@@ -10,9 +10,30 @@ public class FootPrintController : MonoBehaviour
     public float bloomRadius = 0.5f; //花が発生する範囲円の半径
     public bool isBlooming = false;
 
+    private List<GameObject> spawnedFlowers = new List<GameObject>();  // 生成した花を保持するリスト
+
     void Start()
     {
+        int flowerCount = Random.Range(minFlower, maxFlower + 1);
 
+        for (int i = 0; i < flowerCount; i++)
+        {
+            GameObject randomFlower = flowers[Random.Range(0, flowers.Length)];
+
+            //ランダムな位置を決定
+            Vector3 randomPosition = transform.position + (Random.insideUnitSphere * bloomRadius);
+            randomPosition.y = transform.position.y + 0.1f; // Y座標を固定
+
+            // 花のプレハブをランダムな位置に生成
+            GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, Quaternion.identity);
+            spawnedFlower.transform.parent = transform; // このオブジェクトの子として配置
+
+            spawnedFlower.SetActive(false);
+
+            spawnedFlowers.Add(spawnedFlower);  // 生成した花をリストに追加
+        }
+
+        
     }
 
     // Update is called once per frame
@@ -23,24 +44,13 @@ public class FootPrintController : MonoBehaviour
 
     public void Bloomflowers()
     {
-        if (!isBlooming)
+        // 花をアクティブにして咲かせる処理
+        foreach (GameObject flower in spawnedFlowers)
         {
-            int flowerCount = Random.Range(minFlower, maxFlower + 1);
-
-            for (int i = 0; i < flowerCount; i++)
-            {
-                GameObject randomFlower = flowers[Random.Range(0, flowers.Length)];
-
-                //ランダムな位置を決定
-                Vector3 randomPosition = transform.position + (Random.insideUnitSphere * bloomRadius);
-                randomPosition.y = transform.position.y + 0.1f; // Y座標を固定
-
-                // 花のプレハブをランダムな位置に生成
-                GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, Quaternion.identity);
-                spawnedFlower.transform.parent = transform; // このオブジェクトの子として配置
-            }
-
-            isBlooming = true;
+            flower.SetActive(true);  // 花をアクティブにする
         }
+
+        isBlooming = true;  // 花が咲いたフラグを立てる
     }
 }
+

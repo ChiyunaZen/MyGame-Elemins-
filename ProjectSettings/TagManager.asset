@@ -11,6 +11,7 @@ TagManager:
   - DirectionalLight
   - LightSymbol
   - SymbolSercher
+  - MenuBorad
   layers:
   - Default
   - TransparentFX

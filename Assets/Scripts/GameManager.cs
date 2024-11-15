@@ -5,12 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     EleminController eleminController;
-    GameObject[] footPaints;
+    GameObject[] footPrints;
     GameObject directionalLight;
 
     private void Awake()
     {
-       // directionalLight = GameObject.Find("Directional Light");
+        // directionalLight = GameObject.Find("Directional Light");
     }
     void Start()
     {
@@ -24,16 +24,28 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape pushed");
-            footPaints = GameObject.FindGameObjectsWithTag("FootPrint");
-           // directionalLight.SetActive(true);
+            footPrints = GameObject.FindGameObjectsWithTag("FootPrint");
+            // directionalLight.SetActive(true);
 
-            foreach (GameObject footPrint in footPaints)
-            {
-                footPrint.GetComponent<FootPrintController>().Bloomflowers();
-            }
+            // Coroutineで少しずつ花を生成
+            StartCoroutine(BloomFlowersInSequence());
+
+
         }
 
+        IEnumerator BloomFlowersInSequence()
+        {
+            // 逆順でfootPrintsを処理
+            for (int i = footPrints.Length - 1; i >= 0; i--)
+            {
+                // FootPrintControllerを取得して花を咲かせる
+                FootPrintController footPrintController = footPrints[i].GetComponent<FootPrintController>();
+                footPrintController.Bloomflowers();
 
+                // 次のプレハブの花を生成するまで遅延を入れる
+                yield return new WaitForSeconds(0.05f);  // 0.1秒の遅延（適宜調整可能）
+            }
+        }
     }
 }
 
