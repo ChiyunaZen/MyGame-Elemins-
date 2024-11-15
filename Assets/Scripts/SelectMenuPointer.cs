@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SelectMenuPointer : MonoBehaviour
 {
+    public bool IsClicked {  get; private set; }
     Animator animator;
-    bool isClicked = false;
-   public AudioClip clip;
+    public AudioClip clip;
     AudioSource source;
-    
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+
         source = GetComponent<AudioSource>();
         source.clip = clip;
+        IsClicked = false;
     }
 
     // Update is called once per frame
@@ -30,22 +31,24 @@ public class SelectMenuPointer : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                if (!isClicked)
+                if (!IsClicked)
                 {
-                    isClicked = true;
+                    IsClicked = true;
                     animator.SetBool("isClicked", true);
                     source.Play();
                 }
-              transform.LookAt(hit.point);
+                transform.LookAt(hit.point);
+
+
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if(isClicked)
+            if (IsClicked)
             {
-                isClicked= false;
-                animator.SetBool("isClicked",false);
+                IsClicked = false;
+                animator.SetBool("isClicked", false);
             }
         }
     }
