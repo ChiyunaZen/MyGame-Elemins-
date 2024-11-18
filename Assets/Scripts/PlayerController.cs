@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     //　下方向に強制的に加える力
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
 
+    [SerializeField] Transform footPrints; //生成した足跡を格納しておく親オブジェクト
     [SerializeField] private GameObject footPrint;
 
     //カメラの参照
@@ -94,9 +95,12 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
+    //足跡プレハブ生成のメソッド
     void GenerateFootprint()
     {
         Vector3 footPosition = transform.position;
-        Instantiate(footPrint, footPosition, Quaternion.identity);
+        var footPrintObj = Instantiate(footPrint, footPosition, Quaternion.identity);
+
+        footPrintObj.transform.parent = footPrints;
     }
 }
