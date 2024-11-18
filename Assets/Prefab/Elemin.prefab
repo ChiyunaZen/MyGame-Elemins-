@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2719721460711327809
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5587883451904054566}
-  - component: {fileID: 1390668564416942360}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5587883451904054566
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2719721460711327809}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.115, y: -0.081625, z: -8.0075}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 299394334453044357}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1390668564416942360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2719721460711327809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2760372919543485492
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,9 +398,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6347972790085162546}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5587883451904054566}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb4610762b378f04d8ec1dc75597491c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6594367769768897525}

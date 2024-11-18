@@ -22,7 +22,7 @@ public class FootPrintController : MonoBehaviour
 
             //ランダムな位置を決定
             Vector3 randomPosition = transform.position + (Random.insideUnitSphere * bloomRadius);
-            randomPosition.y = transform.position.y + 0.1f; // Y座標を固定
+            randomPosition.y = transform.position.y+0.05f; // Y座標を固定
 
             // 花のプレハブをランダムな位置に生成
             GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, Quaternion.identity);
