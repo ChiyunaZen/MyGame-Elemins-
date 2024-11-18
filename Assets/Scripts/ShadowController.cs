@@ -21,7 +21,7 @@ public class ShadowController : MonoBehaviour, IFollowMov
         {
             //navMeshAgent.obstacleAvoidanceType = NavMeshObstacleAvoidanceType.None; // 衝突回避を無効化
             navMeshAgent.avoidancePriority = 0; // 他のエージェントと衝突しないように優先度を最小に設定
-           // navMeshAgent.speed = navMeshSpeed;
+           // navMeshAgent.moveSpeed = navMeshSpeed;
         }
 
         eleminTransform = GameObject.FindGameObjectWithTag("SubCharacter").transform; // elemminを見つけて設定

@@ -12,6 +12,7 @@ TagManager:
   - LightSymbol
   - SymbolSercher
   - MenuBorad
+  - Target
   layers:
   - Default
   - TransparentFX

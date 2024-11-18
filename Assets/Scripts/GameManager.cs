@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Escape pushed");
             footPrints = GameObject.FindGameObjectsWithTag("FootPrint");
-            // directionalLight.SetActive(true);
 
             // Coroutineで少しずつ花を生成
             StartCoroutine(BloomFlowersInSequence());
@@ -43,7 +42,7 @@ public class GameManager : MonoBehaviour
                 footPrintController.Bloomflowers();
 
                 // 次のプレハブの花を生成するまで遅延を入れる
-                yield return new WaitForSeconds(0.05f);  // 0.1秒の遅延（適宜調整可能）
+                yield return new WaitForSeconds(0.05f);  // 0.05秒の遅延
             }
         }
     }

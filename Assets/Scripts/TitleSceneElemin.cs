@@ -6,33 +6,54 @@ public class TitleSceneElemin : MonoBehaviour
 {
     Animator animator;
     public GameObject target;  // ターゲットへの参照
-    public float speed;        // 移動速度
-    public bool isTouch;       // ターゲットに接触しているかどうか
+    public float moveSpeed = 1f;        // 移動速度
+    public float rotationSpeed = 3f; // 回転速度
+    bool isAtTarget = true; // ターゲットに到着したかの判定
+
+    
 
     void Start()
     {
-        speed = 0.1f;  // 移動速度の初期設定
-        target = GameObject.Find("Target");  // ターゲットの参照を取得
-        isTouch = false;  // 初期状態では接触していない
+        animator = GetComponent<Animator>();
     }
 
-    // 衝突時に呼ばれるメソッド
-    private void OnCollisionEnter(Collision collision)
-    {
-        // 衝突したオブジェクトがターゲットだった場合
-        if (collision.gameObject.name == "Target")
-        {
-            isTouch = true;  // 接触フラグを立てる
-        }
-    }
 
     void Update()
     {
-        // ターゲットに接触していない場合は移動
-        if (isTouch == false)
+        
+        Vector3 targetPoint = target.transform.position;
+
+        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+
+        Vector3 lookingPoint = new Vector3(targetPoint.x, targetPoint.y, targetPoint.z - 0.1f);
+        transform.LookAt(lookingPoint);
+
+        // 滑らかな回転
+        Vector3 direction = targetPoint - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Target"))
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+            isAtTarget = true;
+            animator.SetBool("IsAtTarget",true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("Target"))
+        {
+            isAtTarget= false;
+            animator.SetBool("IsAtTarget",false);
         }
     }
 }
+
 
