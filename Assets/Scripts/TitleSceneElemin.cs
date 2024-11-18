@@ -15,6 +15,7 @@ public class TitleSceneElemin : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        animator.SetBool("IsAtTarget",false);
     }
 
 

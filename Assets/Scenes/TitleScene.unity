@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &596608802
 Light:
   m_ObjectHideFlags: 0
@@ -1242,7 +1242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41
+      value: 1.911
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1860,7 +1860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1703755016}
   moveSpeed: 1
-  rotationSpeed: 1
+  rotationSpeed: 0.1
 --- !u!1 &2123037212
 GameObject:
   m_ObjectHideFlags: 0
