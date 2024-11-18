@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     EleminController eleminController;
-    GameObject[] footPrints;
+    [SerializeField] FootPrintsAllController footPrintsAllController;
     GameObject directionalLight;
 
     private void Awake()
@@ -23,28 +23,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Escape pushed");
-            footPrints = GameObject.FindGameObjectsWithTag("FootPrint");
-
-            // Coroutineで少しずつ花を生成
-            StartCoroutine(BloomFlowersInSequence());
-
-
+            footPrintsAllController.GetFootPrintsFlowers();
         }
 
-        IEnumerator BloomFlowersInSequence()
-        {
-            // 逆順でfootPrintsを処理
-            for (int i = footPrints.Length - 1; i >= 0; i--)
-            {
-                // FootPrintControllerを取得して花を咲かせる
-                FootPrintController footPrintController = footPrints[i].GetComponent<FootPrintController>();
-                footPrintController.Bloomflowers();
-
-                // 次のプレハブの花を生成するまで遅延を入れる
-                yield return new WaitForSeconds(0.05f);  // 0.05秒の遅延
-            }
-        }
+      
     }
 }
 

@@ -505,8 +505,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 308601274}
+  - component: {fileID: 308601275}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,6 +528,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308601275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308601273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footPrintsAllController: {fileID: 1965503008}
 --- !u!1 &399615634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965503007}
+  - component: {fileID: 1965503008}
   m_Layer: 0
   m_Name: FootPrints
   m_TagString: Untagged
@@ -2282,6 +2297,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1965503008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965503006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb866d47e87a2534da97b5181bb13cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1972386713
 GameObject:
   m_ObjectHideFlags: 3
