@@ -9,6 +9,8 @@ public class SelectMenuPointer : MonoBehaviour
     public AudioClip clip;
     AudioSource source;
 
+    public GameObject target; //Eleminを移動させるためのターゲットオブジェクト
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -39,7 +41,7 @@ public class SelectMenuPointer : MonoBehaviour
                 }
                 transform.LookAt(hit.point);
 
-
+                target.transform.position = hit.point;
             }
         }
 

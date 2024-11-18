@@ -11,10 +11,13 @@ public class UI_SpotLightShadow : MonoBehaviour
     public TextMeshProUGUI titleTextShadow; // 追従させたいUIテキスト
     public TextMeshProUGUI menuText;
     public TextMeshProUGUI menuTextShadow;
+    
 
     public float shadowOffsetFactor = 0.1f; // 影のオフセット量
 
     [SerializeField] SelectMenuPointer selectMenuPointer;
+
+   
 
     void Update()
     {
