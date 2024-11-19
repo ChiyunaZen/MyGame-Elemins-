@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EleminController : MonoBehaviour,IFollowMov
+public class EleminController : MonoBehaviour, IFollowMov
 {
     public Material material;
     public float alphaDecreaseAmount = 0.05f; // 透明度をあげる量
@@ -22,7 +22,7 @@ public class EleminController : MonoBehaviour,IFollowMov
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
-    
+    [SerializeField]GameManager manager;
 
 
 
@@ -36,7 +36,7 @@ public class EleminController : MonoBehaviour,IFollowMov
         eleminLight.intensity = 0;
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
-        if (GameObject.FindGameObjectWithTag("Player")!=null)
+        if (GameObject.FindGameObjectWithTag("Player") != null)
         {
 
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Playerを見つけて設定
@@ -158,12 +158,12 @@ public class EleminController : MonoBehaviour,IFollowMov
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
     }
 
-  
+
     public void StartFollowing()
     {
         navMeshAgent.destination = playerTransform.position;
     }
-    
+
 
     public void StopFollowing()
     {
@@ -177,4 +177,40 @@ public class EleminController : MonoBehaviour,IFollowMov
         yield return new WaitForSeconds(3f);
         navMeshAgent.isStopped = false;
     }
+
+    public float moveSpeed = 1f;        // 移動速度
+    public float rotationSpeed = 3f; // 回転速度
+    bool isAtTarget = true; // ターゲットに到着したかの判定
+
+    public void GoalToElemin(GameObject target)
+    {
+
+        Vector3 targetPoint = target.transform.position;
+
+        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+
+        transform.LookAt(targetPoint);
+
+        // 滑らかな回転
+        Vector3 direction = targetPoint - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+    }
+
+    public void ExtinctionElemin()
+    {
+        animator.SetTrigger("Extinction");
+        StartCoroutine(Sunrise());
+    }
+
+    IEnumerator  Sunrise()
+    {
+        yield return new WaitForSeconds(10);
+        Destroy(gameObject);
+
+        manager.Ending();
+
+    }
+
 }

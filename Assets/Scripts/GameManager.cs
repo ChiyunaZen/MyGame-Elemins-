@@ -31,14 +31,17 @@ public class GameManager : MonoBehaviour
     void Update()
 
     {
+       
+
+    }
+
+    public void Ending()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
+
             StartCoroutine(SunRise());
         }
-
-        
-
     }
 
     IEnumerator  SunRise()

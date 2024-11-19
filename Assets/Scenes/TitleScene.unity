@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
@@ -290,8 +290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: -30, y: 0}
+  m_SizeDelta: {x: 60, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &195923291
 MonoBehaviour:
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Setting
+  m_text: Config
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
@@ -817,8 +817,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleText: {fileID: 2123037214}
   titleTextShadow: {fileID: 1085417566}
-  menuText: {fileID: 240357889}
-  menuTextShadow: {fileID: 1058478438}
+  menuText1: {fileID: 240357889}
+  menuTextShadow1: {fileID: 1058478438}
+  menuText2: {fileID: 195923291}
+  menuTextShadow2: {fileID: 1053901289}
+  menuText3: {fileID: 1267869833}
+  menuTextShadow3: {fileID: 133007306}
   shadowOffsetFactor: 0.0001
   selectMenuPointer: {fileID: 1569130345}
 --- !u!1 &596608801
@@ -1140,7 +1144,7 @@ MonoBehaviour:
   buttonSelectEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1691842193}
+      - m_Target: {fileID: 1691842195}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
         m_MethodName: StertNewGame
         m_Mode: 1
@@ -1314,8 +1318,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: -30, y: 0}
+  m_SizeDelta: {x: 60, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053901289
 MonoBehaviour:
@@ -1337,7 +1341,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Setting
+  m_text: Config
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
@@ -2124,31 +2128,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.911
+      value: 0.394
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.61
+      value: -2.005
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.28393167
+      value: -0.0602737
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.95884454
+      value: 0.9981819
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2156,7 +2160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 147.01
+      value: 186.911
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2576,7 +2580,7 @@ Transform:
   m_GameObject: {fileID: 1703755016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.89}
+  m_LocalPosition: {x: -1.008, y: 0, z: 2.229}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
