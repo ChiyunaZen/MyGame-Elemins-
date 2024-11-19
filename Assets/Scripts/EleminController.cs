@@ -24,7 +24,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     [SerializeField] GameManager manager;
 
-
+    GameObject goalLight;
 
 
 
@@ -32,6 +32,9 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
 
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        navMeshAgent.enabled = true;
+
         animator = GetComponent<Animator>();
         // eleminLight = GetComponentInChildren<Light>();
 
@@ -94,7 +97,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     public void OnDetectPlayer()
     {
 
-        if (!isNearSymbol)
+        if (!isNearSymbol && navMeshAgent.enabled)
         {
             navMeshAgent.destination = playerTransform.position;
         }
@@ -104,12 +107,15 @@ public class EleminController : MonoBehaviour, IFollowMov
     public void GoToSymbol(GameObject symbolObject)
     {
 
-        //NavMeshのターゲットをシンボルに変更
-        navMeshAgent.destination = symbolObject.transform.position;
-        isNearSymbol = true;
+        if (!isNearSymbol && navMeshAgent.enabled)
+        {
+            //NavMeshのターゲットをシンボルに変更
+            navMeshAgent.destination = symbolObject.transform.position;
+            isNearSymbol = true;
 
-        // シンボルに到達するまで確認するコルーチンを開始
-        StartCoroutine(MoveToSymbolAndReturn(symbolObject));
+            // シンボルに到達するまで確認するコルーチンを開始
+            StartCoroutine(MoveToSymbolAndReturn(symbolObject));
+        }
     }
 
 
@@ -168,7 +174,11 @@ public class EleminController : MonoBehaviour, IFollowMov
     //最初にプレイヤー追従を開始するメソッド
     public void StartFollowing()
     {
-        navMeshAgent.destination = playerTransform.position;
+
+        if (!isNearSymbol && navMeshAgent.enabled)
+        {
+            navMeshAgent.destination = playerTransform.position;
+        }
     }
 
     //NavMeshでの追従をストップさせるメソッド
@@ -189,34 +199,48 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     public float moveSpeed = 1f;        // 移動速度
     public float rotationSpeed = 3f; // 回転速度
-    
 
-   
-    // ゴールオブジェクトを見つけたらそっちに移動する
+
+
     public void GoalToElemin(GameObject target)
     {
-        navMeshAgent.enabled = false; // NavMeshAgentを無効化
+        Debug.Log("ゴールを見つけた");
+        goalLight = target;
+
+        // NavMeshAgentを無効化（既に無効になっている場合も確認）
+        if (navMeshAgent != null && navMeshAgent.enabled)
+        {
+            navMeshAgent.enabled = false;
+        }
 
         Vector3 targetPoint = target.transform.position;
 
-        // 移動処理
-        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
-
-        // 滑らかな回転
-        Vector3 direction = targetPoint - transform.position;
-        if (direction != Vector3.zero) // directionがゼロベクトルでない場合のみ回転
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
-
-        // ゴールに十分近づいた場合の処理
-        float distance = Vector3.Distance(transform.position, targetPoint);
-        if (distance <= 0.1f) // 距離が0.1以下になったら
-        {
-            OnGoalReached(); // ゴール時の処理を呼び出す
-        }
+        // ゴールに向かう移動処理を開始するコルーチンを呼び出し
+        StartCoroutine(MoveToGoal(targetPoint));
     }
+
+    private IEnumerator MoveToGoal(Vector3 targetPoint)
+    {
+        while (Vector3.Distance(transform.position, targetPoint) > 0.1f) // ゴールに近づくまでループ
+        {
+            // 滑らかな移動 (Lerpで徐々にゴールに向かう)
+            transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+
+            // 滑らかな回転 (Slerpで方向をゴールに向ける)
+            Vector3 direction = targetPoint - transform.position;
+            if (direction != Vector3.zero) // directionがゼロベクトルでない場合のみ回転
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+
+            yield return null; // 次のフレームまで待機
+        }
+
+        // ゴールに十分近づいたら終了処理
+        OnGoalReached();
+    }
+
 
     // ゴール到達時の処理
     private void OnGoalReached()
@@ -234,9 +258,13 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     IEnumerator Sunrise()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(2f);
       
         manager.Ending();
+
+        yield return new WaitForSeconds(2);
+
+        Destroy(goalLight);
         Destroy(gameObject);
 
     }

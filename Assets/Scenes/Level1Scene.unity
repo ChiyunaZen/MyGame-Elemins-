@@ -796,7 +796,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 57.6
+  m_Radius: 48
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &144560328 stripped
 Light:
@@ -1111,6 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footPrintsAllController: {fileID: 1965503008}
   lightingManager: {fileID: 1776932969}
+  startTimeOfDay: 2
   targetTimeOfDay: 12
   sunRiseSpeed: 1
   startBloomSunTime: 6
@@ -1975,7 +1976,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 3.57
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &704966987
 MeshRenderer:
@@ -5738,7 +5739,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866745256}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9ac8d30c6a0d9642a11e5be4c440740, type: 3}
   m_Name: 
@@ -22852,6 +22853,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 308601275}
+    - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: moveSpeed
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: eleminLight
       value: 

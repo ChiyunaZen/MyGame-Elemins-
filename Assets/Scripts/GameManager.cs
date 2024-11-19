@@ -38,11 +38,10 @@ public class GameManager : MonoBehaviour
 
     public void Ending()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        
 
             StartCoroutine(SunRise());
-        }
+        
     }
 
     IEnumerator  SunRise()
