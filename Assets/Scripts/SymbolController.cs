@@ -11,11 +11,11 @@ public class SymbolController : MonoBehaviour
 
     private GameObject currentLightInstance;
     private Light pointLight;
- 
+
 
     void Start()
     {
-    
+
 
     }
 
@@ -30,8 +30,9 @@ public class SymbolController : MonoBehaviour
         // 既にライトが生成されている場合は何もしない
         if (currentLightInstance != null) return;
 
+        Vector3 lightPos = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         // symbolLightPrefabをこのオブジェクトの子オブジェクトとして生成
-        currentLightInstance = Instantiate(symbolLightPrefab, transform.position, Quaternion.identity, transform);
+        currentLightInstance = Instantiate(symbolLightPrefab, lightPos, Quaternion.identity, transform);
 
         // インスタンス化されたオブジェクトからポイントライトを取得
         pointLight = currentLightInstance.GetComponent<Light>();
@@ -57,10 +58,10 @@ public class SymbolController : MonoBehaviour
         while (pointLight.intensity < getLightIntensity || pointLight.range < getLightRange)
         {
             // IntensityとRangeを徐々に増加
-            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity*10, lightIncreaseSpeed * Time.deltaTime);
-            pointLight.range = Mathf.MoveTowards(pointLight.range, getLightRange*3, lightIncreaseSpeed * Time.deltaTime);
-            
-          
+            pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, getLightIntensity * 10, lightIncreaseSpeed * Time.deltaTime);
+            pointLight.range = Mathf.MoveTowards(pointLight.range, getLightRange * 3, lightIncreaseSpeed * Time.deltaTime);
+
+
 
             yield return null; // 次のフレームまで待機
         }
