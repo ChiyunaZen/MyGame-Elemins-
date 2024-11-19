@@ -14,7 +14,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     NavMeshAgent navMeshAgent;
     Animator animator;
-    Light eleminLight;
+    [SerializeField] Light eleminLight;
     Transform playerTransform;
 
     bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
@@ -22,7 +22,9 @@ public class EleminController : MonoBehaviour, IFollowMov
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
-    [SerializeField]GameManager manager;
+    [SerializeField] GameManager manager;
+
+
 
 
 
@@ -31,9 +33,14 @@ public class EleminController : MonoBehaviour, IFollowMov
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        eleminLight = GetComponentInChildren<Light>();
+        // eleminLight = GetComponentInChildren<Light>();
+
+        Debug.Log($"Initial Light Range: {eleminLight.range}");
+        Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
+
         eleminLight.range = 0;
         eleminLight.intensity = 0;
+        //インスペクターに設定しているのにライトの値が変わらない…
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -158,13 +165,13 @@ public class EleminController : MonoBehaviour, IFollowMov
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
     }
 
-
+    //最初にプレイヤー追従を開始するメソッド
     public void StartFollowing()
     {
         navMeshAgent.destination = playerTransform.position;
     }
 
-
+    //NavMeshでの追従をストップさせるメソッド
     public void StopFollowing()
     {
         Debug.Log("Eleminを止める");
@@ -172,6 +179,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         StartCoroutine(RestartFollowing());
     }
 
+    //追従を再開させるコルーチン
     public IEnumerator RestartFollowing()
     {
         yield return new WaitForSeconds(3f);
@@ -182,8 +190,10 @@ public class EleminController : MonoBehaviour, IFollowMov
     public float rotationSpeed = 3f; // 回転速度
     bool isAtTarget = true; // ターゲットに到着したかの判定
 
+    //ゴールオブジェクトを見つけたらそっちに移動する
     public void GoalToElemin(GameObject target)
     {
+        navMeshAgent.enabled = false; // NavMeshAgentを無効化
 
         Vector3 targetPoint = target.transform.position;
 
@@ -204,12 +214,12 @@ public class EleminController : MonoBehaviour, IFollowMov
         StartCoroutine(Sunrise());
     }
 
-    IEnumerator  Sunrise()
+    IEnumerator Sunrise()
     {
         yield return new WaitForSeconds(10);
-        Destroy(gameObject);
-
+      
         manager.Ending();
+        Destroy(gameObject);
 
     }
 

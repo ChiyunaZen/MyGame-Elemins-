@@ -798,6 +798,11 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 57.6
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!108 &144560328 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+  m_PrefabInstance: {fileID: 6811703110475327097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &156304087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22847,6 +22852,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 308601275}
+    - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: eleminLight
+      value: 
+      objectReference: {fileID: 144560328}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.76
@@ -22905,11 +22914,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Range
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Intensity
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9199776508506256547, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Enabled
