@@ -239,6 +239,6 @@ MonoBehaviour:
   - {fileID: 3890342601400112563, guid: 1307d5db3b3b1d746bf476c9ca6a8ada, type: 3}
   - {fileID: 7487942896159154854, guid: 4df24f140fea628408efa47138d07550, type: 3}
   minFlower: 10
-  maxFlower: 25
-  bloomRadius: 0.5
+  maxFlower: 30
+  bloomRadius: 0.8
   isBlooming: 0

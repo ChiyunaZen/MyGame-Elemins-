@@ -10,7 +10,12 @@ public class GameManager : MonoBehaviour
     GameObject directionalLight;
     [SerializeField]LightingManager lightingManager;
 
+    [SerializeField] float targetTimeOfDay = 12f;
     [SerializeField] float sunRiseSpeed = 1f;
+    [SerializeField] float startBloomSunTime = 6f;
+    
+
+   
 
     private void Awake()
     {
@@ -28,26 +33,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            footPrintsAllController.GetFootPrintsFlowers();
-
+            
             StartCoroutine(SunRise());
         }
 
+        
 
     }
 
     IEnumerator  SunRise()
     {
-        // 目標の値
-        float targetTimeOfDay = 12f;
-
-        // 1秒間に増加する値
-        float speed = 1f;
 
         while (lightingManager.TimeOfDay < targetTimeOfDay)
         {
             // 時刻を徐々に増加
-            lightingManager.TimeOfDay += speed * Time.deltaTime;
+            lightingManager.TimeOfDay += sunRiseSpeed * Time.deltaTime;
+
+            if (lightingManager.TimeOfDay >= startBloomSunTime)
+            {
+                footPrintsAllController.GetFootPrintsFlowers();
+            }
 
             // 次のフレームまで待機
             yield return null;
@@ -55,6 +60,8 @@ public class GameManager : MonoBehaviour
 
         // 最終的にピッタリ目標時刻にする
         lightingManager.TimeOfDay = targetTimeOfDay;
+
+
     }
 }
 

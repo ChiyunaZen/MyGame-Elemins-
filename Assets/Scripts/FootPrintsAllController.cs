@@ -6,6 +6,7 @@ using UnityEngine;
 public class FootPrintsAllController : MonoBehaviour
 {
     FootPrintController[] footPrints;
+    [SerializeField] float bloomInterval = 0.1f; //次の花が咲くまでの待ち時間
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,7 @@ public class FootPrintsAllController : MonoBehaviour
             footPrintController.Bloomflowers();
 
             // 次のプレハブの花を生成するまで遅延を入れる
-            yield return new WaitForSeconds(0.05f);  // 0.05秒の遅延
+            yield return new WaitForSeconds(bloomInterval);  //インターバルをとる
         }
     }
 }
