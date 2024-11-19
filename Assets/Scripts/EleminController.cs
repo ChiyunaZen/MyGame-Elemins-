@@ -14,7 +14,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     NavMeshAgent navMeshAgent;
     Animator animator;
-    Light eleminLight;
+    [SerializeField] Light eleminLight;
     Transform playerTransform;
 
     bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
@@ -22,7 +22,9 @@ public class EleminController : MonoBehaviour, IFollowMov
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
-    [SerializeField]GameManager manager;
+    [SerializeField] GameManager manager;
+
+    GameObject goalLight;
 
 
 
@@ -30,10 +32,18 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
 
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        navMeshAgent.enabled = true;
+
         animator = GetComponent<Animator>();
-        eleminLight = GetComponentInChildren<Light>();
+        // eleminLight = GetComponentInChildren<Light>();
+
+        //Debug.Log($"Initial Light Range: {eleminLight.range}");
+        //Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
+
         eleminLight.range = 0;
         eleminLight.intensity = 0;
+        
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -87,7 +97,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     public void OnDetectPlayer()
     {
 
-        if (!isNearSymbol)
+        if (!isNearSymbol && navMeshAgent.enabled)
         {
             navMeshAgent.destination = playerTransform.position;
         }
@@ -97,12 +107,15 @@ public class EleminController : MonoBehaviour, IFollowMov
     public void GoToSymbol(GameObject symbolObject)
     {
 
-        //NavMeshのターゲットをシンボルに変更
-        navMeshAgent.destination = symbolObject.transform.position;
-        isNearSymbol = true;
+        if (!isNearSymbol && navMeshAgent.enabled)
+        {
+            //NavMeshのターゲットをシンボルに変更
+            navMeshAgent.destination = symbolObject.transform.position;
+            isNearSymbol = true;
 
-        // シンボルに到達するまで確認するコルーチンを開始
-        StartCoroutine(MoveToSymbolAndReturn(symbolObject));
+            // シンボルに到達するまで確認するコルーチンを開始
+            StartCoroutine(MoveToSymbolAndReturn(symbolObject));
+        }
     }
 
 
@@ -158,13 +171,17 @@ public class EleminController : MonoBehaviour, IFollowMov
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
     }
 
-
+    //最初にプレイヤー追従を開始するメソッド
     public void StartFollowing()
     {
-        navMeshAgent.destination = playerTransform.position;
+
+        if (!isNearSymbol && navMeshAgent.enabled)
+        {
+            navMeshAgent.destination = playerTransform.position;
+        }
     }
 
-
+    //NavMeshでの追従をストップさせるメソッド
     public void StopFollowing()
     {
         Debug.Log("Eleminを止める");
@@ -172,44 +189,83 @@ public class EleminController : MonoBehaviour, IFollowMov
         StartCoroutine(RestartFollowing());
     }
 
+    //追従を再開させるコルーチン
     public IEnumerator RestartFollowing()
     {
         yield return new WaitForSeconds(3f);
         navMeshAgent.isStopped = false;
     }
 
+
     public float moveSpeed = 1f;        // 移動速度
     public float rotationSpeed = 3f; // 回転速度
-    bool isAtTarget = true; // ターゲットに到着したかの判定
+
+
 
     public void GoalToElemin(GameObject target)
     {
+        Debug.Log("ゴールを見つけた");
+        goalLight = target;
+
+        // NavMeshAgentを無効化（既に無効になっている場合も確認）
+        if (navMeshAgent != null && navMeshAgent.enabled)
+        {
+            navMeshAgent.enabled = false;
+        }
 
         Vector3 targetPoint = target.transform.position;
 
-        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        // ゴールに向かう移動処理を開始するコルーチンを呼び出し
+        StartCoroutine(MoveToGoal(targetPoint));
+    }
 
-        transform.LookAt(targetPoint);
+    private IEnumerator MoveToGoal(Vector3 targetPoint)
+    {
+        while (Vector3.Distance(transform.position, targetPoint) > 0.1f) // ゴールに近づくまでループ
+        {
+            // 滑らかな移動 (Lerpで徐々にゴールに向かう)
+            transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
 
-        // 滑らかな回転
-        Vector3 direction = targetPoint - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // 滑らかな回転 (Slerpで方向をゴールに向ける)
+            Vector3 direction = targetPoint - transform.position;
+            if (direction != Vector3.zero) // directionがゼロベクトルでない場合のみ回転
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
 
+            yield return null; // 次のフレームまで待機
+        }
+
+        // ゴールに十分近づいたら終了処理
+        OnGoalReached();
+    }
+
+
+    // ゴール到達時の処理
+    private void OnGoalReached()
+    {
+        Debug.Log("ゴールに到達しました！");
+        ExtinctionElemin();
     }
 
     public void ExtinctionElemin()
     {
         animator.SetTrigger("Extinction");
         StartCoroutine(Sunrise());
+
     }
 
-    IEnumerator  Sunrise()
+    IEnumerator Sunrise()
     {
-        yield return new WaitForSeconds(10);
-        Destroy(gameObject);
-
+        yield return new WaitForSeconds(2f);
+      
         manager.Ending();
+
+        yield return new WaitForSeconds(2);
+
+        Destroy(goalLight);
+        Destroy(gameObject);
 
     }
 
