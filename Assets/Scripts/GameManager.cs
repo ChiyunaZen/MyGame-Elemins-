@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
             // 時刻を徐々に増加
             lightingManager.TimeOfDay += sunRiseSpeed * Time.deltaTime;
 
+            //設定時刻になったら花を咲かせるメソッドを呼び出す
             if (lightingManager.TimeOfDay >= startBloomSunTime)
             {
                 footPrintsAllController.GetFootPrintsFlowers();
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        // 最終的にピッタリ目標時刻にする
+        // 最終的に目標時刻にそろえる
         lightingManager.TimeOfDay = targetTimeOfDay;
 
 

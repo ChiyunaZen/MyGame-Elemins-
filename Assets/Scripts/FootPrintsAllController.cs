@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FootPrintsAllController : MonoBehaviour
 {
@@ -11,14 +12,14 @@ public class FootPrintsAllController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-       
+
     }
 
     public void GetFootPrintsFlowers()
@@ -44,5 +45,22 @@ public class FootPrintsAllController : MonoBehaviour
             // 次のプレハブの花を生成するまで遅延を入れる
             yield return new WaitForSeconds(bloomInterval);  //インターバルをとる
         }
+    }
+
+    //レベル1シーンを読み込むメソッド
+    public void StertNewGame()
+    {
+        SceneManager.LoadScene("Level1Scene");
+    }
+
+    //ゲームを終了するメソッド
+    public void ExitGame() 
+    {
+        Application.Quit();
+
+        // エディタで実行中の場合
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // エディタのプレイモードを停止
+#endif
     }
 }

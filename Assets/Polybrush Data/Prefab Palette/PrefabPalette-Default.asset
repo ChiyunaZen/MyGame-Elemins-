@@ -271,12 +271,12 @@ MonoBehaviour:
     name: Stalagmite5
   - gameObject: {fileID: 1481353217084434, guid: 5d788daea732b364bb3bc1330d4e792f, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 73.12409
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.3173908}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
@@ -287,12 +287,12 @@ MonoBehaviour:
     name: debris_1
   - gameObject: {fileID: 1880608412957286, guid: dd0f61a885c7eb349bebcfa27ef3d146, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 9.532859
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 0.8, y: 0.8, z: 0.8}
       m_ScaleRangeMax: {x: 1.5, y: 1.5, z: 1.5}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.24782526}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
@@ -303,12 +303,12 @@ MonoBehaviour:
     name: debris_2
   - gameObject: {fileID: 1446733552162678, guid: f02ebb96638dd13428efbf6875a91bcd, type: 3}
     settings:
-      m_Strength: 71.28212
+      m_Strength: 20.698183
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.17826116}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
@@ -324,7 +324,7 @@ MonoBehaviour:
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.31739056}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.45652175}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
@@ -351,12 +351,12 @@ MonoBehaviour:
     name: debris_2
   - gameObject: {fileID: 1419410760290094, guid: c185db8f8ca24c84d8c14fac8fcc9ac2, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 22.540127
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 10, y: 360, z: 10}
       m_ScaleRangeMin: {x: 0.8, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 0.8, y: 1.5}
+      m_UniformScale: {x: 0, y: 0.3173908}
       m_UniformBool: 1
       m_XRotationBool: 0
       m_YRotationBool: 0
