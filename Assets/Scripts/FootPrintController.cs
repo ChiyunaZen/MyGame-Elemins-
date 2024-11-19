@@ -22,10 +22,14 @@ public class FootPrintController : MonoBehaviour
 
             //ランダムな位置を決定
             Vector3 randomPosition = transform.position + (Random.insideUnitSphere * bloomRadius);
-            randomPosition.y = transform.position.y+0.05f; // Y座標を固定
+            randomPosition.y = transform.position.y; // Y座標を固定
+
+            //Y軸のみランダム回転させる
+            float randomYRotation = Random.Range(0, 360f);
+            Quaternion randamRotation = Quaternion.Euler(0f, randomYRotation, 0f);
 
             // 花のプレハブをランダムな位置に生成
-            GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, Quaternion.identity);
+            GameObject spawnedFlower = Instantiate(randomFlower, randomPosition, randamRotation);
             spawnedFlower.transform.parent = transform; // このオブジェクトの子として配置
 
             spawnedFlower.SetActive(false);
