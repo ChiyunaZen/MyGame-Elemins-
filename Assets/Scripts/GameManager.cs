@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     GameObject directionalLight;
     [SerializeField]LightingManager lightingManager;
 
+    [SerializeField] float startTimeOfDay = 2;
     [SerializeField] float targetTimeOfDay = 12f;
     [SerializeField] float sunRiseSpeed = 1f;
     [SerializeField] float startBloomSunTime = 6f;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-        lightingManager.TimeOfDay =4 ;
+        lightingManager.TimeOfDay =startTimeOfDay;
 
     }
     // Update is called once per frame

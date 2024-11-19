@@ -35,12 +35,12 @@ public class EleminController : MonoBehaviour, IFollowMov
         animator = GetComponent<Animator>();
         // eleminLight = GetComponentInChildren<Light>();
 
-        Debug.Log($"Initial Light Range: {eleminLight.range}");
-        Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
+        //Debug.Log($"Initial Light Range: {eleminLight.range}");
+        //Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
 
         eleminLight.range = 0;
         eleminLight.intensity = 0;
-        //インスペクターに設定しているのにライトの値が変わらない…
+        
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -186,37 +186,55 @@ public class EleminController : MonoBehaviour, IFollowMov
         navMeshAgent.isStopped = false;
     }
 
+
     public float moveSpeed = 1f;        // 移動速度
     public float rotationSpeed = 3f; // 回転速度
-    bool isAtTarget = true; // ターゲットに到着したかの判定
+    
 
-    //ゴールオブジェクトを見つけたらそっちに移動する
+   
+    // ゴールオブジェクトを見つけたらそっちに移動する
     public void GoalToElemin(GameObject target)
     {
         navMeshAgent.enabled = false; // NavMeshAgentを無効化
 
         Vector3 targetPoint = target.transform.position;
 
+        // 移動処理
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
-
-        transform.LookAt(targetPoint);
 
         // 滑らかな回転
         Vector3 direction = targetPoint - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        if (direction != Vector3.zero) // directionがゼロベクトルでない場合のみ回転
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
 
+        // ゴールに十分近づいた場合の処理
+        float distance = Vector3.Distance(transform.position, targetPoint);
+        if (distance <= 0.1f) // 距離が0.1以下になったら
+        {
+            OnGoalReached(); // ゴール時の処理を呼び出す
+        }
+    }
+
+    // ゴール到達時の処理
+    private void OnGoalReached()
+    {
+        Debug.Log("ゴールに到達しました！");
+        ExtinctionElemin();
     }
 
     public void ExtinctionElemin()
     {
         animator.SetTrigger("Extinction");
         StartCoroutine(Sunrise());
+
     }
 
     IEnumerator Sunrise()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(0.3f);
       
         manager.Ending();
         Destroy(gameObject);
