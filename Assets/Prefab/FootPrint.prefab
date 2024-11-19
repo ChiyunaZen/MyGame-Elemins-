@@ -231,7 +231,14 @@ MonoBehaviour:
   - {fileID: 100000, guid: b332dc24cbb08144da2f112f82406700, type: 3}
   - {fileID: 100000, guid: 821158ae724ce854e920539f935295b8, type: 3}
   - {fileID: 100000, guid: f1c3f8e347f55f44e98e7ea73efac66e, type: 3}
+  - {fileID: 2863885291929269047, guid: 9b3e22709f162094a91bffc3bcec2d2c, type: 3}
+  - {fileID: 100000, guid: f1c3f8e347f55f44e98e7ea73efac66e, type: 3}
+  - {fileID: 2416209585689097044, guid: 8ffe2482780593b48a13856826ad254a, type: 3}
+  - {fileID: 6395059511080865767, guid: 92b91f5fbb9271d4b9ba38e998251729, type: 3}
+  - {fileID: 600573730427011581, guid: 0f35d375925438e428698cd74825e7d0, type: 3}
+  - {fileID: 3890342601400112563, guid: 1307d5db3b3b1d746bf476c9ca6a8ada, type: 3}
+  - {fileID: 7487942896159154854, guid: 4df24f140fea628408efa47138d07550, type: 3}
   minFlower: 10
-  maxFlower: 25
-  bloomRadius: 0.5
+  maxFlower: 30
+  bloomRadius: 0.8
   isBlooming: 0

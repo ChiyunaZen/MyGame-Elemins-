@@ -9,8 +9,12 @@ public class UI_SpotLightShadow : MonoBehaviour
 {
     public TextMeshProUGUI titleText; //メインテキスト
     public TextMeshProUGUI titleTextShadow; // 追従させたいUIテキスト
-    public TextMeshProUGUI menuText;
-    public TextMeshProUGUI menuTextShadow;
+    public TextMeshProUGUI menuText1;
+    public TextMeshProUGUI menuTextShadow1;
+    public TextMeshProUGUI menuText2;
+    public TextMeshProUGUI menuTextShadow2;
+    public TextMeshProUGUI menuText3;
+    public TextMeshProUGUI menuTextShadow3;
     
 
     public float shadowOffsetFactor = 0.1f; // 影のオフセット量
@@ -32,11 +36,15 @@ public class UI_SpotLightShadow : MonoBehaviour
 
             // メインテキストの位置を取得
             Vector3 titleTextPosition = titleText.rectTransform.position;
-            Vector3 menuTextPosition = menuText.rectTransform.position;
+            Vector3 menuTextPosition1 = menuText1.rectTransform.position;
+            Vector3 menuTextPosition2 = menuText2.rectTransform.position;
+            Vector3 menuTextPosition3 = menuText3.rectTransform.position;
 
             // 影の位置をマウスのオフセット量に基づいて計算
             titleTextShadow.rectTransform.position = titleTextPosition + mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
-            menuTextShadow.rectTransform.position =menuTextPosition +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
+            menuTextShadow1.rectTransform.position =menuTextPosition1 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
+            menuTextShadow2.rectTransform.position =menuTextPosition2 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
+            menuTextShadow3.rectTransform.position =menuTextPosition3 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
         }
     }
 }

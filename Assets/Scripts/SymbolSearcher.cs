@@ -27,5 +27,11 @@ public class SymbolSearcher : MonoBehaviour
             var symbol = other.gameObject;
             eleminController.GoToSymbol(symbol);
         }
+
+        if(other.CompareTag("GoalTarget"))
+        {
+            var symbol = other.gameObject;
+            eleminController.GoalToElemin(symbol);
+        }
     }
 }

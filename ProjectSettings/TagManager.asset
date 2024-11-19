@@ -13,6 +13,7 @@ TagManager:
   - SymbolSercher
   - MenuBorad
   - Target
+  - GoalTarget
   layers:
   - Default
   - TransparentFX
