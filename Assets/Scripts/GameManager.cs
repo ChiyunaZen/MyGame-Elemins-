@@ -40,11 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Ending()
     {
-        if (Enemy != null)
-        {
-            Destroy(Enemy);
-        }
-
+      
 
         StartCoroutine(SunRise());
 
