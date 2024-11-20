@@ -5,6 +5,9 @@ using UnityEngine;
 public class StartCollider : MonoBehaviour
 {
     [SerializeField]GameObject followObj;
+
+    [SerializeField] CameraController cameracon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +26,26 @@ public class StartCollider : MonoBehaviour
         {
            followObj.GetComponent<IFollowMov>().StartFollowing();
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (followObj.CompareTag("Enemy"))
+            {
+            if (other.CompareTag("Player"))
+            {
+                cameracon.SwitchToEndingCamera();
+                StartCoroutine(EnemyDestroy());
+            }
+            
+
+        }
+    }
+
+    IEnumerator  EnemyDestroy()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(followObj);
+
     }
 }
