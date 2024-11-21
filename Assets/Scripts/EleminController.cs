@@ -1,11 +1,7 @@
-using lilToon;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using Cinemachine;
 
 public class EleminController : MonoBehaviour, IFollowMov
 {
@@ -25,6 +21,10 @@ public class EleminController : MonoBehaviour, IFollowMov
     [SerializeField] GameManager manager;
 
     GameObject goalLight;
+
+   [SerializeField] CameraController cameraController;
+
+    [SerializeField] EndingCamera endingCam;
 
 
 
@@ -206,6 +206,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
         Debug.Log("ゴールを見つけた");
         goalLight = target;
+        
 
         // NavMeshAgentを無効化（既に無効になっている場合も確認）
         if (navMeshAgent != null && navMeshAgent.enabled)
@@ -221,10 +222,19 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     private IEnumerator MoveToGoal(Vector3 targetPoint)
     {
+        bool cameraSwitched = false; // カメラが切り替え済みかを記録
+
         while (Vector3.Distance(transform.position, targetPoint) > 0.1f) // ゴールに近づくまでループ
         {
             // 滑らかな移動 (Lerpで徐々にゴールに向かう)
             transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+
+            // 10ユニット以内に近づいたらカメラを切り替える
+            if (!cameraSwitched && Vector3.Distance(transform.position, targetPoint) <= 10f)
+            {
+               cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
+                cameraSwitched = true;  // カメラが切り替え済みであることを記録
+            }
 
             // 滑らかな回転 (Slerpで方向をゴールに向ける)
             Vector3 direction = targetPoint - transform.position;
@@ -246,6 +256,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     private void OnGoalReached()
     {
         Debug.Log("ゴールに到達しました！");
+        cameraController.SwitchTomainCamera();
         ExtinctionElemin();
     }
 
@@ -264,7 +275,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
         yield return new WaitForSeconds(2);
 
-        Destroy(goalLight);
+        Destroy(goalLight.GetComponent<MeshRenderer>());
         Destroy(gameObject);
 
     }

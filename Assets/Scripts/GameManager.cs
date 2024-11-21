@@ -8,15 +8,16 @@ public class GameManager : MonoBehaviour
     EleminController eleminController;
     [SerializeField] FootPrintsAllController footPrintsAllController;
     GameObject directionalLight;
-    [SerializeField]LightingManager lightingManager;
+    [SerializeField] LightingManager lightingManager;
 
     [SerializeField] float startTimeOfDay = 2;
     [SerializeField] float targetTimeOfDay = 12f;
     [SerializeField] float sunRiseSpeed = 1f;
     [SerializeField] float startBloomSunTime = 6f;
-    
+    GameObject Enemy;
 
-   
+
+
 
     private void Awake()
     {
@@ -25,26 +26,27 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-        lightingManager.TimeOfDay =startTimeOfDay;
+        lightingManager.TimeOfDay = startTimeOfDay;
+        Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
     void Update()
 
     {
-       
+
 
     }
 
     public void Ending()
     {
-        
+      
 
-            StartCoroutine(SunRise());
-        
+        StartCoroutine(SunRise());
+
     }
 
-    IEnumerator  SunRise()
+    IEnumerator SunRise()
     {
 
         while (lightingManager.TimeOfDay < targetTimeOfDay)

@@ -32,12 +32,16 @@ public class ZoomController : MonoBehaviour
     {
         if (virtualCamera != null)
         {
-            // 初期のFOVを設定（デフォルト値15）
+            // 初期のFOVを設定
             targetFOV = virtualCamera.m_Lens.FieldOfView = 30f;
 
-            //初期のtranspoaterの位置を設定
-            followOffset = new Vector3(0, 3, -10);
-            transposer.m_FollowOffset = followOffset;
+            if (transposer != null)
+            {
+
+                //初期のtranspoaterの位置を設定
+                followOffset = new Vector3(0, 3, -10);
+                transposer.m_FollowOffset = followOffset;
+            }
 
         }
     }
@@ -78,6 +82,7 @@ public class ZoomController : MonoBehaviour
            
 
             // Follow Offsetの値を更新
+            if (transposer!=null)
             transposer.m_FollowOffset = followOffset;
         }
     }
