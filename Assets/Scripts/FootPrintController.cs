@@ -40,12 +40,6 @@ public class FootPrintController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
     public void Bloomflowers()
     {
         // 花をアクティブにして咲かせる処理

@@ -224,21 +224,21 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
         bool cameraSwitched = false; // カメラが切り替え済みかを記録
 
-        while (Vector3.Distance(transform.position, targetPoint) > 0.1f) // ゴールに近づくまでループ
+        while (Vector3.Distance(transform.position, targetPoint) > 0.2f) // ゴールに近づくまでループ
         {
-            // 滑らかな移動 (Lerpで徐々にゴールに向かう)
+            // Lerpで徐々にゴールに向かう
             transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
 
-            // 10ユニット以内に近づいたらカメラを切り替える
+            // 近づいたらカメラを切り替える
             if (!cameraSwitched && Vector3.Distance(transform.position, targetPoint) <= 10f)
             {
                cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
                 cameraSwitched = true;  // カメラが切り替え済みであることを記録
             }
 
-            // 滑らかな回転 (Slerpで方向をゴールに向ける)
+            // 回転 
             Vector3 direction = targetPoint - transform.position;
-            if (direction != Vector3.zero) // directionがゼロベクトルでない場合のみ回転
+            if (direction != Vector3.zero) 
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -247,7 +247,7 @@ public class EleminController : MonoBehaviour, IFollowMov
             yield return null; // 次のフレームまで待機
         }
 
-        // ゴールに十分近づいたら終了処理
+        // ゴールに近づいたら終了処理
         OnGoalReached();
     }
 
