@@ -8,7 +8,7 @@ public class FootPrintLight : MonoBehaviour
     private Light footLight;
     private float startTime;
     Animator animator;
-
+    ParticleSystem particle;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -18,7 +18,7 @@ public class FootPrintLight : MonoBehaviour
     {
         
         StartCoroutine(LightEnd());
-
+        particle = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -54,10 +54,17 @@ public class FootPrintLight : MonoBehaviour
         }
     }
 
+    void PlayParticle()
+    {
+        particle.Play();
+    }
+
     IEnumerator LightDestroy(float time)
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
+
+
 
 }
