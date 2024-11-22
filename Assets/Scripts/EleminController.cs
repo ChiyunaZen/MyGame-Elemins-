@@ -143,10 +143,16 @@ public class EleminController : MonoBehaviour, IFollowMov
             // SymbolControllerで設定された範囲と強度を取得して光を減少
             float decreaseRange = symbolController.getLightRange;
             float decreaseIntensity = symbolController.getLightIntensity;
+            float decreaseAngle = symbolController.getLightAngle;
 
             // 光の範囲と強度を一度だけ減少
             DecreaseLightRange(decreaseRange);
             DecreaseLightIntensity(decreaseIntensity);
+
+            if (decreaseAngle != null)
+            {
+                DecreaseLightAngle(decreaseAngle);
+            }
 
             Collider collider = symbolObject.GetComponent<Collider>();
             Destroy(collider);
@@ -173,6 +179,13 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
 
         eleminLight.intensity = Mathf.Max(eleminLight.intensity - value, 0f); // 最小値を0.1にする
+    } 
+    
+    //Eleminライトの照らし角度を減らすメソッド
+    public void DecreaseLightAngle(float value)
+    {
+
+        eleminLight.spotAngle = Mathf.Max(eleminLight.spotAngle - value, 0f); // 最小値を0.1にする
     }
 
     //最初にプレイヤー追従を開始するメソッド

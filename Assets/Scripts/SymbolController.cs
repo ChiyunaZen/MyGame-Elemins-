@@ -7,6 +7,7 @@ public class SymbolController : MonoBehaviour
     [SerializeField] GameObject symbolLightPrefab;
     public float getLightIntensity = 1f; // Eleminから受け取る光量
     public float getLightRange = 5f;　// Eleminから受け取る照らす範囲
+    public float getLightAngle = 10f; //Eleminから受け取る照らし角度
     public float lightIncreaseSpeed = 0.5f; // 光の増加速度
 
     private GameObject currentLightInstance;

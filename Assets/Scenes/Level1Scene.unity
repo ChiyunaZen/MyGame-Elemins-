@@ -1237,6 +1237,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 1
   getLightRange: 7
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!4 &444802065 stripped
 Transform:
@@ -1639,6 +1640,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 1
   getLightRange: 5
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!1 &649644742
 GameObject:
@@ -1676,6 +1678,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 1
   getLightRange: 5
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!65 &649644744
 BoxCollider:
@@ -6568,8 +6571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a5b58190cc86841886fa9285a06140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getLightIntensity: 1.2
-  getLightRange: 8
+  getLightIntensity: 3
+  getLightRange: 10
 --- !u!1 &890955169
 GameObject:
   m_ObjectHideFlags: 0
@@ -6699,7 +6702,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890955169}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0019916233, y: 0.97100556, z: -0.008094524, w: -0.23891182}
+  m_LocalRotation: {x: -0.0030246766, y: 0.94942397, z: -0.009149939, w: -0.3138491}
   m_LocalPosition: {x: 101.8, y: 4.2, z: 213}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6952,6 +6955,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 1.5
   getLightRange: 7
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!4 &1094828431 stripped
 Transform:
@@ -12705,6 +12709,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 1
   getLightRange: 5
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!65 &1273383173
 BoxCollider:
@@ -16496,6 +16501,7 @@ MonoBehaviour:
   symbolLightPrefab: {fileID: 8939621806785892609, guid: caf18cafa17516c4689c9f7c21c49580, type: 3}
   getLightIntensity: 0.5
   getLightRange: 2
+  getLightAngle: 10
   lightIncreaseSpeed: 0.5
 --- !u!4 &1892770952 stripped
 Transform:
@@ -23128,8 +23134,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 144560328}
     - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: addLightAngle
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: addLightRange
-      value: 0.125
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 34305675981833102, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: cameraController
@@ -23145,7 +23155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.69
+      value: 84.7
       objectReference: {fileID: 0}
     - target: {fileID: 299394334453044357, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23191,13 +23201,61 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7636772
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.64559835
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594367769768897525, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 80.421
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Range
-      value: 1
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Intensity
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_SpotAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682198482622213590, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9199776508506256547, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
       propertyPath: m_Enabled
