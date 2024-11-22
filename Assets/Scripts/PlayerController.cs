@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Animator animator;
-    private Vector3 velocity = Vector3.zero; 
+    private Vector3 velocity = Vector3.zero;
 
     [SerializeField] private float walkSpeed = 1.5f;
     [SerializeField] private float runSpeed = 3.0f;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject footPrint;
 
     //カメラの参照
-    [SerializeField]private Camera Camera;
+    [SerializeField] private Camera Camera;
 
     void Start()
     {
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 && !animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")
                 )
             {
-                animator.SetTrigger ("Jump");
+                animator.SetTrigger("Jump");
                 velocity.y += jumpPower;
             }
             else
@@ -99,6 +99,22 @@ public class PlayerController : MonoBehaviour
     void GenerateFootprint()
     {
         Vector3 footPosition = transform.position;
+        var footPrintObj = Instantiate(footPrint, footPosition, Quaternion.identity);
+
+        footPrintObj.transform.parent = footPrints;
+    }
+
+    void GenerateFootprintRight()
+    {
+        Vector3 footPosition = new Vector3(transform.position.x + 0.03f, transform.position.y, transform.position.z + 0.1f);
+        var footPrintObj = Instantiate(footPrint, footPosition, Quaternion.identity);
+
+        footPrintObj.transform.parent = footPrints;
+    }
+
+    void GenerateFootprintLeft()
+    {
+        Vector3 footPosition = new Vector3(transform.position.x - 0.03f, transform.position.y, transform.position.z + 0.1f);
         var footPrintObj = Instantiate(footPrint, footPosition, Quaternion.identity);
 
         footPrintObj.transform.parent = footPrints;
