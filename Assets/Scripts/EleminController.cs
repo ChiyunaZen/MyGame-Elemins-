@@ -16,6 +16,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     bool isNearSymbol = false; //近くにシンボルが存在するかのフラグ
 
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
+    public float addLightAngle = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
     [SerializeField] GameManager manager;
@@ -41,7 +42,8 @@ public class EleminController : MonoBehaviour, IFollowMov
         //Debug.Log($"Initial Light Range: {eleminLight.range}");
         //Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
 
-        eleminLight.range = 0;
+        eleminLight.range = 40;
+        eleminLight.spotAngle = 1;
         eleminLight.intensity = 0;
         
 
@@ -80,11 +82,13 @@ public class EleminController : MonoBehaviour, IFollowMov
 
         if (currentColor.a <= 0.9f)
         {
-            eleminLight.range = currentColor.a;
+            // eleminLight.range = currentColor.a;
+            return;
         }
         else
         {
             eleminLight.range += addLightRange;
+            eleminLight.spotAngle += addLightAngle;
 
             if (eleminLight.intensity <= 3.5f)
             {

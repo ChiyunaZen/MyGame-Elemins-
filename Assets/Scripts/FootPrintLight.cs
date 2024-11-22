@@ -32,7 +32,7 @@ public class FootPrintLight : MonoBehaviour
         yield return new WaitForSeconds(fadeDirection);
         animator.SetTrigger("FootLightEnd");
 
-        StartCoroutine(LightDestroy(1));
+        StartCoroutine(LightDestroy(0.55f));
     }
 
     private void OnTriggerEnter(Collider other)
