@@ -86,7 +86,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         {
             eleminLight.range += addLightRange;
 
-            if (eleminLight.intensity <= 3.5f)
+            if (eleminLight.intensity <= 2.0f)
             {
                 eleminLight.intensity += addLightIntensity;
             }

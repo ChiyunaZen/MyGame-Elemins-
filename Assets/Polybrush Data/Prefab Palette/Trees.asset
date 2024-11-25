@@ -47,7 +47,7 @@ MonoBehaviour:
     name: tree_15
   - gameObject: {fileID: 1949298340156750, guid: a4c074be12f86814ea9824e9966e45fb, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 37.465504
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -63,7 +63,7 @@ MonoBehaviour:
     name: tree_16
   - gameObject: {fileID: 6349706899565577857, guid: 22a296bfe11192d42884c5a5042def17, type: 3}
     settings:
-      m_Strength: 20.510927
+      m_Strength: 10.394129
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 0, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -79,7 +79,7 @@ MonoBehaviour:
     name: tree_26
   - gameObject: {fileID: 1447560660779542, guid: eee96d2b3af09c54aadeca6b884b8b14, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 42.773724
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -239,7 +239,7 @@ MonoBehaviour:
     name: tree_pine_naked
   - gameObject: {fileID: 1788023932075628, guid: d0bde43a3da318640ad9d8222ec10d96, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 9.532847
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
@@ -287,7 +287,7 @@ MonoBehaviour:
     name: stump_3
   - gameObject: {fileID: 1631327978743284, guid: 33c8397ba59449d4ebfd20cc3afff9dc, type: 3}
     settings:
-      m_Strength: 50
+      m_Strength: 44.913784
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
       m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
