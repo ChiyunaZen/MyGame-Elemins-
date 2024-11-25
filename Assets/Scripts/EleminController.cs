@@ -22,7 +22,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     GameObject goalLight;
 
-   [SerializeField] CameraController cameraController;
+    [SerializeField] CameraController cameraController;
 
     [SerializeField] EndingCamera endingCam;
 
@@ -43,7 +43,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
         eleminLight.range = 0;
         eleminLight.intensity = 0;
-        
+
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -63,6 +63,10 @@ public class EleminController : MonoBehaviour, IFollowMov
     void Update()
     {
         animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            OnGoalReached();
+        }
     }
 
     // 透明度を上げるメソッド
@@ -206,7 +210,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
         Debug.Log("ゴールを見つけた");
         goalLight = target;
-        
+
 
         // NavMeshAgentを無効化（既に無効になっている場合も確認）
         if (navMeshAgent != null && navMeshAgent.enabled)
@@ -232,13 +236,13 @@ public class EleminController : MonoBehaviour, IFollowMov
             // 近づいたらカメラを切り替える
             if (!cameraSwitched && Vector3.Distance(transform.position, targetPoint) <= 10f)
             {
-               cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
+                cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
                 cameraSwitched = true;  // カメラが切り替え済みであることを記録
             }
 
             // 回転 
             Vector3 direction = targetPoint - transform.position;
-            if (direction != Vector3.zero) 
+            if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -250,6 +254,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         // ゴールに近づいたら終了処理
         OnGoalReached();
     }
+
 
 
     // ゴール到達時の処理
@@ -270,7 +275,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     IEnumerator Sunrise()
     {
         yield return new WaitForSeconds(2f);
-      
+
         manager.Ending();
 
         yield return new WaitForSeconds(2);
