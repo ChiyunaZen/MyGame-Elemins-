@@ -34,7 +34,7 @@ public class StartCollider : MonoBehaviour
             {
             if (other.CompareTag("Player"))
             {
-                cameracon.SwitchToEndingCamera();
+                //cameracon.SwitchToEndingCamera();
                 StartCoroutine(EnemyDestroy());
             }
             
@@ -46,6 +46,7 @@ public class StartCollider : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Destroy(followObj);
+        Destroy(gameObject);
 
     }
 }
