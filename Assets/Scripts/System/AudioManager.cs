@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance;  // シングルトンインスタンス
+
     [SerializeField] private AudioMixer audioMixer; // AudioMixerの参照
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider bgmVolumeSlider;
@@ -18,6 +20,19 @@ public class AudioManager : MonoBehaviour
     // マスター音量が変更されたときのイベント
     public event Action<float> OnMasterVolumeChanged;
 
+    void Awake()
+    {
+        // シングルトンの確立
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // すでにインスタンスがあれば、このオブジェクトを破棄
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // シーン遷移後もオブジェクトを破棄しないようにする
+        }
+    }
 
     void Start()
     {

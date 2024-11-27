@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
+
+
     Slider slider;
     [SerializeField] Slider masterSlider;
     [SerializeField] private bool isMasterSlider = false;　//自身がマスタースライダーかどうかインスペクターで設定
@@ -12,7 +14,7 @@ public class SliderController : MonoBehaviour
     public AudioClip sliderSEclip;
     private bool valueChanged = false; // スライダーの値が変更されたかを記録
 
-    [SerializeField] private AudioManager audioManager;
+   // [SerializeField] private AudioManager audioManager;
     
     UI_IconChanger iconChanger;
 
@@ -31,10 +33,10 @@ public class SliderController : MonoBehaviour
             StartCoroutine(ResetValueChanged());
         });
 
-        if (!isMasterSlider && audioManager != null)
+        if (!isMasterSlider && AudioManager.Instance != null)
         {
             // マスター音量変更時の影響を受ける
-            audioManager.OnMasterVolumeChanged += CheckMasterVolume;
+            AudioManager.Instance.OnMasterVolumeChanged += CheckMasterVolume;
         }
     }
 
@@ -78,7 +80,7 @@ public class SliderController : MonoBehaviour
     //一定時間音量が変更されなかった場合にフラグをリセットする
     IEnumerator ResetValueChanged()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         valueChanged = false; // フラグをリセット
     }
 
