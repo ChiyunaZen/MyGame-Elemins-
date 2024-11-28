@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_MenuController : MonoBehaviour
 {
-   // private CanvasGroup allcanvasGroup;
+    private CanvasGroup canvasGroup;
     [SerializeField] private CanvasGroup topCanvasGroup;
     [SerializeField] private CanvasGroup soundCanvasGroup;
 
@@ -16,8 +16,9 @@ public class UI_MenuController : MonoBehaviour
 
     void Start()
     {
-      //  allcanvasGroup = GetComponent<CanvasGroup>();
-        
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.blocksRaycasts = false;
+
         animator = GetComponent<Animator>();
 
         isMenuOpened = false;
@@ -27,7 +28,7 @@ public class UI_MenuController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape)&&!isMenuOpened)
+        if (Input.GetKeyUp(KeyCode.Escape) && !isMenuOpened)
         {
             OpenMenu();
         }
@@ -36,27 +37,29 @@ public class UI_MenuController : MonoBehaviour
     public void OpenMenu()
     {
         animator.SetTrigger("OpenMenu");
+        canvasGroup.blocksRaycasts = true;
         isMenuOpened = true;
         isTopMenu = true;
-        topCanvasGroup.interactable= true;
+        topCanvasGroup.interactable = true;
     }
 
-   public void CloseButton()
+    public void CloseButton()
     {
-            animator.SetTrigger("CloseMenu");
-            isMenuOpened = false;
-            topCanvasGroup.interactable= false;
+        animator.SetTrigger("CloseMenu");
+        canvasGroup.blocksRaycasts = false;
+        isMenuOpened = false;
+        topCanvasGroup.interactable = false;
     }
 
     public void SoundMenuOpen()
     {
         if (isTopMenu)
         {
-            animator.SetTrigger ("OpenSoundMenu");
+            animator.SetTrigger("OpenSoundMenu");
             isTopMenu = false;
         }
-        topCanvasGroup.interactable=false;　//Topメニューの操作を不可に
-        soundCanvasGroup.interactable=true; //サウンドメニューを操作可能に
+        topCanvasGroup.interactable = false;　//Topメニューの操作を不可に
+        soundCanvasGroup.interactable = true; //サウンドメニューを操作可能に
     }
 
     public void SoundMenuClose()
@@ -66,8 +69,8 @@ public class UI_MenuController : MonoBehaviour
             animator.SetTrigger("CloseSoundMenu");
             isTopMenu = true;
         }
-        topCanvasGroup.interactable=true;
-        soundCanvasGroup.interactable=false;
+        topCanvasGroup.interactable = true;
+        soundCanvasGroup.interactable = false;
     }
 
 }

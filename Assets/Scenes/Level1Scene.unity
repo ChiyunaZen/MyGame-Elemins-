@@ -885,12 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footPrintsAllController: {fileID: 1965503008}
-  lightingManager: {fileID: 1776932969}
-  startTimeOfDay: 2
-  targetTimeOfDay: 12
-  sunRiseSpeed: 1
-  startBloomSunTime: 6
+  exitDialog: {fileID: 0}
 --- !u!1 &399615634
 GameObject:
   m_ObjectHideFlags: 0
@@ -8313,6 +8308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1776932970}
   - component: {fileID: 1776932969}
+  - component: {fileID: 1776932971}
   m_Layer: 0
   m_Name: LightingManager
   m_TagString: Untagged
@@ -8372,6 +8368,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776932971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776932968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cefdbb43cbc234da358fe0ad38aff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footPrintsAllController: {fileID: 1965503008}
+  startTimeOfDay: 2
+  targetTimeOfDay: 12
+  sunRiseSpeed: 1
+  startBloomSunTime: 6
 --- !u!1 &1840285926
 GameObject:
   m_ObjectHideFlags: 3
