@@ -28,10 +28,20 @@ public class UI_MenuController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && !isMenuOpened)
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            OpenMenu();
+             
+            if (!isMenuOpened)
+            {
+                OpenMenu();
+            }
+            else
+            {
+                CloseButton();
+            }
+            
         }
+
     }
 
     public void OpenMenu()
