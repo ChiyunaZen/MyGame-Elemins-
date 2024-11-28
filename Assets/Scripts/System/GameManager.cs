@@ -8,16 +8,11 @@ public class GameManager : MonoBehaviour
     // シングルトンインスタンス
     public static GameManager Instance { get; private set; }
 
-    EleminController eleminController;
-    [SerializeField] FootPrintsAllController footPrintsAllController;
-    GameObject directionalLight;
-    [SerializeField] LightingManager lightingManager;
-
-    [SerializeField] float startTimeOfDay = 2;
-    [SerializeField] float targetTimeOfDay = 12f;
-    [SerializeField] float sunRiseSpeed = 1f;
-    [SerializeField] float startBloomSunTime = 6f;
-    GameObject Enemy;
+    //EleminController eleminController;
+    //GameObject directionalLight;
+   
+   
+    //GameObject Enemy;
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
@@ -40,9 +35,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
-        eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-        lightingManager.TimeOfDay = startTimeOfDay;
-        Enemy = GameObject.FindWithTag("Enemy");
+      //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
+       
+       // Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
@@ -53,39 +48,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void Ending()
-    {
-      
+   
 
-        StartCoroutine(SunRise());
-
-    }
-
-    IEnumerator SunRise()
-    {
-
-        while (lightingManager.TimeOfDay < targetTimeOfDay)
-        {
-            // 時刻を徐々に増加
-            lightingManager.TimeOfDay += sunRiseSpeed * Time.deltaTime;
-
-            //設定時刻になったら花を咲かせるメソッドを呼び出す
-            if (lightingManager.TimeOfDay >= startBloomSunTime)
-            {
-                footPrintsAllController.GetFootPrintsFlowers();
-            }
-
-            // 次のフレームまで待機
-            yield return null;
-        }
-
-        // 最終的に目標時刻にそろえる
-        lightingManager.TimeOfDay = targetTimeOfDay;
-
-
-    }
-
-    //ゲーム終了時の処理
+    //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
     {
         if (exitDialog != null && !exitDialog.activeSelf)
