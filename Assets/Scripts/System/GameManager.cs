@@ -7,12 +7,9 @@ public class GameManager : MonoBehaviour
 {
     // シングルトンインスタンス
     public static GameManager Instance { get; private set; }
-
-    //EleminController eleminController;
-    //GameObject directionalLight;
-   
-   
-    //GameObject Enemy;
+    public AudioManager AudioManager { get; private set; }
+    public UI_MenuController MenuController { get; private set; }
+    
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
@@ -25,6 +22,12 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
+                                          
+            // 必要なコンポーネントを探して保持
+            AudioManager = FindObjectOfType<AudioManager>();
+            MenuController = FindObjectOfType<UI_MenuController>();
+           
+            exitDialog.SetActive(false);
         }
         else
         {
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         if (exitDialog != null)
         {
-            exitDialog.SetActive(false);
+            exitDialog.SetActive(false );
             isOpenExitDialog = false; // 終了リクエストフラグを解除
         }
     }
