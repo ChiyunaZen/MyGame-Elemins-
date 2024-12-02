@@ -7,15 +7,9 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class UI_SpotLightShadow : MonoBehaviour
 {
-    public TextMeshProUGUI titleText; //メインテキスト
-    public TextMeshProUGUI titleTextShadow; // 追従させたいUIテキスト
-    public TextMeshProUGUI menuText1;
-    public TextMeshProUGUI menuTextShadow1;
-    public TextMeshProUGUI menuText2;
-    public TextMeshProUGUI menuTextShadow2;
-    public TextMeshProUGUI menuText3;
-    public TextMeshProUGUI menuTextShadow3;
-    
+    public TextMeshProUGUI[] texts; // テキスト
+    public TextMeshProUGUI[] textShadows; // tテキストの影
+
 
     public float shadowOffsetFactor = 0.1f; // 影のオフセット量
 
@@ -34,17 +28,22 @@ public class UI_SpotLightShadow : MonoBehaviour
             Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
             Vector3 mouseOffset = mousePosition - screenCenter;
 
-            // メインテキストの位置を取得
-            Vector3 titleTextPosition = titleText.rectTransform.position;
-            Vector3 menuTextPosition1 = menuText1.rectTransform.position;
-            Vector3 menuTextPosition2 = menuText2.rectTransform.position;
-            Vector3 menuTextPosition3 = menuText3.rectTransform.position;
+            // 各テキストとその影をループで処理
+            AdjustTextShadows(texts, textShadows, mouseOffset);
 
-            // 影の位置をマウスのオフセット量に基づいて計算
-            titleTextShadow.rectTransform.position = titleTextPosition + mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
-            menuTextShadow1.rectTransform.position =menuTextPosition1 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
-            menuTextShadow2.rectTransform.position =menuTextPosition2 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
-            menuTextShadow3.rectTransform.position =menuTextPosition3 +mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
+        }
+    }
+
+    // テキスト影の位置を一括で調整するメソッド
+    private void AdjustTextShadows(TextMeshProUGUI[] texts, TextMeshProUGUI[] shadows, Vector3 mouseOffset)
+    {
+        for (int i = 0; i < texts.Length; i++)
+        {
+            // 各テキストの位置
+            Vector3 textPosition = texts[i].rectTransform.position;
+
+            // 影の位置を計算して設定
+            shadows[i].rectTransform.position = textPosition + mouseOffset.normalized * shadowOffsetFactor * mouseOffset.magnitude;
         }
     }
 }

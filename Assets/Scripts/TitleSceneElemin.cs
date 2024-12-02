@@ -8,7 +8,7 @@ public class TitleSceneElemin : MonoBehaviour
     public GameObject target;  // ターゲットへの参照
     public float moveSpeed = 1f;        // 移動速度
     public float rotationSpeed = 3f; // 回転速度
-    bool isAtTarget = true; // ターゲットに到着したかの判定
+   // bool isAtTarget = true; // ターゲットに到着したかの判定
 
     
 
@@ -42,7 +42,7 @@ public class TitleSceneElemin : MonoBehaviour
     {
         if(other.CompareTag("Target"))
         {
-            isAtTarget = true;
+            //isAtTarget = true;
             animator.SetBool("IsAtTarget",true);
         }
     }
@@ -51,7 +51,7 @@ public class TitleSceneElemin : MonoBehaviour
     {
         if(other.CompareTag("Target"))
         {
-            isAtTarget= false;
+            //isAtTarget= false;
             animator.SetBool("IsAtTarget",false);
         }
     }

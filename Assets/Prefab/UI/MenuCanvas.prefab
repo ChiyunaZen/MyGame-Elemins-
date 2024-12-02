@@ -643,7 +643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: Others
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
@@ -2063,7 +2063,7 @@ GameObject:
   - component: {fileID: 5494102188062214581}
   - component: {fileID: 4638391528828743064}
   m_Layer: 5
-  m_Name: ExitGameButton
+  m_Name: OthersButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2170,19 +2170,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5494102188062214581}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1697586773133790517}
-        m_TargetAssemblyTypeName: UI_MenuController, Assembly-CSharp
-        m_MethodName: SoundMenuOpen
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6731108017159476591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,7 +2282,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1697586773133790517
 MonoBehaviour:
@@ -2323,7 +2311,7 @@ GameObject:
   - component: {fileID: 6478716653288596441}
   - component: {fileID: 8424521272655989022}
   m_Layer: 5
-  m_Name: ExitGameButton (1)
+  m_Name: GraphicsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2578,7 +2566,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2333563931270566399
 MonoBehaviour:
@@ -2757,7 +2745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Title '
+  m_text: Graphic
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}

@@ -14,7 +14,7 @@ public class SliderController : MonoBehaviour
     public AudioClip sliderSEclip;
     private bool valueChanged = false; // スライダーの値が変更されたかを記録
 
-   // [SerializeField] private AudioManager audioManager;
+    [SerializeField] private AudioManager audioManager;
     
     UI_IconChanger iconChanger;
 
@@ -33,10 +33,10 @@ public class SliderController : MonoBehaviour
             StartCoroutine(ResetValueChanged());
         });
 
-        if (!isMasterSlider && AudioManager.Instance != null)
+        if (!isMasterSlider && audioManager != null)
         {
             // マスター音量変更時の影響を受ける
-            AudioManager.Instance.OnMasterVolumeChanged += CheckMasterVolume;
+            audioManager.OnMasterVolumeChanged += CheckMasterVolume;
         }
     }
 

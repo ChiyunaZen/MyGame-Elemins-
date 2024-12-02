@@ -270,8 +270,8 @@ public class EleminController : MonoBehaviour, IFollowMov
     IEnumerator Sunrise()
     {
         yield return new WaitForSeconds(2f);
-      
-        manager.Ending();
+
+        SunTimeManager.Instance.Ending();
 
         yield return new WaitForSeconds(2);
 

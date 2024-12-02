@@ -2,25 +2,19 @@ using Sydewa;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     // シングルトンインスタンス
     public static GameManager Instance { get; private set; }
 
-    EleminController eleminController;
-    [SerializeField] FootPrintsAllController footPrintsAllController;
-    GameObject directionalLight;
-    [SerializeField] LightingManager lightingManager;
+    //bool isTitleScene; //タイトルシーンかどうか
 
-    [SerializeField] float startTimeOfDay = 2;
-    [SerializeField] float targetTimeOfDay = 12f;
-    [SerializeField] float sunRiseSpeed = 1f;
-    [SerializeField] float startBloomSunTime = 6f;
-    GameObject Enemy;
+    [SerializeField] UI_PoseMenu poseMenu; 
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
-    bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
+   public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
 
 
     private void Awake()
@@ -30,62 +24,45 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
+                                          
+            // 必要なコンポーネントを探して保持
+           
+           
+            exitDialog.SetActive(false);
         }
         else
         {
             Destroy(gameObject); // 二重に存在する場合は破棄
+            return;
         }
     }
 
     void Start()
     {
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
-        eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-        lightingManager.TimeOfDay = startTimeOfDay;
-        Enemy = GameObject.FindWithTag("Enemy");
+      //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
+       
+       // Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
     void Update()
 
     {
-
-
-    }
-
-    public void Ending()
-    {
-      
-
-        StartCoroutine(SunRise());
-
-    }
-
-    IEnumerator SunRise()
-    {
-
-        while (lightingManager.TimeOfDay < targetTimeOfDay)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            // 時刻を徐々に増加
-            lightingManager.TimeOfDay += sunRiseSpeed * Time.deltaTime;
-
-            //設定時刻になったら花を咲かせるメソッドを呼び出す
-            if (lightingManager.TimeOfDay >= startBloomSunTime)
+            //現在がタイトルシーンではないときはPoseメニューを表示
+            if(SceneManager.GetActiveScene().name != "TitleScene")
             {
-                footPrintsAllController.GetFootPrintsFlowers();
+                poseMenu.ToggleShowPose();
             }
-
-            // 次のフレームまで待機
-            yield return null;
         }
 
-        // 最終的に目標時刻にそろえる
-        lightingManager.TimeOfDay = targetTimeOfDay;
-
-
     }
 
-    //ゲーム終了時の処理
+   
+
+    //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
     {
         if (exitDialog != null && !exitDialog.activeSelf)
@@ -112,7 +89,7 @@ public class GameManager : MonoBehaviour
     {
         if (exitDialog != null)
         {
-            exitDialog.SetActive(false);
+            exitDialog.SetActive(false );
             isOpenExitDialog = false; // 終了リクエストフラグを解除
         }
     }
@@ -125,6 +102,21 @@ public class GameManager : MonoBehaviour
             CancelExitGame();
         }
     }
+
+    //タイトルシーンに戻る
+    public void BackTitleScene()
+    {
+        poseMenu.ExitPoseMenu();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    //レベル１ゲーム画面に移る
+    public void StertNewGame()
+    {
+        SceneManager.LoadScene("Level1Scene");
+    }
+
+
 }
 
 
