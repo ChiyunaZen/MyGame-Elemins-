@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // 二重に存在する場合は破棄
+            return;
         }
     }
 
@@ -101,6 +102,21 @@ public class GameManager : MonoBehaviour
             CancelExitGame();
         }
     }
+
+    //タイトルシーンに戻る
+    public void BackTitleScene()
+    {
+        poseMenu.ExitPoseMenu();
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    //レベル１ゲーム画面に移る
+    public void StertNewGame()
+    {
+        SceneManager.LoadScene("Level1Scene");
+    }
+
+
 }
 
 

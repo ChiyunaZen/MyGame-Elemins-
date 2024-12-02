@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance;  // シングルトンインスタンス
+    //public static AudioManager Instance;  // シングルトンインスタンス
 
     [SerializeField] private AudioMixer audioMixer; // AudioMixerの参照
     [SerializeField] private Slider masterVolumeSlider;
@@ -22,16 +22,16 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        // シングルトンの確立
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject); // すでにインスタンスがあれば、このオブジェクトを破棄
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // シーン遷移後もオブジェクトを破棄しないようにする
-        }
+        //// シングルトンの確立
+        //if (Instance != null && Instance != this)
+        //{
+        //    Destroy(gameObject); // すでにインスタンスがあれば、このオブジェクトを破棄
+        //}
+        //else
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject); // シーン遷移後もオブジェクトを破棄しないようにする
+        //}
     }
 
     void Start()

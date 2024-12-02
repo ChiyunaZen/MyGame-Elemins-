@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_MenuController : MonoBehaviour
 {
-    public static UI_MenuController Instance { get; private set; }
+    //public static UI_MenuController Instance { get; private set; }
     public bool isOptionmenu {  get; private set; }
 
     private CanvasGroup canvasGroup;
@@ -19,15 +19,15 @@ public class UI_MenuController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
-        }
-        else
-        {
-            Destroy(gameObject); // 二重に存在する場合は破棄
-        }
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //    DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
+        //}
+        //else
+        //{
+        //    Destroy(gameObject); // 二重に存在する場合は破棄
+        //}
     }
 
     void Start()

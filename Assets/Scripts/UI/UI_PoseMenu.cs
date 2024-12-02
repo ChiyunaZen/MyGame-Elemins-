@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UI_PoseMenu : MonoBehaviour
 {
     Canvas poseCanvas;
+    [SerializeField] UI_MenuController menuController;
 
     public bool isPosing = false; //ポーズ中かのフラグ
     void Start()
@@ -53,7 +54,7 @@ public class UI_PoseMenu : MonoBehaviour
         }
         else
         {
-            if (!UI_MenuController.Instance.isOptionmenu)
+            if (!menuController.isOptionmenu)
                 ExitPoseMenu();
         }
     }
