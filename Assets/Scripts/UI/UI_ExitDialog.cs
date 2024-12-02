@@ -8,7 +8,7 @@ public class UI_ExitDialog : MonoBehaviour
 
     private void Start()
     {
-        exitDialog.SetActive(false);
+        //exitDialog.SetActive(false);
     }
 
     public void Show()
