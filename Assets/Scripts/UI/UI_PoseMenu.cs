@@ -17,19 +17,19 @@ public class UI_PoseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!isPosing)
-            {
-                poseCanvas.enabled = true;
-                isPosing =true;
-            }
-            else
-            {
-                if(!UI_MenuController.Instance.isOptionmenu)
-               ExitPoseMenu();
-            }
-        }
+        //if(Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (!isPosing)
+        //    {
+        //        poseCanvas.enabled = true;
+        //        isPosing =true;
+        //    }
+        //    else
+        //    {
+        //        if(!UI_MenuController.Instance.isOptionmenu)
+        //       ExitPoseMenu();
+        //    }
+        //}
     }
 
 
@@ -42,5 +42,19 @@ public class UI_PoseMenu : MonoBehaviour
     public void ExitButton()
     {
         GameManager.Instance.ShowExitDialog();
+    }
+
+    public void ToggleShowPose()
+    {
+        if (!isPosing)
+        {
+            poseCanvas.enabled = true;
+            isPosing = true;
+        }
+        else
+        {
+            if (!UI_MenuController.Instance.isOptionmenu)
+                ExitPoseMenu();
+        }
     }
 }

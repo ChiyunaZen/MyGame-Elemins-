@@ -2,14 +2,16 @@ using Sydewa;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     // シングルトンインスタンス
     public static GameManager Instance { get; private set; }
-    public AudioManager AudioManager { get; private set; }
-    public UI_MenuController MenuController { get; private set; }
-    
+
+    //bool isTitleScene; //タイトルシーンかどうか
+
+    [SerializeField] UI_PoseMenu poseMenu; 
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
    public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
@@ -24,8 +26,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
                                           
             // 必要なコンポーネントを探して保持
-            AudioManager = FindObjectOfType<AudioManager>();
-            MenuController = FindObjectOfType<UI_MenuController>();
+           
            
             exitDialog.SetActive(false);
         }
@@ -47,7 +48,14 @@ public class GameManager : MonoBehaviour
     void Update()
 
     {
-
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            //現在がタイトルシーンではないときはPoseメニューを表示
+            if(SceneManager.GetActiveScene().name != "TitleScene")
+            {
+                poseMenu.ToggleShowPose();
+            }
+        }
 
     }
 
