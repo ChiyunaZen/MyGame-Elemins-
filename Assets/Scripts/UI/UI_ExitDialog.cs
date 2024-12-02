@@ -13,12 +13,12 @@ public class UI_ExitDialog : MonoBehaviour
 
     public void Show()
     {
-        exitDialog.SetActive(true);
+       // exitDialog.SetActive(true);
     }
 
     public void Close()
     {
-        exitDialog.SetActive(false);
+       // exitDialog.SetActive(false);
     }
 
     public void OnYesExit()
@@ -29,6 +29,6 @@ public class UI_ExitDialog : MonoBehaviour
 
     public void OnNoExit()
     {
-      Close();
+      GameManager.Instance.CancelExitGame();
     }
 }

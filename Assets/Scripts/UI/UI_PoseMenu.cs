@@ -38,4 +38,9 @@ public class UI_PoseMenu : MonoBehaviour
         poseCanvas.enabled = false;
         isPosing = false;
     }
+
+    public void ExitButton()
+    {
+        GameManager.Instance.ShowExitDialog();
+    }
 }

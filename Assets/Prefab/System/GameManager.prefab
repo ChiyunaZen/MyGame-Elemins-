@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitDialog: {fileID: 7759156087285637396}
+  exitDialog: {fileID: 6231638558178683909}
+  isOpenExitDialog: 0
 --- !u!1001 &1106028708825993354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,10 +55,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6518082077115939905}
     m_Modifications:
+    - target: {fileID: 963726652403763708, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2177203401923363267, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnYesExit
+      objectReference: {fileID: 0}
     - target: {fileID: 3672246322004061771, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
       propertyPath: exitDialog
       value: 
       objectReference: {fileID: 6231638558178683909}
+    - target: {fileID: 6057505897196600723, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnNoExit
+      objectReference: {fileID: 0}
     - target: {fileID: 7275398184716562846, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
       propertyPath: m_Name
       value: ExitDialogCanvas
@@ -150,11 +163,6 @@ PrefabInstance:
 --- !u!1 &6231638558178683909 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6422798275986537615, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
-  m_PrefabInstance: {fileID: 1106028708825993354}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7759156087285637396 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7275398184716562846, guid: fd7ffed625233004a93c2bf0f1b7c019, type: 3}
   m_PrefabInstance: {fileID: 1106028708825993354}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &9043504617559874870 stripped

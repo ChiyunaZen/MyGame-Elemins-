@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
-    bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
+   public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
 
 
     private void Awake()
