@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 8388483968756419044}
-  backTitleDialog: {fileID: 0}
+  backTitleDialog: {fileID: 6043303236522380315}
   exitDialog: {fileID: 6231638558178683909}
 --- !u!1 &8608034300716570514
 GameObject:
