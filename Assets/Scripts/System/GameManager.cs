@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
 
     //bool isTitleScene; //タイトルシーンかどうか
 
-    [SerializeField] UI_PoseMenu poseMenu; 
+    [SerializeField] UI_PauseMenu pauseMenu;
+
+    [SerializeField] GameObject backTitleDialog; //タイトルに戻る確認用ダイアログパネル
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
-   public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
+    public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
 
     private void Awake()
@@ -24,11 +26,12 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
-                                          
+
             // 必要なコンポーネントを探して保持
-           
-           
-            exitDialog.SetActive(false);
+
+
+            // exitDialog.SetActive(false);
+
         }
         else
         {
@@ -39,28 +42,51 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
-      //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-       
-       // Enemy = GameObject.FindWithTag("Enemy");
+        IsOpenExitDialog = false;
+        //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
+
+        // Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
     void Update()
 
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             //現在がタイトルシーンではないときはPoseメニューを表示
-            if(SceneManager.GetActiveScene().name != "TitleScene")
+            if (SceneManager.GetActiveScene().name != "TitleScene")
             {
-                poseMenu.ToggleShowPose();
+                pauseMenu.ToggleShowPose();
+            }
+
+            if(IsOpenExitDialog)
+            {
+                CancelExitGame();
             }
         }
 
     }
 
-   
+    //タイトルに戻る確認ダイアログの表示
+    public void ShowBackTitleDailog()
+    {
+        if (backTitleDialog != null && !backTitleDialog.activeSelf)
+        {
+            backTitleDialog.SetActive(true);
+        }
+    }
+
+    public void CancelBackTitle()
+    {
+        if (backTitleDialog != null )
+        {
+            backTitleDialog.SetActive(false);
+        }
+    }
+    
 
     //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
@@ -68,9 +94,10 @@ public class GameManager : MonoBehaviour
         if (exitDialog != null && !exitDialog.activeSelf)
         {
             exitDialog.SetActive(true);
-            isOpenExitDialog = true;
+            IsOpenExitDialog = true;
         }
     }
+
 
 
     //ゲームを終了するメソッド
@@ -89,15 +116,15 @@ public class GameManager : MonoBehaviour
     {
         if (exitDialog != null)
         {
-            exitDialog.SetActive(false );
-            isOpenExitDialog = false; // 終了リクエストフラグを解除
+            exitDialog.SetActive(false);
+            IsOpenExitDialog = false; // 終了リクエストフラグを解除
         }
     }
 
     private void OnApplicationQuit()
     {
         // 確認ダイアログが開かれていない場合はアプリケーション終了をキャンセル
-        if (!isOpenExitDialog)
+        if (!IsOpenExitDialog)
         {
             CancelExitGame();
         }
@@ -106,8 +133,11 @@ public class GameManager : MonoBehaviour
     //タイトルシーンに戻る
     public void BackTitleScene()
     {
-        poseMenu.ExitPoseMenu();
         SceneManager.LoadScene("TitleScene");
+        
+        pauseMenu.ExitPoseMenu();
+        CancelBackTitle();
+        
     }
 
     //レベル１ゲーム画面に移る

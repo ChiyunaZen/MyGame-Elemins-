@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PoseMenu : MonoBehaviour
+public class UI_PauseMenu : MonoBehaviour
 {
     Canvas poseCanvas;
     [SerializeField] UI_MenuController menuController;
@@ -37,6 +37,7 @@ public class UI_PoseMenu : MonoBehaviour
    public void ExitPoseMenu()
     {
         poseCanvas.enabled = false;
+        Time.timeScale = 1;
         isPosing = false;
     }
 
@@ -50,6 +51,7 @@ public class UI_PoseMenu : MonoBehaviour
         if (!isPosing)
         {
             poseCanvas.enabled = true;
+            Time.timeScale = 0;
             isPosing = true;
         }
         else
@@ -58,4 +60,5 @@ public class UI_PoseMenu : MonoBehaviour
                 ExitPoseMenu();
         }
     }
+  
 }
