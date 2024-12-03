@@ -133,8 +133,11 @@ public class GameManager : MonoBehaviour
     //タイトルシーンに戻る
     public void BackTitleScene()
     {
-        pauseMenu.ExitPoseMenu();
         SceneManager.LoadScene("TitleScene");
+        
+        pauseMenu.ExitPoseMenu();
+        CancelBackTitle();
+        
     }
 
     //レベル１ゲーム画面に移る

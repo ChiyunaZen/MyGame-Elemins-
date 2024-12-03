@@ -18,7 +18,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
-    [SerializeField] GameManager manager;
+  //  [SerializeField] GameManager manager;
 
     GameObject goalLight;
 
@@ -112,6 +112,7 @@ public class EleminController : MonoBehaviour, IFollowMov
             //NavMeshのターゲットをシンボルに変更
             navMeshAgent.destination = symbolObject.transform.position;
             isNearSymbol = true;
+            Debug.Log("ターゲットをシンボルに変更しました");
 
             // シンボルに到達するまで確認するコルーチンを開始
             StartCoroutine(MoveToSymbolAndReturn(symbolObject));
@@ -125,11 +126,11 @@ public class EleminController : MonoBehaviour, IFollowMov
 
 
         // シンボルに向かって移動
-        while (Vector3.Distance(transform.position, symbolObject.transform.position) > 0.5f)
+        while (Vector3.Distance(transform.position, symbolObject.transform.position) > 1.0f || navMeshAgent.pathPending)
         {
             yield return null; // シンボルに到達するまで待機
         }
-
+        Debug.Log("シンボルに到達");
 
         SymbolController symbolController = symbolObject.GetComponent<SymbolController>();
         if (symbolController != null)
@@ -153,6 +154,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         // ターゲットをプレイヤーに戻す
         navMeshAgent.destination = playerTransform.position;
         isNearSymbol = false;
+        Debug.Log("ターゲットをプレイヤーに変更しました");
 
     }
 
