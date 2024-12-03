@@ -1,21 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_ExitDialog : MonoBehaviour
 {
     [SerializeField] private GameObject exitDialog;
 
 
-    private void Start()
-    {
-        //exitDialog.SetActive(false);
-    }
-
-    public void Show()
-    {
-       // exitDialog.SetActive(true);
-    }
 
     public void Close()
     {

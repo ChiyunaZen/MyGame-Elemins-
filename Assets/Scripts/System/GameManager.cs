@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
 
     //bool isTitleScene; //タイトルシーンかどうか
 
-    [SerializeField] UI_PauseMenu pauseMenu; 
+    [SerializeField] UI_PauseMenu pauseMenu;
+
+    [SerializeField] GameObject backTitleDialog; //タイトルに戻る確認用ダイアログパネル
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
-   public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
+    public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
 
     private void Awake()
@@ -24,10 +26,12 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
-                                          
+
             // 必要なコンポーネントを探して保持
-           // exitDialog.SetActive(false);
-            
+
+
+            // exitDialog.SetActive(false);
+
         }
         else
         {
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
         IsOpenExitDialog = false;
         //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
@@ -49,17 +54,38 @@ public class GameManager : MonoBehaviour
     void Update()
 
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             //現在がタイトルシーンではないときはPoseメニューを表示
-            if(SceneManager.GetActiveScene().name != "TitleScene")
+            if (SceneManager.GetActiveScene().name != "TitleScene")
             {
                 pauseMenu.ToggleShowPose();
+            }
+
+            if(IsOpenExitDialog)
+            {
+                CancelExitGame();
             }
         }
 
     }
 
+    //タイトルに戻る確認ダイアログの表示
+    public void ShowBackTitleDailog()
+    {
+        if (backTitleDialog != null && !backTitleDialog.activeSelf)
+        {
+            backTitleDialog.SetActive(true);
+        }
+    }
+
+    public void CancelBackTitle()
+    {
+        if (backTitleDialog != null )
+        {
+            backTitleDialog.SetActive(false);
+        }
+    }
     
 
     //ゲーム終了確認ダイアログの表示
@@ -71,6 +97,7 @@ public class GameManager : MonoBehaviour
             IsOpenExitDialog = true;
         }
     }
+
 
 
     //ゲームを終了するメソッド
@@ -89,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         if (exitDialog != null)
         {
-            exitDialog.SetActive(false );
+            exitDialog.SetActive(false);
             IsOpenExitDialog = false; // 終了リクエストフラグを解除
         }
     }
