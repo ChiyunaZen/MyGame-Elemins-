@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseMenu: {fileID: 8388483968756419044}
+  pauseMenu: {fileID: 8388483968756419044}
   exitDialog: {fileID: 6231638558178683909}
   isOpenExitDialog: 0
 --- !u!1 &8608034300716570514

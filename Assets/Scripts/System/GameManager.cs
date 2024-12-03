@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     //bool isTitleScene; //タイトルシーンかどうか
 
-    [SerializeField] UI_PauseMenu poseMenu; 
+    [SerializeField] UI_PauseMenu pauseMenu; 
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
    public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
@@ -54,13 +54,13 @@ public class GameManager : MonoBehaviour
             //現在がタイトルシーンではないときはPoseメニューを表示
             if(SceneManager.GetActiveScene().name != "TitleScene")
             {
-                poseMenu.ToggleShowPose();
+                pauseMenu.ToggleShowPose();
             }
         }
 
     }
 
-   
+    
 
     //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     //タイトルシーンに戻る
     public void BackTitleScene()
     {
-        poseMenu.ExitPoseMenu();
+        pauseMenu.ExitPoseMenu();
         SceneManager.LoadScene("TitleScene");
     }
 
