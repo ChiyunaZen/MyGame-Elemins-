@@ -6,6 +6,7 @@ public class UI_ExitDialog : MonoBehaviour
 {
     [SerializeField] private GameObject exitDialog;
 
+
     private void Start()
     {
         //exitDialog.SetActive(false);

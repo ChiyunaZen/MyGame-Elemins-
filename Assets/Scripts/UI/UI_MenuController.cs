@@ -74,6 +74,8 @@ public class UI_MenuController : MonoBehaviour
         isOptionmenu = true;
         isTopMenu = true;
         topCanvasGroup.interactable = true;
+
+        
     }
 
     public void CloseButton()
@@ -82,6 +84,8 @@ public class UI_MenuController : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
         isOptionmenu = false;
         topCanvasGroup.interactable = false;
+
+        
     }
 
     public void SoundMenuOpen()

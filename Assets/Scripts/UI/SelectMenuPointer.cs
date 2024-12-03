@@ -9,10 +9,13 @@ public class SelectMenuPointer : MonoBehaviour
     public AudioClip clip;
     AudioSource source;
 
+    UI_MenuController menuController;
+
     public GameObject target; //Eleminを移動させるためのターゲットオブジェクト
 
     void Start()
     {
+        menuController = GameObject.FindAnyObjectByType<UI_MenuController>();
         animator = GetComponent<Animator>();
 
         source = GetComponent<AudioSource>();
@@ -23,34 +26,37 @@ public class SelectMenuPointer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-
-
-        if (Input.GetMouseButton(0))
+        if (!menuController.isOptionmenu&&!GameManager.Instance.IsOpenExitDialog)
         {
-            if (Physics.Raycast(ray, out hit))
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+
+
+            if (Input.GetMouseButton(0))
             {
-                if (!IsClicked)
+                if (Physics.Raycast(ray, out hit))
                 {
-                    IsClicked = true;
-                    animator.SetBool("isClicked", true);
-                    source.Play();
+                    if (!IsClicked)
+                    {
+                        IsClicked = true;
+                        animator.SetBool("isClicked", true);
+                        source.Play();
+                    }
+                    transform.LookAt(hit.point);
+
+                    target.transform.position = hit.point;
                 }
-                transform.LookAt(hit.point);
-
-                target.transform.position = hit.point;
             }
-        }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (IsClicked)
+            if (Input.GetMouseButtonUp(0))
             {
-                IsClicked = false;
-                animator.SetBool("isClicked", false);
+                if (IsClicked)
+                {
+                    IsClicked = false;
+                    animator.SetBool("isClicked", false);
+                }
             }
         }
     }

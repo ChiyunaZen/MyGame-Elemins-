@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UI_PauseMenu pauseMenu; 
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
-   public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか
+   public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
 
     private void Awake()
@@ -26,9 +26,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
                                           
             // 必要なコンポーネントを探して保持
-           
-           
-            exitDialog.SetActive(false);
+           // exitDialog.SetActive(false);
+            
         }
         else
         {
@@ -40,9 +39,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
-      //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-       
-       // Enemy = GameObject.FindWithTag("Enemy");
+        IsOpenExitDialog = false;
+        //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
+
+        // Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         if (exitDialog != null && !exitDialog.activeSelf)
         {
             exitDialog.SetActive(true);
-            isOpenExitDialog = true;
+            IsOpenExitDialog = true;
         }
     }
 
@@ -90,14 +90,14 @@ public class GameManager : MonoBehaviour
         if (exitDialog != null)
         {
             exitDialog.SetActive(false );
-            isOpenExitDialog = false; // 終了リクエストフラグを解除
+            IsOpenExitDialog = false; // 終了リクエストフラグを解除
         }
     }
 
     private void OnApplicationQuit()
     {
         // 確認ダイアログが開かれていない場合はアプリケーション終了をキャンセル
-        if (!isOpenExitDialog)
+        if (!IsOpenExitDialog)
         {
             CancelExitGame();
         }
