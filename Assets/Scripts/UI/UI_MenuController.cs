@@ -53,7 +53,14 @@ public class UI_MenuController : MonoBehaviour
             }
             else
             {
-                CloseButton();
+                if (isTopMenu)
+                {
+                    CloseButton();
+                }
+                else
+                {
+                    SoundMenuClose();
+                }
             }
             
         }
