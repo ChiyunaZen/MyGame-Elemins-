@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     //bool isTitleScene; //タイトルシーンかどうか
 
-    [SerializeField] UI_PoseMenu poseMenu; 
+    [SerializeField] UI_PauseMenu poseMenu; 
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
    public bool isOpenExitDialog = false; //修了確認用ダイアログが開いているか

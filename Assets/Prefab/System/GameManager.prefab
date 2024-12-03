@@ -868,6 +868,10 @@ PrefabInstance:
       propertyPath: menuController
       value: 
       objectReference: {fileID: 2222205763164436301}
+    - target: {fileID: 1802722141068622395, guid: c738731f12ea94a4f80df4adfca4e37d, type: 3}
+      propertyPath: m_text
+      value: Pausing
+      objectReference: {fileID: 0}
     - target: {fileID: 2313690723949892705, guid: c738731f12ea94a4f80df4adfca4e37d, type: 3}
       propertyPath: m_Name
       value: TitleButton
@@ -882,7 +886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260452025777012963, guid: c738731f12ea94a4f80df4adfca4e37d, type: 3}
       propertyPath: m_Name
-      value: PoseCanvas
+      value: PauseCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 3713533756783172903, guid: c738731f12ea94a4f80df4adfca4e37d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
