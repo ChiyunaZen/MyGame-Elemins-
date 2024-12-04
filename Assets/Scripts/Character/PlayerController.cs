@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     //public float stopThreshold = 0.5f; // 崖の手前で停止する距離
 
     private float pushBackTime = 0f;  // 崖に押し戻されてからの時間
-    private float pushBackDuration = 0.2f; // 押し戻し後に移動を無視する時間
+    private float pushBackDuration = 0.4f; // 押し戻し後に移動を無視する時間
 
     [SerializeField] Transform footPrints; //生成した足跡を格納しておく親オブジェクト
     [SerializeField] private GameObject footPrint;

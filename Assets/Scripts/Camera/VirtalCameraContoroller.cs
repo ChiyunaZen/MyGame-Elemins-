@@ -39,7 +39,7 @@ public class ZoomController : MonoBehaviour
             {
 
                 //初期のtranspoaterの位置を設定
-                followOffset = new Vector3(0, 3, -10);
+                followOffset = new Vector3(0, 4.5f, -10);
                 transposer.m_FollowOffset = followOffset;
             }
 
@@ -68,11 +68,11 @@ public class ZoomController : MonoBehaviour
         if (Input.GetMouseButton(2))
         {
             // マウス移動量を取得
-            float mouseX = Input.GetAxis("Mouse X");
+            //float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
 
             // X軸のオフセットを上下の範囲制限内で更新
-            followOffset.x += mouseX * rotationSpeed;
+           // followOffset.x += mouseX * rotationSpeed;
             //followOffset.x = Mathf.Clamp(followOffset.x, minXOffset, maxXOffset); 
             
             // Y軸のオフセットを上下の範囲制限内で更新
