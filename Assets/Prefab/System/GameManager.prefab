@@ -590,6 +590,10 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 4605499487700009293}
+    - target: {fileID: 6580212196511419378, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7121504293007986944, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_Name
       value: MenuCanvas
