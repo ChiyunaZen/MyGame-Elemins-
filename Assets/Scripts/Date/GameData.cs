@@ -35,7 +35,6 @@ public class EleminData
 public class SymbolData
 {
     public int symbolId; //シンボルのID　
-    public Vector3 symbolPos; //シンボルの位置
     public float symbolLightRange; //シンボルライトのRange値
     public float symbolLightIntensity;　//シンボルのライトのIntensity値
     public bool isLighting; //ライトがついているかのフラグ

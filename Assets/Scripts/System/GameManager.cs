@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
+    [SerializeField] AllSymbolManager symbolManager;
+
 
     private void Awake()
     {
@@ -153,6 +155,7 @@ public class GameManager : MonoBehaviour
             sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
             eleminData = new EleminData(),
+            symbols = new AllSymbolManager().GetSymbolDataList(),
             gameTime = SunTimeManager.Instance.lightingManager.TimeOfDay
         };
 
