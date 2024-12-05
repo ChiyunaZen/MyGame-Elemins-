@@ -146,6 +146,27 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Level1Scene");
     }
 
+    public void SaveGame()
+    {
+        GameData gameData = new GameData
+        {
+            sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+            playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
+            eleminData = new EleminData(),
+            gameTime = SunTimeManager.Instance.lightingManager.TimeOfDay
+        };
+
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.EleminDataSet(gameData); // Elemin のデータをセット
+        }
+
+        //セーブデータとして書き出す
+        SaveSystem.SaveGame(gameData);
+        
+        
+    }
 
 }
 

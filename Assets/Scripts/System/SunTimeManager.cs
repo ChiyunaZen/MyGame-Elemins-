@@ -8,8 +8,9 @@ using UnityEngine;
 public class SunTimeManager : MonoBehaviour
 {
    public static SunTimeManager Instance {  get; private set; }
+   // public float CurrentTime { get; private set; } //現在の時刻
 
-    LightingManager lightingManager; //夜明け用の時刻管理用アセット
+   public LightingManager lightingManager; //夜明け用の時刻管理用アセット
     [SerializeField] FootPrintsAllController footPrintsAllController;　//シーンのすべての足跡を管理するクラス
 
     [SerializeField] float startTimeOfDay = 2;　//ゲーム開始時点(暗闇時)の時刻設定
