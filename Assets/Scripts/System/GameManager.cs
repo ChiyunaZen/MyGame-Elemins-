@@ -1,6 +1,3 @@
-using Sydewa;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,10 +44,7 @@ public class GameManager : MonoBehaviour
         backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
         IsOpenExitDialog = false;
-        //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-
-        // Enemy = GameObject.FindWithTag("Enemy");
-
+        
     }
     // Update is called once per frame
     void Update()
@@ -67,6 +61,22 @@ public class GameManager : MonoBehaviour
             if(IsOpenExitDialog)
             {
                 CancelExitGame();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveGame();
+            Debug.Log("ゲームをセーブしました");
+
+            // セーブデータ内容をデバッグ表示
+            GameData savedData = SaveSystem.LoadGame(); // セーブしたデータをロードして確認
+            if (savedData != null)
+            {
+                Debug.Log("セーブデータ内容:");
+                Debug.Log("シーン名: " + savedData.sceneName);
+                Debug.Log("プレイヤー位置: " + savedData.playerPos);
+                Debug.Log("ゲーム時間: " + savedData.gameTime);
             }
         }
 
@@ -152,7 +162,7 @@ public class GameManager : MonoBehaviour
     {
         GameData gameData = new GameData
         {
-            sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,
+            sceneName = SceneManager.GetActiveScene().name,
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
             eleminData = new EleminData(),
             symbols = new AllSymbolManager().GetSymbolDataList(),
@@ -166,12 +176,54 @@ public class GameManager : MonoBehaviour
             elemin.EleminDataSet(gameData); // Elemin のデータをセット
         }
 
-        //セーブデータとして書き出す
         SaveSystem.SaveGame(gameData);
-        
         
     }
 
+    private void InitializeGameData()
+    {
+        // プレイヤーの初期位置を設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = new Vector3(0f, 0f, 0f); // 初期位置
+        }
+
+        // Eleminの初期設定
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.InitializeEleminData(); // 初期データ設定メソッド（データの設定処理を別途作成）
+        }
+
+        // 足跡データの初期化
+        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+        if (footPrintController != null)
+        {
+            footPrintController.InitializeFootPrints(); // 足跡の初期化
+        }
+
+        // シンボルの初期設定
+        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+        if (symbolManager != null)
+        {
+            symbolManager.InitializeSymbolData(); // シンボルの初期化
+        }
+
+        // ゲーム時間の初期設定
+        SunTimeManager.Instance.lightingManager.TimeOfDay = 2f;
+    }
+
+    public void DeleteGameDataAndExit()
+    {
+        SaveSystem.DeleteSaveData();
+        ExitGame();
+    }
+
+   
+
+   
 }
+
 
 

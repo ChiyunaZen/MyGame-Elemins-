@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,4 +62,20 @@ public class FootPrintsAllController : MonoBehaviour
         return footPrintDataList;
     }
 
+    // 足跡の初期化（空にする）
+    public void InitializeFootPrints()
+    {
+
+        // 最新の足跡を取得
+        footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
+
+        // すべての足跡を削除
+        foreach (FootPrintController footPrint in footPrints)
+        {
+            Destroy(footPrint.gameObject); // 足跡の削除（gameObjectをDestroy）
+        }
+
+        // 足跡リストを空にする
+        footPrints = new FootPrintController[0];
+    }
 }

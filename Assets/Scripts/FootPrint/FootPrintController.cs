@@ -78,13 +78,7 @@ public class FootPrintController : MonoBehaviour
         transform.position = data.position;
         isBlooming = data.isBlooming;
 
-        // 既存の花を削除
-        foreach (var flower in spawnedFlowers)
-        {
-            Destroy(flower);
-        }
-        spawnedFlowers.Clear();
-
+        
         // 保存されていた花を復元
         for (int i = 0; i < data.flowerPositions.Count; i++)
         {

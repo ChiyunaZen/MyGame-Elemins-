@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
 using UnityEngine.Playables;
+using System;
 
 public class EleminController : MonoBehaviour, IFollowMov
 {
@@ -27,7 +28,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     [SerializeField] EndingCamera endingCam;
 
-   
+
 
     void Start()
     {
@@ -146,8 +147,8 @@ public class EleminController : MonoBehaviour, IFollowMov
             DecreaseLightRange(decreaseRange);
             DecreaseLightIntensity(decreaseIntensity);
 
-           // Collider collider = symbolObject.GetComponent<Collider>();
-          //  Destroy(collider);
+            // Collider collider = symbolObject.GetComponent<Collider>();
+            //  Destroy(collider);
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -283,7 +284,7 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     }
 
-   public void EleminDataSet(GameData gameData)
+    public void EleminDataSet(GameData gameData)
     {
         //セーブ用のデータを保存する
         EleminData eleminData = new EleminData
@@ -297,7 +298,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         gameData.eleminData = eleminData; // GameData にセット
     }
 
-   public void LoadEleminData(EleminData eleminData)
+    public void LoadEleminData(EleminData eleminData)
     {
         if (eleminData != null)
         {
@@ -319,5 +320,19 @@ public class EleminController : MonoBehaviour, IFollowMov
         }
     }
 
+    internal void InitializeEleminData()
+    {
+        // Elemin の初期位置
+        transform.position = new Vector3(-2, 0.37f, 26.97f);
+
+        // マテリアルのアルファ値を復元
+        Color currentColor = material.GetColor("_Color");
+        currentColor.a = 0f;
+        material.SetColor("_Color", currentColor);
+
+        // ライトの設定を復元
+        eleminLight.range = 0;
+        eleminLight.intensity = 0;
+    }
 }
 

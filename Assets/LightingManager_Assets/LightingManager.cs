@@ -328,5 +328,7 @@ public class LightingManager : MonoBehaviour
                 UpdateMoonLighting(TimeOfDay / 24f);
             }
         }
+
+        
     }
 }

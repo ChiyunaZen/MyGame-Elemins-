@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,5 +33,10 @@ public class AllSymbolManager : MonoBehaviour
                 symbol.LoadSymbolData(symbolData);
             }
         }
+    }
+
+    internal void InitializeSymbolData()
+    {
+        throw new NotImplementedException();
     }
 }

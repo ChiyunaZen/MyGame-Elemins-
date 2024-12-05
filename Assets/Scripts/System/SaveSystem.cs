@@ -29,4 +29,17 @@ public class SaveSystem : MonoBehaviour
             return null;
         }
     }
+
+    public static void DeleteSaveData()
+    {
+        if (File.Exists(saveFilePath))
+        {
+            File.Delete(saveFilePath);
+            Debug.Log("セーブデータを削除しました");
+        }
+        else
+        {
+            Debug.LogWarning("削除するセーブデータがありません");
+        }
+    }
 }
