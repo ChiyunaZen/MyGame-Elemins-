@@ -50,5 +50,55 @@ public class FootPrintController : MonoBehaviour
 
         isBlooming = true;  // 花が咲いたフラグを立てる
     }
+
+    //現在の状態を取得して返す
+    public FootPrintData GetFootPrintData()
+    {
+        FootPrintData data = new FootPrintData
+        {
+            position = transform.position,
+            isBlooming = isBlooming,
+            flowerPositions = new List<Vector3>(),
+            flowerRotations = new List<Quaternion>()
+        };
+
+        // 生成された花の位置と回転を保存
+        foreach (GameObject flower in spawnedFlowers)
+        {
+            data.flowerPositions.Add(flower.transform.position);
+            data.flowerRotations.Add(flower.transform.rotation);
+        }
+
+        return data;
+    }
+
+    //ロードして復元
+    public void RestoreFootPrint(FootPrintData data)
+    {
+        transform.position = data.position;
+        isBlooming = data.isBlooming;
+
+        // 既存の花を削除
+        foreach (var flower in spawnedFlowers)
+        {
+            Destroy(flower);
+        }
+        spawnedFlowers.Clear();
+
+        // 保存されていた花を復元
+        for (int i = 0; i < data.flowerPositions.Count; i++)
+        {
+            Vector3 position = data.flowerPositions[i];
+            Quaternion rotation = data.flowerRotations[i];
+
+            GameObject randomFlower = flowers[Random.Range(0, flowers.Length)];
+            GameObject spawnedFlower = Instantiate(randomFlower, position, rotation);
+            spawnedFlower.transform.parent = transform;
+
+            spawnedFlower.SetActive(data.isBlooming); // 咲いている状態ならアクティブに
+
+            spawnedFlowers.Add(spawnedFlower);
+        }
+    }
 }
 

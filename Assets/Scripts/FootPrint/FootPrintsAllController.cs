@@ -47,20 +47,18 @@ public class FootPrintsAllController : MonoBehaviour
         }
     }
 
-    //レベル1シーンを読み込むメソッド
-    public void StertNewGame()
+    //保存用のデータをリスト化して渡す
+    public List<FootPrintData> GetAllFootPrintData()
     {
-        SceneManager.LoadScene("Level1Scene");
+        FootPrintController[] footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
+
+        List<FootPrintData> footPrintDataList = new List<FootPrintData>();
+        foreach (var footPrint in footPrints)
+        {
+            footPrintDataList.Add(footPrint.GetFootPrintData());
+        }
+
+        return footPrintDataList;
     }
 
-    //ゲームを終了するメソッド
-    public void ExitGame() 
-    {
-        Application.Quit();
-
-        // エディタで実行中の場合
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // エディタのプレイモードを停止
-#endif
-    }
 }
