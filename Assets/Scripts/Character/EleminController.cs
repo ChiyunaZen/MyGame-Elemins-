@@ -146,8 +146,8 @@ public class EleminController : MonoBehaviour, IFollowMov
             DecreaseLightRange(decreaseRange);
             DecreaseLightIntensity(decreaseIntensity);
 
-            Collider collider = symbolObject.GetComponent<Collider>();
-            Destroy(collider);
+           // Collider collider = symbolObject.GetComponent<Collider>();
+          //  Destroy(collider);
         }
 
         yield return new WaitForSeconds(1.5f);

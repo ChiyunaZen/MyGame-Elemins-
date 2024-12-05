@@ -8,27 +8,37 @@ public class SymbolController : MonoBehaviour
     public float getLightIntensity = 1f; // Eleminから受け取る光量
     public float getLightRange = 5f;　// Eleminから受け取る照らす範囲
     public float lightIncreaseSpeed = 0.5f; // 光の増加速度
+    public bool isSymbolLigting = false; //シンボルが点灯済かのフラグ
 
     private GameObject currentLightInstance;
     private Light pointLight;
+
+    Collider symbolcollider;
 
 
     void Start()
     {
 
+        symbolcollider = GetComponent<Collider>();
+
+        if (isSymbolLigting) //もしすでに点灯済ならコライダーは非アクティブにする
+        {
+            symbolcollider.enabled = false;
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 
     // シンボルライトをアクティベートするメソッド
     public void ActivateSymbolLight()
     {
         // 既にライトが生成されている場合は何もしない
-        if (currentLightInstance != null) return;
+        if (isSymbolLigting) return;
 
         Vector3 lightPos = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         // symbolLightPrefabをこのオブジェクトの子オブジェクトとして生成
@@ -45,6 +55,8 @@ public class SymbolController : MonoBehaviour
 
             // 光が徐々に増えるようにする
             StartCoroutine(IncreaseLightOverTime());
+            isSymbolLigting = true;
+            symbolcollider.enabled = false;　//コライダーは非アクティブに
         }
         else
         {
