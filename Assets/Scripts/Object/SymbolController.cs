@@ -19,18 +19,19 @@ public class SymbolController : MonoBehaviour
     private Light pointLight;
 
     private static int globalSymbolIdCounter = 0; // ID振り分けようの静的カウンター
-    public int symbolId { get; private set; } // 各シンボルのID
+    public int symbolId; // 各シンボルのID
 
     Collider symbolcollider;
 
     private void Awake()
     {
-        //IDを生成して割り振る
-        symbolId = globalSymbolIdCounter++;
+       
     }
 
     void Start()
     {
+        //IDを生成して割り振る
+        symbolId = globalSymbolIdCounter++;
 
         symbolcollider = GetComponent<Collider>();
 
@@ -116,6 +117,8 @@ public class SymbolController : MonoBehaviour
         }
 
         data.isLighting = isSymbolLigting;
+
+
 
         return data;
 

@@ -6,13 +6,18 @@ using UnityEngine;
 [System.Serializable]
 public class AllSymbolManager : MonoBehaviour
 {
-    private List<SymbolController> symbols = new List<SymbolController>();
+    public List<SymbolController> symbols;
 
     void Awake()
+    {
+        
+    }
+    private void Start()
     {
         // シーン内のすべてのSymbolControllerを取得
         symbols.AddRange(FindObjectsOfType<SymbolController>());
     }
+
     public List<SymbolData> GetSymbolDataList()
     {
         List<SymbolData> symbolDataList = new List<SymbolData>();
@@ -23,6 +28,7 @@ public class AllSymbolManager : MonoBehaviour
         return symbolDataList;
     }
 
+
     public void LoadSymbolDataList(List<SymbolData> symbolDataList)
     {
         foreach (var symbolData in symbolDataList)
@@ -32,6 +38,10 @@ public class AllSymbolManager : MonoBehaviour
             if (symbol != null)
             {
                 symbol.LoadSymbolData(symbolData);
+            }
+            else
+            {
+                Debug.LogWarning($"シンボルが見つかりません: symbolId = {symbolData.symbolId}");
             }
         }
     }

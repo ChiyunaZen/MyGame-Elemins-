@@ -896,6 +896,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!1 &447285416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1076,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2923608517371094899, guid: 98d092fa0086f1641a509721d765a3da, type: 3}
+      propertyPath: symbolManager
+      value: 
+      objectReference: {fileID: 558759281}
     - target: {fileID: 3195419796407415836, guid: 98d092fa0086f1641a509721d765a3da, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1261,6 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0fe9df872c01b4fbeea5788bf14d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  symbols: []
 --- !u!4 &558759282
 Transform:
   m_ObjectHideFlags: 0
@@ -1420,6 +1426,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!1 &649644742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,6 +1467,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!65 &649644744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6196,6 +6204,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!4 &1094828431 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edecec09fb7b2404bbfd10ed240bfe83, type: 3}
@@ -6704,6 +6713,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!65 &1273383173
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7338,6 +7348,7 @@ MonoBehaviour:
   isSymbolLigting: 0
   intensityMultiplier: 10
   rangeMultiplier: 3
+  symbolId: 0
 --- !u!4 &1892770952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edecec09fb7b2404bbfd10ed240bfe83, type: 3}

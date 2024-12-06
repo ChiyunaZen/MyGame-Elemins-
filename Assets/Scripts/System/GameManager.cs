@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
             sceneName = SceneManager.GetActiveScene().name,
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
             eleminData = new EleminData(),
-            symbols = new AllSymbolManager().GetSymbolDataList(),
+            symbols = symbolManager.GetSymbolDataList(),
             footPrints = FindObjectOfType<FootPrintsAllController>().GetAllFootPrintData(),
             gameTime = SunTimeManager.Instance.lightingManager.TimeOfDay
         };
