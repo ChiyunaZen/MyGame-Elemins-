@@ -5,7 +5,7 @@ using System.IO;
 
 public class SaveSystem : MonoBehaviour
 {
-    private static string saveFilePath => Application.persistentDataPath + "/saveData.json";
+    private static string saveFilePath => Path.Combine(Application.persistentDataPath, "savefile.json");
 
     public static void SaveGame(GameData data)
     {

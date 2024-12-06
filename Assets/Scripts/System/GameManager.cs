@@ -64,20 +64,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             SaveGame();
-            Debug.Log("ゲームをセーブしました");
-
-            // セーブデータ内容をデバッグ表示
-            GameData savedData = SaveSystem.LoadGame(); // セーブしたデータをロードして確認
-            if (savedData != null)
-            {
-                Debug.Log("セーブデータ内容:");
-                Debug.Log("シーン名: " + savedData.sceneName);
-                Debug.Log("プレイヤー位置: " + savedData.playerPos);
-                Debug.Log("ゲーム時間: " + savedData.gameTime);
-            }
         }
 
     }
@@ -177,8 +166,14 @@ public class GameManager : MonoBehaviour
         }
 
         SaveSystem.SaveGame(gameData);
-        
+
+        Debug.Log("ゲームをセーブしました");
+
+        SaveDataLog();
+
     }
+
+   
 
     private void InitializeGameData()
     {
@@ -214,15 +209,75 @@ public class GameManager : MonoBehaviour
         SunTimeManager.Instance.lightingManager.TimeOfDay = 2f;
     }
 
-    public void DeleteGameDataAndExit()
+
+
+
+    void SaveDataLog()
     {
-        SaveSystem.DeleteSaveData();
-        ExitGame();
+        // セーブデータ内容をデバッグ表示
+        GameData savedData = SaveSystem.LoadGame(); // セーブしたデータをロードして確認
+        if (savedData != null)
+        {
+            Debug.Log("現在のシーン: " + savedData.sceneName);
+            Debug.Log("プレイヤー位置: " + savedData.playerPos);
+
+            // EleminData の詳細を表示
+            if (savedData.eleminData != null)
+            {
+                Debug.Log("Eleminのデータ:");
+                Debug.Log("  位置: " + savedData.eleminData.eleminPos);
+                Debug.Log("  アルファ値: " + savedData.eleminData.eleminAlpha);
+                Debug.Log("  ライト範囲: " + savedData.eleminData.eleminRange);
+                Debug.Log("  ライト強度: " + savedData.eleminData.eleminIntensity);
+            }
+
+            // FootPrintData の詳細を表示
+            if (savedData.footPrints != null && savedData.footPrints.Count > 0)
+            {
+                Debug.Log("足跡データ:");
+                for (int i = 0; i < savedData.footPrints.Count; i++)
+                {
+                    FootPrintData footPrint = savedData.footPrints[i];
+                    Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
+                    if (footPrint.flowerPositions != null)
+                    {
+                        for (int j = 0; j < footPrint.flowerPositions.Count; j++)
+                        {
+                            Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("足跡データがありません。");
+            }
+
+            // SymbolData の詳細を表示
+            if (savedData.symbols != null && savedData.symbols.Count > 0)
+            {
+                Debug.Log("シンボルデータ:");
+                for (int i = 0; i < savedData.symbols.Count; i++)
+                {
+                    SymbolData symbol = savedData.symbols[i];
+                    Debug.Log($"  シンボル[{i}] - ID: {symbol.symbolId}, ライト範囲: {symbol.symbolLightRange}, ライト強度: {symbol.symbolLightIntensity}, 点灯状態: {symbol.isLighting}");
+                }
+            }
+            else
+            {
+                Debug.Log("シンボルデータがありません。");
+            }
+
+            Debug.Log("現在時刻: " + savedData.gameTime);
+        }
+        else
+        {
+            Debug.Log("セーブデータが見つかりませんでした。");
+        }
     }
 
-   
 
-   
+
 }
 
 

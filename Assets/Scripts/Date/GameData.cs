@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-
 //Jsonファイルとして書き出して保存するためのデータクラス
 public class GameData 
 {
@@ -22,16 +21,17 @@ public class GameData
 //それぞれ設定を保存したいデータのクラス
 
 //Eleminのデータクラス
+[System.Serializable]
 public class EleminData
 {
-    
-    public Vector3 eleminPos { get; set; }　//Eleminの現在位置
-    public float eleminAlpha { get; set; }　//Eleminの現在のマテリアルカラーのアルファ値
-    public float eleminRange { get; set; } //Eleminに着けているのライトのRangeの値
-    public float eleminIntensity { get; set; }　//Eleminに着けているライトのIntensityの値
+    public Vector3 eleminPos;　//Eleminの現在位置
+    public float eleminAlpha;　//Eleminの現在のマテリアルカラーのアルファ値
+    public float eleminRange; //Eleminに着けているのライトのRangeの値
+    public float eleminIntensity;　//Eleminに着けているライトのIntensityの値
 }
 
 //シンボルのデータ
+[System.Serializable]
 public class SymbolData
 {
     public int symbolId; //シンボルのID　
@@ -41,6 +41,7 @@ public class SymbolData
 
 }
 
+[System.Serializable]
 //足跡のデータ
 public class FootPrintData
 {

@@ -79,12 +79,12 @@ public class PlayerController : MonoBehaviour
                
                 if (IsGroundAhead())
                 {
-                    Debug.Log("地面があります");
+                    //Debug.Log("地面があります");
                     velocity += moveDirection * currentSpeed;
                 }
                 else
                 {
-                    Debug.Log("崖です");
+                    //Debug.Log("崖です");
                     // 崖の前に来たら少し後退させる
                     Vector3 pushBackDirection = -transform.forward * 0.1f; // 後方に押し戻すベクトル
                     controller.Move(pushBackDirection);

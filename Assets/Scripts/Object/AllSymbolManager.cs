@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class AllSymbolManager : MonoBehaviour
 {
     private List<SymbolController> symbols = new List<SymbolController>();

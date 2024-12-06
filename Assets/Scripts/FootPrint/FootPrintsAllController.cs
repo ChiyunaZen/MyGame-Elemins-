@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public class FootPrintsAllController : MonoBehaviour
 {
     FootPrintController[] footPrints;

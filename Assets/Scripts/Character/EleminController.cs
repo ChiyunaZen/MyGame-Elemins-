@@ -5,6 +5,7 @@ using Cinemachine;
 using UnityEngine.Playables;
 using System;
 
+[System.Serializable]
 public class EleminController : MonoBehaviour, IFollowMov
 {
     public Material material;

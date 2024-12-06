@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SymbolController : MonoBehaviour
 {
     [SerializeField] GameObject symbolLightPrefab;
@@ -50,6 +51,9 @@ public class SymbolController : MonoBehaviour
     // シンボルライトをアクティベートするメソッド
     public void ActivateSymbolLight()
     {
+        //既存のライトを再生成しない
+        if (currentLightInstance != null) return;
+
         // 既にライトが生成されている場合は何もしない
         if (isSymbolLigting) return;
 
