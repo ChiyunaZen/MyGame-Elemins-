@@ -46,8 +46,5 @@ public class AllSymbolManager : MonoBehaviour
         }
     }
 
-    internal void InitializeSymbolData()
-    {
-        throw new NotImplementedException();
-    }
+    
 }

@@ -73,7 +73,7 @@ public class FootPrintController : MonoBehaviour
     }
 
     //ロードして復元
-    public void RestoreFootPrint(FootPrintData data)
+    public void LoadFootPrintData(FootPrintData data)
     {
         transform.position = data.position;
         isBlooming = data.isBlooming;

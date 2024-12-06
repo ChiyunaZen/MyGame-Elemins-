@@ -63,20 +63,18 @@ public class FootPrintsAllController : MonoBehaviour
         return footPrintDataList;
     }
 
-    // 足跡の初期化（空にする）
-    public void InitializeFootPrints()
+    public List<FootPrintController> LoadFootPrints;  //ロードした足跡のリスト
+    public FootPrintController footPrintPrefab;
+
+    // セーブデータから足跡を復元するメソッド
+    public void LoadFootprints(List<FootPrintData> footprintDataList)
     {
-
-        // 最新の足跡を取得
-        footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
-
-        // すべての足跡を削除
-        foreach (FootPrintController footPrint in footPrints)
+        // 足跡データを基に実際の足跡を復元
+        foreach (var footprintData in footprintDataList)
         {
-            Destroy(footPrint.gameObject); // 足跡の削除（gameObjectをDestroy）
+            FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
+            footprint.LoadFootPrintData(footprintData);
+            LoadFootPrints.Add(footprint);
         }
-
-        // 足跡リストを空にする
-        footPrints = new FootPrintController[0];
     }
 }

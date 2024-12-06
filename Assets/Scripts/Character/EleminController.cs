@@ -321,19 +321,7 @@ public class EleminController : MonoBehaviour, IFollowMov
         }
     }
 
-    internal void InitializeEleminData()
-    {
-        // Elemin の初期位置
-        transform.position = new Vector3(-2, 0.37f, 26.97f);
-
-        // マテリアルのアルファ値を復元
-        Color currentColor = material.GetColor("_Color");
-        currentColor.a = 0f;
-        material.SetColor("_Color", currentColor);
-
-        // ライトの設定を復元
-        eleminLight.range = 0;
-        eleminLight.intensity = 0;
-    }
+   
+   
 }
 

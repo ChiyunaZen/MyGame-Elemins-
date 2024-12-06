@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
         IsOpenExitDialog = false;
-        
+
     }
     // Update is called once per frame
     void Update()
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
                 pauseMenu.ToggleShowPose();
             }
 
-            if(IsOpenExitDialog)
+            if (IsOpenExitDialog)
             {
                 CancelExitGame();
             }
@@ -82,12 +82,12 @@ public class GameManager : MonoBehaviour
 
     public void CancelBackTitle()
     {
-        if (backTitleDialog != null )
+        if (backTitleDialog != null)
         {
             backTitleDialog.SetActive(false);
         }
     }
-    
+
 
     //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
@@ -135,10 +135,10 @@ public class GameManager : MonoBehaviour
     public void BackTitleScene()
     {
         SceneManager.LoadScene("TitleScene");
-        
+
         pauseMenu.ExitPoseMenu();
         CancelBackTitle();
-        
+
     }
 
     //レベル１ゲーム画面に移る
@@ -173,41 +173,95 @@ public class GameManager : MonoBehaviour
 
     }
 
-   
-
-    private void InitializeGameData()
+    public void LoadGame()
     {
-        // プレイヤーの初期位置を設定
+        GameData loadedData = SaveSystem.LoadGame();
+
+        if (loadedData != null)
+        {
+            // セーブデータがあれば、それを読み込んでゲームを復元
+            RestoreGameState(loadedData);
+        }
+        else
+        {
+            // セーブデータが見つからない場合、初期化せずにそのままゲーム開始
+            Debug.Log("セーブデータが見つかりません。初期状態からゲームを開始します。");
+        }
+    }
+
+    //ロードしたデータに基づいてゲームを設定する
+    private void RestoreGameState(GameData gameData)
+    {
+        // セーブデータに基づいてゲームを復元
+        SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
+
+        // プレイヤーの位置を設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            player.transform.position = new Vector3(0f, 0f, 0f); // 初期位置
+            player.transform.position = gameData.playerPos;
         }
 
-        // Eleminの初期設定
+        // Eleminデータの復元
         EleminController elemin = FindObjectOfType<EleminController>();
         if (elemin != null)
         {
-            elemin.InitializeEleminData(); // 初期データ設定メソッド（データの設定処理を別途作成）
+            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
         }
 
-        // 足跡データの初期化
+        // 足跡データの復元
         FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
         if (footPrintController != null)
         {
-            footPrintController.InitializeFootPrints(); // 足跡の初期化
+            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
         }
 
-        // シンボルの初期設定
+        // シンボルデータの復元
         AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
         if (symbolManager != null)
         {
-            symbolManager.InitializeSymbolData(); // シンボルの初期化
+            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
         }
 
-        // ゲーム時間の初期設定
-        SunTimeManager.Instance.lightingManager.TimeOfDay = 2f;
+        // ゲーム時間の復元
+        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }
+
+
+    //ゲームの設定
+    //private void InitializeGameData()
+    //{
+    //    // プレイヤーの初期位置を設定
+    //    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    //    if (player != null)
+    //    {
+    //        player.transform.position = new Vector3(0f, 0f, 0f); // 初期位置
+    //    }
+
+    //    // Eleminの初期設定
+    //    EleminController elemin = FindObjectOfType<EleminController>();
+    //    if (elemin != null)
+    //    {
+    //        elemin.InitializeEleminData(); // 初期データ設定メソッド（データの設定処理を別途作成）
+    //    }
+
+    //    // 足跡データの初期化
+    //    FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+    //    if (footPrintController != null)
+    //    {
+    //        footPrintController.InitializeFootPrints(); // 足跡の初期化
+    //    }
+
+    //    // シンボルの初期設定
+    //    AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+    //    if (symbolManager != null)
+    //    {
+    //        symbolManager.InitializeSymbolData(); // シンボルの初期化
+    //    }
+
+    //    // ゲーム時間の初期設定
+    //    SunTimeManager.Instance.lightingManager.TimeOfDay = 2f;
+    //}
 
 
 
