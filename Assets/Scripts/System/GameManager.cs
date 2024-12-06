@@ -24,17 +24,21 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
+            DontDestroyOnLoad(gameObject);
 
-            // 必要なコンポーネントを探して保持
-
-
-            // exitDialog.SetActive(false);
-
+            // symbolManager を探して初期化
+            if (symbolManager == null)
+            {
+                symbolManager = FindObjectOfType<AllSymbolManager>();
+                if (symbolManager == null)
+                {
+                    Debug.LogError("AllSymbolManager がシーン内に見つかりません。");
+                }
+            }
         }
         else
         {
-            Destroy(gameObject); // 二重に存在する場合は破棄
+            Destroy(gameObject);
             return;
         }
     }
@@ -67,6 +71,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             SaveGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightAlt))
+        {
+            LoadGame();
         }
 
     }
@@ -149,6 +158,12 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
+        if (symbolManager == null)
+        {
+            Debug.LogError("SaveGame: symbolManager が初期化されていません。");
+            return;
+        }
+
         GameData gameData = new GameData
         {
             sceneName = SceneManager.GetActiveScene().name,
@@ -227,41 +242,6 @@ public class GameManager : MonoBehaviour
         SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }
 
-
-    //ゲームの設定
-    //private void InitializeGameData()
-    //{
-    //    // プレイヤーの初期位置を設定
-    //    GameObject player = GameObject.FindGameObjectWithTag("Player");
-    //    if (player != null)
-    //    {
-    //        player.transform.position = new Vector3(0f, 0f, 0f); // 初期位置
-    //    }
-
-    //    // Eleminの初期設定
-    //    EleminController elemin = FindObjectOfType<EleminController>();
-    //    if (elemin != null)
-    //    {
-    //        elemin.InitializeEleminData(); // 初期データ設定メソッド（データの設定処理を別途作成）
-    //    }
-
-    //    // 足跡データの初期化
-    //    FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
-    //    if (footPrintController != null)
-    //    {
-    //        footPrintController.InitializeFootPrints(); // 足跡の初期化
-    //    }
-
-    //    // シンボルの初期設定
-    //    AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
-    //    if (symbolManager != null)
-    //    {
-    //        symbolManager.InitializeSymbolData(); // シンボルの初期化
-    //    }
-
-    //    // ゲーム時間の初期設定
-    //    SunTimeManager.Instance.lightingManager.TimeOfDay = 2f;
-    //}
 
 
 
