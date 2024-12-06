@@ -35,6 +35,7 @@ Transform:
   - {fileID: 4757565244482297994}
   - {fileID: 3316778556749393564}
   - {fileID: 5045060982290477779}
+  - {fileID: 3133338449197818545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2923608517371094899
@@ -52,6 +53,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 8388483968756419044}
   backTitleDialog: {fileID: 6043303236522380315}
   exitDialog: {fileID: 6231638558178683909}
+  symbolManager: {fileID: 8015547925957537545}
 --- !u!1 &1651519003632736775
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +129,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4438128016219141348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3133338449197818545}
+  - component: {fileID: 8015547925957537545}
+  m_Layer: 0
+  m_Name: AllSyambolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3133338449197818545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438128016219141348}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1034.7384, y: -878.219, z: 21.382294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6518082077115939905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8015547925957537545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4438128016219141348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0fe9df872c01b4fbeea5788bf14d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  symbols: []
 --- !u!1 &8608034300716570514
 GameObject:
   m_ObjectHideFlags: 0
