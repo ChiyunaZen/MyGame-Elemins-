@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviour
     private void RestoreGameState(GameData gameData)
     {
         // セーブデータに基づいてゲームを復元
-        SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
+        //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
 
         // プレイヤーの位置を設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
