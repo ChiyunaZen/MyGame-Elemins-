@@ -15,10 +15,9 @@ public class UI_Loading : MonoBehaviour
 
     public event Action<string> OnSceneLoaded;
 
-    // 現在ロード中の AsyncOperation を管理
-    private Dictionary<string, AsyncOperation> activeSceneLoads = new Dictionary<string, AsyncOperation>();
-
     [SerializeField] LightingManager lightingManager;
+
+    bool isSceneReady;
 
     private void Awake()
     {
@@ -31,10 +30,11 @@ public class UI_Loading : MonoBehaviour
     {
         ResetLoadingUI();
         Debug.Log(slider != null ? slider.gameObject.name : "スライダーが見つかりません");
+        isSceneReady = true;
     }
 
 
-    
+
 
     void ResetLoadingUI()
     {
@@ -60,18 +60,13 @@ public class UI_Loading : MonoBehaviour
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene);
 
-        if (!activeSceneLoads.ContainsKey(nextScene))
-        {
-            activeSceneLoads.Add(nextScene, asyncOperation);
-        }
-
         asyncOperation.completed += operation => OnSceneLoadComplete(nextScene);
 
         while (!asyncOperation.isDone)
         {
             slider.value = asyncOperation.progress; // 読み込み進行状況をスライダーに反映
 
-            Debug.Log($"Loading Progress: {asyncOperation.progress}");
+            //Debug.Log($"Loading Progress: {asyncOperation.progress}");
 
 
             if (asyncOperation.progress >= 0.95f) // 
@@ -96,12 +91,17 @@ public class UI_Loading : MonoBehaviour
     {
         Debug.Log($"Scene {nextScene} loaded successfully!");
 
-        // 管理リストから削除
-        if (activeSceneLoads.ContainsKey(nextScene))
+        StartCoroutine(UpdatePlayerAfterSceneLoad(nextScene));
+    }
+
+    IEnumerator UpdatePlayerAfterSceneLoad(string nextScene)
+    {
+        while (!isSceneReady)
         {
-            activeSceneLoads.Remove(nextScene);
+            yield return null; // 初期化完了まで待機
         }
 
         OnSceneLoaded?.Invoke(nextScene);
+
     }
 }

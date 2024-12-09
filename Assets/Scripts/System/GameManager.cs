@@ -74,12 +74,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             SaveGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightAlt))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             LoadGame();
         }
@@ -254,6 +254,7 @@ public class GameManager : MonoBehaviour
         if (player != null)
         {
             player.transform.position = gameData.playerPos;
+            Debug.Log(player.name + ":"+ player.transform.position);
             Debug.Log(gameData.playerPos.ToString());
         }
 
@@ -318,7 +319,7 @@ public class GameManager : MonoBehaviour
                     {
                         for (int j = 0; j < footPrint.flowerPositions.Count; j++)
                         {
-                            Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
+                            //Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
                         }
                     }
                 }
