@@ -74,12 +74,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             SaveGame();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightAlt))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             LoadGame();
         }
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("ゲームをセーブしました");
 
-        SaveDataLog();
+      //  SaveDataLog();
 
     }
 
@@ -227,15 +227,15 @@ public class GameManager : MonoBehaviour
     //ロードしたデータに基づいてゲームを設定する
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        ui_Loading.OnSceneLoaded.AddListener(OnSceneLoaded);
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        ui_Loading.OnSceneLoaded.RemoveListener(OnSceneLoaded);
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(string sceneName)
     {
         if (currentGameData != null)
         {
@@ -315,12 +315,12 @@ public class GameManager : MonoBehaviour
                 for (int i = 0; i < savedData.footPrints.Count; i++)
                 {
                     FootPrintData footPrint = savedData.footPrints[i];
-                    Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
+           //         Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
                     if (footPrint.flowerPositions != null)
                     {
                         for (int j = 0; j < footPrint.flowerPositions.Count; j++)
                         {
-                            Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
+            //                Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
                         }
                     }
                 }
