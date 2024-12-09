@@ -15,8 +15,6 @@ public class UI_Loading : MonoBehaviour
 
     [SerializeField] LightingManager lightingManager;
 
-    bool isSceneReady;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -28,7 +26,6 @@ public class UI_Loading : MonoBehaviour
     {
         ResetLoadingUI();
         Debug.Log(slider != null ? slider.gameObject.name : "スライダーが見つかりません");
-        isSceneReady = true;
     }
 
     void ResetLoadingUI()
@@ -80,19 +77,11 @@ public class UI_Loading : MonoBehaviour
     private void OnSceneLoadComplete(string nextScene)
     {
         Debug.Log($"Scene {nextScene} loaded successfully!");
-        StartCoroutine(InitializeSceneAfterLoad(nextScene));
+    //    StartCoroutine(InitializeSceneAfterLoad(nextScene));
         ResetLighting();
         ResetLoadingUI();
-    }
-
-    IEnumerator InitializeSceneAfterLoad(string nextScene)
-    {
-        while (!isSceneReady)
-        {
-            yield return null; // 初期化完了まで待機
-            Debug.Log("非同期シーンロード完了後にWaitが入った");
-        }
         OnSceneLoaded?.Invoke(nextScene);
+
     }
 
     void ResetLighting()
