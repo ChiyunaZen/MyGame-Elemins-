@@ -22,11 +22,13 @@ public class PlayerController : MonoBehaviour
 
     //カメラの参照
     [SerializeField] private Camera Camera;
+    public bool isActive;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        isActive = true;
     }
 
     void Update()
