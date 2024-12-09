@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour
             RestoreGameState(currentGameData);
         }
     }
+
     private void RestoreGameState(GameData gameData)
     {
         // セーブデータに基づいてゲームを復元
@@ -255,6 +256,7 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = gameData.playerPos;
             Debug.Log(gameData.playerPos.ToString());
+            Debug.Log(player.transform.position.ToString());
         }
 
         // Eleminデータの復元
