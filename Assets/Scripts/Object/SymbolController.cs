@@ -31,7 +31,7 @@ public class SymbolController : MonoBehaviour
     void Start()
     {
         //IDを生成して割り振る
-        symbolId = globalSymbolIdCounter++;
+        //symbolId = globalSymbolIdCounter++;
 
         symbolcollider = GetComponent<Collider>();
 

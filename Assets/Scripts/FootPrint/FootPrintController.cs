@@ -12,8 +12,12 @@ public class FootPrintController : MonoBehaviour
 
     private List<GameObject> spawnedFlowers = new List<GameObject>();  // 生成した花を保持するリスト
 
+    Light footPrintLight;
+
     void Start()
     {
+        footPrintLight = GetComponentInChildren<Light>();
+
         int flowerCount = Random.Range(minFlower, maxFlower + 1);
 
         for (int i = 0; i < flowerCount; i++)
@@ -78,7 +82,11 @@ public class FootPrintController : MonoBehaviour
         transform.position = data.position;
         isBlooming = data.isBlooming;
 
-        
+        if (footPrintLight)
+        {
+            Destroy(footPrintLight);
+        }
+
         // 保存されていた花を復元
         for (int i = 0; i < data.flowerPositions.Count; i++)
         {
@@ -88,6 +96,8 @@ public class FootPrintController : MonoBehaviour
             GameObject randomFlower = flowers[Random.Range(0, flowers.Length)];
             GameObject spawnedFlower = Instantiate(randomFlower, position, rotation);
             spawnedFlower.transform.parent = transform;
+
+            
 
             spawnedFlower.SetActive(data.isBlooming); // 咲いている状態ならアクティブに
 

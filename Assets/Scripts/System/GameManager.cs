@@ -1,3 +1,4 @@
+using Sydewa;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,11 @@ public class GameManager : MonoBehaviour
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
     [SerializeField] AllSymbolManager symbolManager;
+
+    [SerializeField] UI_Loading ui_Loading;
+
+    private GameData currentGameData; // ゲームデータを保持
+
 
 
     private void Awake()
@@ -143,17 +149,21 @@ public class GameManager : MonoBehaviour
     //タイトルシーンに戻る
     public void BackTitleScene()
     {
-        SceneManager.LoadScene("TitleScene");
-
+        //SceneManager.LoadScene("TitleScene");
+        Debug.Log("タイトルシーンに遷移します");
+        ui_Loading.LoadingScene("TitleScene");
         pauseMenu.ExitPoseMenu();
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
         CancelBackTitle();
 
     }
 
     //レベル１ゲーム画面に移る
-    public void StertNewGame()
+    public void StartNewGame()
     {
-        SceneManager.LoadScene("Level1Scene");
+        Debug.Log("レベル１シーンに遷移します");
+        ui_Loading.LoadingScene("Level1Scene");
+        //  lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
     }
 
     public void SaveGame()
@@ -188,33 +198,63 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private GameData gameData;  //gameDataを保持
     public void LoadGame()
     {
         GameData loadedData = SaveSystem.LoadGame();
 
         if (loadedData != null)
         {
-            // セーブデータがあれば、それを読み込んでゲームを復元
-            RestoreGameState(loadedData);
+            // ゲームデータが存在する場合は、それを保持
+            currentGameData = loadedData;
+            // シーン遷移後にデータを再設定する
+            LoadSceneWithGameData(loadedData);
         }
         else
         {
             // セーブデータが見つからない場合、初期化せずにそのままゲーム開始
             Debug.Log("セーブデータが見つかりません。初期状態からゲームを開始します。");
+            StartNewGame();
         }
+    }
+    private void LoadSceneWithGameData(GameData gameData)
+    {
+        // ロードするシーンを指定して遷移
+        ui_Loading.LoadingScene(gameData.sceneName);
+        Debug.Log($"{gameData.sceneName}に遷移します");
     }
 
     //ロードしたデータに基づいてゲームを設定する
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (currentGameData != null)
+        {
+            RestoreGameState(currentGameData);
+        }
+    }
     private void RestoreGameState(GameData gameData)
     {
         // セーブデータに基づいてゲームを復元
         //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
+        
+        // ui_Loading.LoadingScene(gameData.sceneName); 
 
         // プレイヤーの位置を設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             player.transform.position = gameData.playerPos;
+            Debug.Log(gameData.playerPos.ToString());
         }
 
         // Eleminデータの復元
@@ -238,6 +278,7 @@ public class GameManager : MonoBehaviour
             symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
         }
 
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
         // ゲーム時間の復元
         SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }

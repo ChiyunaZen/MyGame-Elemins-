@@ -39,10 +39,10 @@ public class EleminController : MonoBehaviour, IFollowMov
         navMeshAgent.enabled = true;
 
         animator = GetComponent<Animator>();
-        // eleminLight = GetComponentInChildren<Light>();
+        // eleminLight = GetComponentInChildren<footPrintLight>();
 
-        //Debug.Log($"Initial Light Range: {eleminLight.range}");
-        //Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
+        //Debug.Log($"Initial footPrintLight Range: {eleminLight.range}");
+        //Debug.Log($"Initial footPrintLight Intensity: {eleminLight.intensity}");
 
         eleminLight.range = 0;
         eleminLight.intensity = 0;
