@@ -1,9 +1,10 @@
+using Sydewa;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Sydewa;
+using UnityEngine.UI;
 
 public class UI_Loading : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class UI_Loading : MonoBehaviour
     Slider slider;
     GraphicRaycaster raycaster;
     //string targetScene; //遷移先のシーン名
+
+    public event Action<string> OnSceneLoaded;
+
+    // 現在ロード中の AsyncOperation を管理
+    private Dictionary<string, AsyncOperation> activeSceneLoads = new Dictionary<string, AsyncOperation>();
 
     [SerializeField] LightingManager lightingManager;
 
@@ -51,9 +57,15 @@ public class UI_Loading : MonoBehaviour
 
         Debug.Log($"{nextScene}をローディング");
         animator.SetBool("IsLoading", true);
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene); //読み込み状況を取得
-                                                                                // asyncOperation.allowSceneActivation = false; //読み込み完了後自動で遷移しない
-       
+
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene);
+
+        if (!activeSceneLoads.ContainsKey(nextScene))
+        {
+            activeSceneLoads.Add(nextScene, asyncOperation);
+        }
+
+        asyncOperation.completed += operation => OnSceneLoadComplete(nextScene);
 
         while (!asyncOperation.isDone)
         {
@@ -78,5 +90,18 @@ public class UI_Loading : MonoBehaviour
             lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
         }
         ResetLoadingUI();
+    }
+
+    private void OnSceneLoadComplete(string nextScene)
+    {
+        Debug.Log($"Scene {nextScene} loaded successfully!");
+
+        // 管理リストから削除
+        if (activeSceneLoads.ContainsKey(nextScene))
+        {
+            activeSceneLoads.Remove(nextScene);
+        }
+
+        OnSceneLoaded?.Invoke(nextScene);
     }
 }

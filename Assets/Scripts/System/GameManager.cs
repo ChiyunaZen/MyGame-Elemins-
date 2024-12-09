@@ -227,15 +227,15 @@ public class GameManager : MonoBehaviour
     //ロードしたデータに基づいてゲームを設定する
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        ui_Loading.OnSceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        ui_Loading.OnSceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void OnSceneLoaded(string sceneName)
     {
         if (currentGameData != null)
         {
