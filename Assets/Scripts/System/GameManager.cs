@@ -290,7 +290,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RugRestoreGameState(GameData gameData)
     {
-       yield return new WaitForSeconds(1);
+       yield return null;
         // プレイヤーの位置を設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)

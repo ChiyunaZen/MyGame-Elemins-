@@ -62,11 +62,11 @@ public class UI_Loading : MonoBehaviour
             Debug.Log($"Loading Progress: {asyncOperation.progress}");
 
 
-            if (asyncOperation.progress >= 0.95f) // 
+            if (asyncOperation.progress >= 0.9f) 
             {
                 // スライダーを最大値に設定
                 slider.value = 1f;
-                yield return new WaitForSeconds(0.2f); // アニメーション完了待機
+                //yield return new WaitForSeconds(0.2f); // アニメーション完了待機
 
             }
 
@@ -77,6 +77,8 @@ public class UI_Loading : MonoBehaviour
             //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
             lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
         }
+
+        if(nextScene!="TitleScene") yield return new WaitForSeconds(1f);
         ResetLoadingUI();
     }
 }
