@@ -18,7 +18,7 @@ public class SymbolController : MonoBehaviour
     private GameObject currentLightInstance;
     private Light pointLight;
 
-    private static int globalSymbolIdCounter = 0; // ID振り分けようの静的カウンター
+   // private static int globalSymbolIdCounter = 0; // ID振り分けようの静的カウンター
     public int symbolId; // 各シンボルのID
 
     Collider symbolcollider;
@@ -133,13 +133,27 @@ public class SymbolController : MonoBehaviour
             
             if (isSymbolLigting)
             {
-                ActivateSymbolLight();
+                symbolcollider.enabled = false;
+
+                Vector3 lightPos = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+                // symbolLightPrefabをこのオブジェクトの子オブジェクトとして生成
+                currentLightInstance = Instantiate(symbolLightPrefab, lightPos, Quaternion.identity, transform);
+
+                // インスタンス化されたオブジェクトからポイントライトを取得
+                pointLight = currentLightInstance.GetComponent<Light>();
+
                 if (pointLight != null)
                 {
                     pointLight.range = symbolData.symbolLightRange;
+                    
                     pointLight.intensity = symbolData.symbolLightIntensity;
                 }
+                else
+                {
+                    Debug.Log("ポイントライトが見つかりません");
+                }
             }
+           
         }
         else
         {

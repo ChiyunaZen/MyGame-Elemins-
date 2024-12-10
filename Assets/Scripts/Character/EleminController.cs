@@ -305,6 +305,8 @@ public class EleminController : MonoBehaviour, IFollowMov
         {
             // Elemin の位置を復元
             transform.position = eleminData.eleminPos;
+            Debug.Log("Eleminのロード位置："+eleminData.eleminPos);
+            Debug.Log("Eleminの復元位置：" + transform.position);
 
             // マテリアルのアルファ値を復元
             Color currentColor = material.GetColor("_Color");

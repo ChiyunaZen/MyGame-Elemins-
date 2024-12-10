@@ -1,4 +1,5 @@
 using Sydewa;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -239,7 +240,8 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameData != null)
         {
-            RestoreGameState(currentGameData);
+           // RestoreGameState(currentGameData);
+           StartCoroutine(RugRestoreGameState(currentGameData));
         }
     }
 
@@ -250,6 +252,45 @@ public class GameManager : MonoBehaviour
         
         // ui_Loading.LoadingScene(gameData.sceneName); 
 
+        // プレイヤーの位置を設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = gameData.playerPos;
+            Debug.Log(gameData.playerPos.ToString());
+            Debug.Log(player.transform.position.ToString());
+        }
+
+        // Eleminデータの復元
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
+        }
+
+        // 足跡データの復元
+        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+        if (footPrintController != null)
+        {
+            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
+        }
+
+        // シンボルデータの復元
+        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+        if (symbolManager != null)
+        {
+            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
+        }
+
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        // ゲーム時間の復元
+        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
+    }
+
+
+    IEnumerator RugRestoreGameState(GameData gameData)
+    {
+       yield return new WaitForSeconds(1);
         // プレイヤーの位置を設定
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -309,26 +350,26 @@ public class GameManager : MonoBehaviour
             }
 
             // FootPrintData の詳細を表示
-            if (savedData.footPrints != null && savedData.footPrints.Count > 0)
-            {
-                Debug.Log("足跡データ:");
-                for (int i = 0; i < savedData.footPrints.Count; i++)
-                {
-                    FootPrintData footPrint = savedData.footPrints[i];
-                    Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
-                    if (footPrint.flowerPositions != null)
-                    {
-                        for (int j = 0; j < footPrint.flowerPositions.Count; j++)
-                        {
-                            Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("足跡データがありません。");
-            }
+            //if (savedData.footPrints != null && savedData.footPrints.Count > 0)
+            //{
+            //    Debug.Log("足跡データ:");
+            //    for (int i = 0; i < savedData.footPrints.Count; i++)
+            //    {
+            //        FootPrintData footPrint = savedData.footPrints[i];
+            //        Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
+            //        if (footPrint.flowerPositions != null)
+            //        {
+            //            for (int j = 0; j < footPrint.flowerPositions.Count; j++)
+            //            {
+            //                Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.Log("足跡データがありません。");
+            //}
 
             // SymbolData の詳細を表示
             if (savedData.symbols != null && savedData.symbols.Count > 0)
