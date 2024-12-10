@@ -405,6 +405,10 @@ PrefabInstance:
       value: bush_segment_2
       objectReference: {fileID: 0}
     - target: {fileID: 1742091327955176, guid: 41fc0c124ab3e524197d7d65009a3abe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742091327955176, guid: 41fc0c124ab3e524197d7d65009a3abe, type: 3}
       propertyPath: m_TagString
       value: LightSymbol
       objectReference: {fileID: 0}

@@ -303,10 +303,14 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
         if (eleminData != null)
         {
+            //一時的にnavMeshを無効化
+            navMeshAgent.enabled = false;
             // Elemin の位置を復元
             transform.position = eleminData.eleminPos;
             Debug.Log("Eleminのロード位置："+eleminData.eleminPos);
             Debug.Log("Eleminの復元位置：" + transform.position);
+
+            navMeshAgent.enabled = true; //navmeshを再有効か
 
             // マテリアルのアルファ値を復元
             Color currentColor = material.GetColor("_Color");
