@@ -16,5 +16,18 @@ public class ButtonController : MonoBehaviour
             buttonSelectEvent.Invoke(); // ボタン固有の処理を実行
         }
     }
+
+   public  void　GameStartButton()
+    {
+        // GameManagerのインスタンスが存在すれば、LoadGameメソッドを実行
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoadGame();
+        }
+        else
+        {
+            Debug.LogError("GameManagerのインスタンスが見つかりません！");
+        }
+    }
 }
 

@@ -1,6 +1,5 @@
 using Sydewa;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +17,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
+    [SerializeField] AllSymbolManager symbolManager;
+
+    [SerializeField] UI_Loading ui_Loading;
+
+    private GameData currentGameData; // ゲームデータを保持
+
+
 
     private void Awake()
     {
@@ -25,17 +31,21 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // シーンをまたいでも破棄されないようにする
+            DontDestroyOnLoad(gameObject);
 
-            // 必要なコンポーネントを探して保持
-
-
-            // exitDialog.SetActive(false);
-
+            // symbolManager を探して初期化
+            if (symbolManager == null)
+            {
+                symbolManager = FindObjectOfType<AllSymbolManager>();
+                if (symbolManager == null)
+                {
+                    Debug.LogError("AllSymbolManager がシーン内に見つかりません。");
+                }
+            }
         }
         else
         {
-            Destroy(gameObject); // 二重に存在する場合は破棄
+            Destroy(gameObject);
             return;
         }
     }
@@ -45,9 +55,6 @@ public class GameManager : MonoBehaviour
         backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
         IsOpenExitDialog = false;
-        //  eleminController = GameObject.FindWithTag("SubCharacter").GetComponent<EleminController>();
-
-        // Enemy = GameObject.FindWithTag("Enemy");
 
     }
     // Update is called once per frame
@@ -62,10 +69,20 @@ public class GameManager : MonoBehaviour
                 pauseMenu.ToggleShowPose();
             }
 
-            if(IsOpenExitDialog)
+            if (IsOpenExitDialog)
             {
                 CancelExitGame();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            SaveGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightAlt))
+        {
+            LoadGame();
         }
 
     }
@@ -81,12 +98,12 @@ public class GameManager : MonoBehaviour
 
     public void CancelBackTitle()
     {
-        if (backTitleDialog != null )
+        if (backTitleDialog != null)
         {
             backTitleDialog.SetActive(false);
         }
     }
-    
+
 
     //ゲーム終了確認ダイアログの表示
     public void ShowExitDialog()
@@ -133,20 +150,253 @@ public class GameManager : MonoBehaviour
     //タイトルシーンに戻る
     public void BackTitleScene()
     {
-        SceneManager.LoadScene("TitleScene");
-        
+        //SceneManager.LoadScene("TitleScene");
+        Debug.Log("タイトルシーンに遷移します");
+        ui_Loading.LoadingScene("TitleScene");
         pauseMenu.ExitPoseMenu();
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
         CancelBackTitle();
-        
+
     }
 
     //レベル１ゲーム画面に移る
-    public void StertNewGame()
+    public void StartNewGame()
     {
-        SceneManager.LoadScene("Level1Scene");
+        Debug.Log("レベル１シーンに遷移します");
+        ui_Loading.LoadingScene("Level1Scene");
+        //  lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+    }
+
+    public void SaveGame()
+    {
+        if (symbolManager == null)
+        {
+            Debug.LogError("SaveGame: symbolManager が初期化されていません。");
+            return;
+        }
+
+        GameData gameData = new GameData
+        {
+            sceneName = SceneManager.GetActiveScene().name,
+            playerPos = GameObject.FindGameObjectWithTag("Player").transform.position,
+            eleminData = new EleminData(),
+            symbols = symbolManager.GetSymbolDataList(),
+            footPrints = FindObjectOfType<FootPrintsAllController>().GetAllFootPrintData(),
+            gameTime = SunTimeManager.Instance.lightingManager.TimeOfDay
+        };
+
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.EleminDataSet(gameData); // Elemin のデータをセット
+        }
+
+        SaveSystem.SaveGame(gameData);
+
+        Debug.Log("ゲームをセーブしました");
+
+        SaveDataLog();
+
+    }
+
+    private GameData gameData;  //gameDataを保持
+    public void LoadGame()
+    {
+        GameData loadedData = SaveSystem.LoadGame();
+
+        if (loadedData != null)
+        {
+            // ゲームデータが存在する場合は、それを保持
+            currentGameData = loadedData;
+            // シーン遷移後にデータを再設定する
+            LoadSceneWithGameData(loadedData);
+        }
+        else
+        {
+            // セーブデータが見つからない場合、初期化せずにそのままゲーム開始
+            Debug.Log("セーブデータが見つかりません。初期状態からゲームを開始します。");
+            StartNewGame();
+        }
+    }
+    private void LoadSceneWithGameData(GameData gameData)
+    {
+        // ロードするシーンを指定して遷移
+        ui_Loading.LoadingScene(gameData.sceneName);
+        Debug.Log($"{gameData.sceneName}に遷移します");
+    }
+
+    //ロードしたデータに基づいてゲームを設定する
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (currentGameData != null)
+        {
+           // RestoreGameState(currentGameData);
+           StartCoroutine(RugRestoreGameState(currentGameData));
+        }
+    }
+
+    private void RestoreGameState(GameData gameData)
+    {
+        // セーブデータに基づいてゲームを復元
+        //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
+        
+        // ui_Loading.LoadingScene(gameData.sceneName); 
+
+        // プレイヤーの位置を設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = gameData.playerPos;
+            Debug.Log(gameData.playerPos.ToString());
+            Debug.Log(player.transform.position.ToString());
+        }
+
+        // Eleminデータの復元
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
+        }
+
+        // 足跡データの復元
+        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+        if (footPrintController != null)
+        {
+            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
+        }
+
+        // シンボルデータの復元
+        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+        if (symbolManager != null)
+        {
+            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
+        }
+
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        // ゲーム時間の復元
+        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }
 
 
+    IEnumerator RugRestoreGameState(GameData gameData)
+    {
+       yield return null;
+        // プレイヤーの位置を設定
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = gameData.playerPos;
+            Debug.Log(gameData.playerPos.ToString());
+            Debug.Log(player.transform.position.ToString());
+        }
+
+        // Eleminデータの復元
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
+        }
+
+        // 足跡データの復元
+        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+        if (footPrintController != null)
+        {
+            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
+        }
+
+        // シンボルデータの復元
+        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+        if (symbolManager != null)
+        {
+            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
+        }
+
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        // ゲーム時間の復元
+        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
+    }
+
+
+
+
+
+    void SaveDataLog()
+    {
+        // セーブデータ内容をデバッグ表示
+        GameData savedData = SaveSystem.LoadGame(); // セーブしたデータをロードして確認
+        if (savedData != null)
+        {
+            Debug.Log("現在のシーン: " + savedData.sceneName);
+            Debug.Log("プレイヤー位置: " + savedData.playerPos);
+
+            // EleminData の詳細を表示
+            if (savedData.eleminData != null)
+            {
+                Debug.Log("Eleminのデータ:");
+                Debug.Log("  位置: " + savedData.eleminData.eleminPos);
+                Debug.Log("  アルファ値: " + savedData.eleminData.eleminAlpha);
+                Debug.Log("  ライト範囲: " + savedData.eleminData.eleminRange);
+                Debug.Log("  ライト強度: " + savedData.eleminData.eleminIntensity);
+            }
+
+            // FootPrintData の詳細を表示
+            //if (savedData.footPrints != null && savedData.footPrints.Count > 0)
+            //{
+            //    Debug.Log("足跡データ:");
+            //    for (int i = 0; i < savedData.footPrints.Count; i++)
+            //    {
+            //        FootPrintData footPrint = savedData.footPrints[i];
+            //        Debug.Log($"  足跡[{i}] - 位置: {footPrint.position}, 開花状態: {footPrint.isBlooming}");
+            //        if (footPrint.flowerPositions != null)
+            //        {
+            //            for (int j = 0; j < footPrint.flowerPositions.Count; j++)
+            //            {
+            //                Debug.Log($"    花[{j}] - 位置: {footPrint.flowerPositions[j]}, 回転: {footPrint.flowerRotations[j]}");
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.Log("足跡データがありません。");
+            //}
+
+            // SymbolData の詳細を表示
+            if (savedData.symbols != null && savedData.symbols.Count > 0)
+            {
+                Debug.Log("シンボルデータ:");
+                for (int i = 0; i < savedData.symbols.Count; i++)
+                {
+                    SymbolData symbol = savedData.symbols[i];
+                    Debug.Log($"  シンボル[{i}] - ID: {symbol.symbolId}, ライト範囲: {symbol.symbolLightRange}, ライト強度: {symbol.symbolLightIntensity}, 点灯状態: {symbol.isLighting}");
+                }
+            }
+            else
+            {
+                Debug.Log("シンボルデータがありません。");
+            }
+
+            Debug.Log("現在時刻: " + savedData.gameTime);
+        }
+        else
+        {
+            Debug.Log("セーブデータが見つかりませんでした。");
+        }
+    }
+
+
+
 }
+
 
 

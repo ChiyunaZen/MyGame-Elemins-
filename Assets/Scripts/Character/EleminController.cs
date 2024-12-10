@@ -2,7 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using Cinemachine;
+using UnityEngine.Playables;
+using System;
 
+[System.Serializable]
 public class EleminController : MonoBehaviour, IFollowMov
 {
     public Material material;
@@ -18,11 +21,11 @@ public class EleminController : MonoBehaviour, IFollowMov
     public float addLightRange = 0.1f;　//照らす範囲の増え幅
     public float addLightIntensity = 0.1f; //ライトの強さの増え幅
 
-  //  [SerializeField] GameManager manager;
+    //  [SerializeField] GameManager manager;
 
     GameObject goalLight;
 
-   [SerializeField] CameraController cameraController;
+    [SerializeField] CameraController cameraController;
 
     [SerializeField] EndingCamera endingCam;
 
@@ -36,14 +39,14 @@ public class EleminController : MonoBehaviour, IFollowMov
         navMeshAgent.enabled = true;
 
         animator = GetComponent<Animator>();
-        // eleminLight = GetComponentInChildren<Light>();
+        // eleminLight = GetComponentInChildren<footPrintLight>();
 
-        //Debug.Log($"Initial Light Range: {eleminLight.range}");
-        //Debug.Log($"Initial Light Intensity: {eleminLight.intensity}");
+        //Debug.Log($"Initial footPrintLight Range: {eleminLight.range}");
+        //Debug.Log($"Initial footPrintLight Intensity: {eleminLight.intensity}");
 
         eleminLight.range = 0;
         eleminLight.intensity = 0;
-        
+
 
         material.SetColor("_Color", new Color(1f, 1f, 1f, 0.0f)); //マテリアルを透明に設定
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -145,8 +148,8 @@ public class EleminController : MonoBehaviour, IFollowMov
             DecreaseLightRange(decreaseRange);
             DecreaseLightIntensity(decreaseIntensity);
 
-            Collider collider = symbolObject.GetComponent<Collider>();
-            Destroy(collider);
+            // Collider collider = symbolObject.GetComponent<Collider>();
+            //  Destroy(collider);
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -208,7 +211,7 @@ public class EleminController : MonoBehaviour, IFollowMov
     {
         Debug.Log("ゴールを見つけた");
         goalLight = target;
-        
+
 
         // NavMeshAgentを無効化（既に無効になっている場合も確認）
         if (navMeshAgent != null && navMeshAgent.enabled)
@@ -234,13 +237,13 @@ public class EleminController : MonoBehaviour, IFollowMov
             // 近づいたらカメラを切り替える
             if (!cameraSwitched && Vector3.Distance(transform.position, targetPoint) <= 10f)
             {
-               cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
+                cameraController.SwitchToEndingCamera(); // カメラ切り替え処理を呼び出す
                 cameraSwitched = true;  // カメラが切り替え済みであることを記録
             }
 
             // 回転 
             Vector3 direction = targetPoint - transform.position;
-            if (direction != Vector3.zero) 
+            if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -282,4 +285,49 @@ public class EleminController : MonoBehaviour, IFollowMov
 
     }
 
+    public void EleminDataSet(GameData gameData)
+    {
+        //セーブ用のデータを保存する
+        EleminData eleminData = new EleminData
+        {
+            eleminPos = transform.position,
+            eleminAlpha = material.GetColor("_Color").a, // マテリアルのアルファ値
+            eleminRange = eleminLight.range,
+            eleminIntensity = eleminLight.intensity
+        };
+
+        gameData.eleminData = eleminData; // GameData にセット
+    }
+
+    public void LoadEleminData(EleminData eleminData)
+    {
+        if (eleminData != null)
+        {
+            //一時的にnavMeshを無効化
+            navMeshAgent.enabled = false;
+            // Elemin の位置を復元
+            transform.position = eleminData.eleminPos;
+            Debug.Log("Eleminのロード位置："+eleminData.eleminPos);
+            Debug.Log("Eleminの復元位置：" + transform.position);
+
+            navMeshAgent.enabled = true; //navmeshを再有効か
+
+            // マテリアルのアルファ値を復元
+            Color currentColor = material.GetColor("_Color");
+            currentColor.a = eleminData.eleminAlpha;
+            material.SetColor("_Color", currentColor);
+
+            // ライトの設定を復元
+            eleminLight.range = eleminData.eleminRange;
+            eleminLight.intensity = eleminData.eleminIntensity;
+        }
+        else
+        {
+            Debug.LogWarning("ロードするデータが見つかりません。");
+        }
+    }
+
+   
+   
 }
+

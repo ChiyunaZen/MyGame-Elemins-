@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
 public class FootPrintsAllController : MonoBehaviour
 {
     FootPrintController[] footPrints;
@@ -47,20 +49,36 @@ public class FootPrintsAllController : MonoBehaviour
         }
     }
 
-    //レベル1シーンを読み込むメソッド
-    public void StertNewGame()
+    //保存用のデータをリスト化して渡す
+    public List<FootPrintData> GetAllFootPrintData()
     {
-        SceneManager.LoadScene("Level1Scene");
+        FootPrintController[] footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
+
+        List<FootPrintData> footPrintDataList = new List<FootPrintData>();
+        foreach (var footPrint in footPrints)
+        {
+            footPrintDataList.Add(footPrint.GetFootPrintData());
+        }
+
+        return footPrintDataList;
     }
 
-    //ゲームを終了するメソッド
-    public void ExitGame() 
-    {
-        Application.Quit();
+    public List<FootPrintController> LoadFootPrints;  //ロードした足跡のリスト
+    public FootPrintController footPrintPrefab;
 
-        // エディタで実行中の場合
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // エディタのプレイモードを停止
-#endif
+    // セーブデータから足跡を復元するメソッド
+    public void LoadFootprints(List<FootPrintData> footprintDataList)
+    {
+        // 足跡データを基に実際の足跡を復元
+        foreach (var footprintData in footprintDataList)
+        {
+            FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
+            footprint.LoadFootPrintData(footprintData);
+
+            // FootPrintsAllControllerの子オブジェクトに設定
+            footprint.transform.SetParent(transform);
+
+            LoadFootPrints.Add(footprint);
+        }
     }
 }

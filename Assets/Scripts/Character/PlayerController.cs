@@ -14,15 +14,6 @@ public class PlayerController : MonoBehaviour
     //　下方向に強制的に加える力
     [SerializeField] private Vector3 addForceDownPower = Vector3.down;
 
-
-
-    // [SerializeField] Collider groundCheckCol; //前方向に地面があるかの判定を行うコライダー
-
-    ////崖の前では静止する
-    //public float rayDistance = 1.0f; // レイキャストの距離
-    //public LayerMask groundLayer;   // 地面を判定するレイヤー
-    //public float stopThreshold = 0.5f; // 崖の手前で停止する距離
-
     private float pushBackTime = 0f;  // 崖に押し戻されてからの時間
     private float pushBackDuration = 0.4f; // 押し戻し後に移動を無視する時間
 
@@ -85,28 +76,15 @@ public class PlayerController : MonoBehaviour
 
                 }
 
-                //// 地面を判定するレイキャスト
-                //if (IsGroundAhead())
-                //{
-                // 移動速度を掛け合わせてvelocityを設定
+               
                 if (IsGroundAhead())
                 {
-                    Debug.Log("地面があります");
+                    //Debug.Log("地面があります");
                     velocity += moveDirection * currentSpeed;
-
-                    //}
-                    //else
-                    //{
-                    //    // 崖際では少し押し戻す
-                    //    Vector3 pushBackDirection = -transform.forward * 0.5f; // 後方に押し戻すベクトル
-                    //    controller.Move(pushBackDirection);
-                    //}
-
-                    //animator.SetFloat("Speed", currentSpeed); // 入力の強さをアニメーションに反映
                 }
                 else
                 {
-                    Debug.Log("崖です");
+                    //Debug.Log("崖です");
                     // 崖の前に来たら少し後退させる
                     Vector3 pushBackDirection = -transform.forward * 0.1f; // 後方に押し戻すベクトル
                     controller.Move(pushBackDirection);

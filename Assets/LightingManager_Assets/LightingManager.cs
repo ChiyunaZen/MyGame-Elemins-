@@ -13,7 +13,7 @@ public class LightingManager : MonoBehaviour
         //Hopefully this modified version is useful to you
     #region Parameters
         //Scene References
-        [SerializeField] private Light SunDirectionalLight;
+        public Light SunDirectionalLight;
         [SerializeField] private LightingPreset Preset;
 
         //Rotation axis
@@ -289,7 +289,7 @@ public class LightingManager : MonoBehaviour
         //Try to find a directional light and skybox material to use if we haven't set one
         private void OnValidate()
         {
-            //---------------------------Directional Light ----------------------------
+            //---------------------------Directional footPrintLight ----------------------------
             if (SunDirectionalLight != null)
                 return;
 
@@ -328,5 +328,7 @@ public class LightingManager : MonoBehaviour
                 UpdateMoonLighting(TimeOfDay / 24f);
             }
         }
+
+        
     }
 }
