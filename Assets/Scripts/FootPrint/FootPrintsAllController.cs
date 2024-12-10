@@ -11,12 +11,18 @@ public class FootPrintsAllController : MonoBehaviour, ISceneLoadCheck
     FootPrintController[] footPrints;
     [SerializeField] float bloomInterval = 0.1f; //次の花が咲くまでの待ち時間
 
-    public bool isFootPrintAllActive;
+    public bool isFootPrintAllControllerActive;
+
+    public List<FootPrintController> LoadFootPrints = new List<FootPrintController>();  // ロードした足跡のリスト
+    public FootPrintController footPrintPrefab;
+
+    
 
     // Start is called before the first frame update
     void Start()
     {
         footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
+        isFootPrintAllControllerActive = true;
     }
 
     // Update is called once per frame
@@ -65,25 +71,35 @@ public class FootPrintsAllController : MonoBehaviour, ISceneLoadCheck
         return footPrintDataList;
     }
 
-    public List<FootPrintController> LoadFootPrints;  //ロードした足跡のリスト
-    public FootPrintController footPrintPrefab;
+
 
     // セーブデータから足跡を復元するメソッド
     public void LoadFootprints(List<FootPrintData> footprintDataList)
     {
+     
+
         // 足跡データを基に実際の足跡を復元
         foreach (var footprintData in footprintDataList)
         {
-            FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
-            footprint.LoadFootPrintData(footprintData);
-            footprint.LightDestroy();
-            LoadFootPrints.Add(footprint);
+           
+                FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
+                footprint.LoadFootPrintData(footprintData);
+                footprint.LightDestroy();
+                LoadFootPrints.Add(footprint);
+
+                Debug.Log($"足跡を追加: {footprint}");
         }
+
+       // isLoadAllFootPrints = true; //すべての足跡を復元完了
+        Debug.Log($"終了：復元済みの足跡数 {LoadFootPrints.Count}");
+
     }
 
     public bool IsReady()
     {
-        return isFootPrintAllActive && footPrints != null && footPrints.Length > 0;
-        //FootPrintが一つ以上存在するか
+       // Debug.Log($"isFootPrintAllControllerActive: {isFootPrintAllControllerActive}, isLoadAllFootPrints: {isLoadAllFootPrints}, LoadFootPrints.Count: {LoadFootPrints.Count}");
+        return isFootPrintAllControllerActive; 
     }
+
+    
 }

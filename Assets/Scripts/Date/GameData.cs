@@ -26,6 +26,7 @@ public class GameData
 [System.Serializable]
 public class EleminData
 {
+    public bool isElemin; //Eleminがまだ削除済ではないか
     public Vector3 eleminPos;　//Eleminの現在位置 →初期値はVecter3(-2,0.37,26.97)
     public float eleminAlpha;　//Eleminの現在のマテリアルカラーのアルファ値 →初期値は0
     public float eleminRange; //Eleminに着けているのライトのRangeの値　→初期値は0

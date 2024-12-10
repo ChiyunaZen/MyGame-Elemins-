@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Sydewa;
 using UnityEngine.Events;
+using System.Linq;
 
 public class UI_Loading : MonoBehaviour
 {
@@ -96,22 +97,35 @@ public class UI_Loading : MonoBehaviour
     {
         Debug.Log($"Scene {nextScene} loaded successfully!");
 
-        StartCoroutine(UpdatePlayerAfterSceneLoad(nextScene));
+        StartCoroutine(UpdateObjectAfterSceneLoad(nextScene));
     }
 
-    IEnumerator UpdatePlayerAfterSceneLoad(string nextScene)
+    IEnumerator UpdateObjectAfterSceneLoad(string nextScene)
     {
+        ISceneLoadCheck[] sceneLoadChecks = FindObjectsOfType<MonoBehaviour>().OfType<ISceneLoadCheck>().ToArray();
+
         while (true)
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
+            bool allReady =true;
+
+            foreach(var checkable in sceneLoadChecks)
             {
-                PlayerController playerController = player.GetComponent<PlayerController>();
-                if (playerController != null && playerController.isPlayerActive)
+                if (!checkable.IsReady())
                 {
+                    //一つでも生成前なら中断して再チェック
+                    allReady = false;
+                    Debug.Log(checkable.ToString()+"が生成されていません");
+                    break;
+                }
+            }
+            
+            if (allReady)
+            {
+                
+                
                     OnSceneLoaded?.Invoke(nextScene);
                     yield break;
-                }
+                
             }
 
             yield return null;

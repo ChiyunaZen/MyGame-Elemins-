@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 using System;
 
 [System.Serializable]
-public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
+public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadHandler
 {
     public Material material;
     public float alphaDecreaseAmount = 0.05f; // 透明度をあげる量
@@ -28,6 +28,8 @@ public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
     [SerializeField] CameraController cameraController;
 
     [SerializeField] EndingCamera endingCam;
+
+    public bool isEleminAlive; //Eleminがエンディングで消滅済(非アクティブ)でないか
 
     public bool isEleminActive;
 
@@ -62,6 +64,10 @@ public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
             // エージェントとシャドウレイヤーとの衝突を無効にする
             navMeshAgent.gameObject.layer = LayerMask.NameToLayer("Shadow"); // シャドウレイヤーを設定
         }
+
+        isEleminAlive = true;
+
+        isEleminActive = true;
     }
 
     // Update is called once per frame
@@ -283,7 +289,10 @@ public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
         yield return new WaitForSeconds(2);
 
         Destroy(goalLight.GetComponent<MeshRenderer>());
-        Destroy(gameObject);
+        isEleminAlive = false;
+        gameObject.SetActive(false);
+
+
 
     }
 
@@ -292,6 +301,7 @@ public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
         //セーブ用のデータを保存する
         EleminData eleminData = new EleminData
         {
+            isElemin = isEleminAlive,
             eleminPos = transform.position,
             eleminAlpha = material.GetColor("_Color").a, // マテリアルのアルファ値
             eleminRange = eleminLight.range,
@@ -305,6 +315,13 @@ public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
     {
         if (eleminData != null)
         {
+            if (!eleminData.isElemin)
+            {
+                //Eleminが消滅済なら非アクティブにしてその後の処理はしない
+                gameObject.SetActive(false);
+                return;
+            }
+
             // Elemin の位置を復元
             transform.position = eleminData.eleminPos;
 

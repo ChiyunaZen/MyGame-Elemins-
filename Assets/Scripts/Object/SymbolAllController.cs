@@ -5,10 +5,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class AllSymbolManager : MonoBehaviour
+public class SymbolAllController : MonoBehaviour,ISceneLoadCheck
 {
     public List<SymbolController> symbols;
 
+    public List<SymbolData> symbolsDataList;
+    //public bool isLoadAllSymbol;
+
+    public bool isSymbolAllActive;
 
     // シーン遷移時にシンボルを再取得する
     private void OnEnable()
@@ -21,15 +25,7 @@ public class AllSymbolManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // シーンがロードされたときに呼ばれる
-    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
-    {
-        // シンボルリストをクリア
-        symbols.Clear();
-
-        // 新たにシーン内のすべてのSymbolControllerを取得してリストに追加
-        symbols.AddRange(FindObjectsOfType<SymbolController>());
-    }
+   
 
     void Awake()
     {
@@ -49,6 +45,9 @@ public class AllSymbolManager : MonoBehaviour
         {
             symbols.AddRange(FindObjectsOfType<SymbolController>());
         }
+
+        isSymbolAllActive = true;
+      
     }
 
     public List<SymbolData> GetSymbolDataList()
@@ -64,6 +63,13 @@ public class AllSymbolManager : MonoBehaviour
 
     public void LoadSymbolDataList(List<SymbolData> symbolDataList)
     {
+        // シンボルリストをクリア
+        symbols.Clear();
+
+        // 新たにシーン内のすべてのSymbolControllerを取得してリストに追加
+        symbols.AddRange(FindObjectsOfType<SymbolController>());
+
+        // シンボルリストに対して symbolDataList のデータを適用
         foreach (var symbolData in symbolDataList)
         {
             // symbolIdで対応するSymbolControllerを検索してロード
@@ -77,7 +83,25 @@ public class AllSymbolManager : MonoBehaviour
                 Debug.LogWarning($"シンボルが見つかりません: symbolId = {symbolData.symbolId}");
             }
         }
+
     }
 
-    
+    // シーンがロードされたときに呼ばれる
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        // シンボルリストをクリアして、新たにシーン内のすべてのSymbolControllerを取得
+        symbols.Clear();
+        symbols.AddRange(FindObjectsOfType<SymbolController>());
+
+        // シンボルデータをロード
+        if (symbolsDataList != null && symbolsDataList.Count > 0)
+        {
+            LoadSymbolDataList(symbolsDataList);
+        }
+    }
+
+    public bool IsReady()
+    {
+        return isSymbolAllActive;
+    }
 }

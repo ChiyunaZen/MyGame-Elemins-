@@ -5,7 +5,7 @@ using UnityEngine;
 
 //エンディング処理用
 //太陽を上らせ、花を咲かせる命令をするクラス
-public class SunTimeManager : MonoBehaviour
+public class SunTimeManager : MonoBehaviour, ISceneLoadCheck
 {
     public static SunTimeManager Instance { get; private set; }
     // public float CurrentTime { get; private set; } //現在の時刻
@@ -18,7 +18,7 @@ public class SunTimeManager : MonoBehaviour
     [SerializeField] float sunRiseSpeed = 1f;　//太陽の上るスピード
     [SerializeField] float startBloomSunTime = 6f; //花が咲き始める時刻
 
-
+    //public bool isSunTimeActive;
 
     private void Awake()
     {
@@ -41,6 +41,7 @@ public class SunTimeManager : MonoBehaviour
         //ゲーム開始時の時刻設定
         lightingManager.TimeOfDay = startTimeOfDay;
         lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light> ();
+
     }
 
     //エンディングイベント時のイベント
@@ -70,5 +71,22 @@ public class SunTimeManager : MonoBehaviour
 
         // 最終的に目標時刻にそろえる
         lightingManager.TimeOfDay = targetTimeOfDay;
+    }
+
+    public void LoadSunTimeDate(GameData gameData)
+    {
+        if (!lightingManager.SunDirectionalLight)
+        {
+            lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
+        }
+
+        lightingManager.TimeOfDay = gameData.gameTime;
+    }
+
+    public bool IsReady()
+    {
+        if(!lightingManager.SunDirectionalLight) return false;
+
+        return true;
     }
 }

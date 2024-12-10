@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, ISceneLoadCheck
+public class PlayerController : MonoBehaviour, ISceneLoadHandler
 {
 
     private CharacterController controller;

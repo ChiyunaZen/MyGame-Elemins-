@@ -1,4 +1,5 @@
 using Sydewa;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
 
-    [SerializeField] AllSymbolManager symbolManager;
+    [SerializeField] SymbolAllController symbolManager;
 
     [SerializeField] UI_Loading ui_Loading;
 
@@ -35,10 +36,10 @@ public class GameManager : MonoBehaviour
             // symbolManager を探して初期化
             if (symbolManager == null)
             {
-                symbolManager = FindObjectOfType<AllSymbolManager>();
+                symbolManager = FindObjectOfType<SymbolAllController>();
                 if (symbolManager == null)
                 {
-                    Debug.LogError("AllSymbolManager がシーン内に見つかりません。");
+                    Debug.LogError("SymbolAllController がシーン内に見つかりません。");
                 }
             }
         }
@@ -239,18 +240,20 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameData != null)
         {
-            RestoreGameState(currentGameData);
+           // RestoreGameState(currentGameData);
+            StartCoroutine(UpdateGameState(currentGameData));
         }
+    }
+
+    private void InstantiateLoadObjects(GameData gameData)
+    {
+
     }
 
     private void RestoreGameState(GameData gameData)
     {
-        // セーブデータに基づいてゲームを復元
-        //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
         
-        // ui_Loading.LoadingScene(gameData.sceneName); 
-
-        // プレイヤーの位置を設定
+        // プレイヤーの復元
         PlayerController player = FindObjectOfType<PlayerController>();
         if (player != null)
         {
@@ -272,7 +275,7 @@ public class GameManager : MonoBehaviour
         }
 
         // シンボルデータの復元
-        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+        SymbolAllController symbolManager = FindObjectOfType<SymbolAllController>();
         if (symbolManager != null)
         {
             symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
@@ -280,7 +283,44 @@ public class GameManager : MonoBehaviour
 
         // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
         // ゲーム時間の復元
-        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
+        SunTimeManager.Instance.LoadSunTimeDate(gameData);
+    } 
+    
+    IEnumerator UpdateGameState(GameData gameData)
+    {
+        yield return new WaitForSeconds(1f);
+        
+        // プレイヤーの復元
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if (player != null)
+        {
+            player.LoadPlayerDate(gameData);
+        }
+
+        // Eleminデータの復元
+        EleminController elemin = FindObjectOfType<EleminController>();
+        if (elemin != null)
+        {
+            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
+        }
+
+        // 足跡データの復元
+        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+        if (footPrintController != null)
+        {
+            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
+        }
+
+        // シンボルデータの復元
+        SymbolAllController symbolManager = FindObjectOfType<SymbolAllController>();
+        if (symbolManager != null)
+        {
+            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
+        }
+
+        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        // ゲーム時間の復元
+        SunTimeManager.Instance.LoadSunTimeDate(gameData);
     }
 
 
