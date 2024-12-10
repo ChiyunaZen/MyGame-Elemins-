@@ -74,6 +74,10 @@ public class FootPrintsAllController : MonoBehaviour
         {
             FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
             footprint.LoadFootPrintData(footprintData);
+
+            // FootPrintsAllControllerの子オブジェクトに設定
+            footprint.transform.SetParent(transform);
+
             LoadFootPrints.Add(footprint);
         }
     }

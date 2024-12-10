@@ -81,10 +81,15 @@ public class FootPrintController : MonoBehaviour
     {
         transform.position = data.position;
         isBlooming = data.isBlooming;
+        footPrintLight = GetComponentInChildren<Light>();
 
         if (footPrintLight)
         {
-            Destroy(footPrintLight);
+            Destroy(footPrintLight.gameObject);  // ライトを削除
+        }
+        else
+        {
+            Debug.Log("FootLightがみつかりません");
         }
 
         // 保存されていた花を復元
