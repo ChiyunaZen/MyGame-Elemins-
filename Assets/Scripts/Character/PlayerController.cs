@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISceneLoadCheck
 {
 
     private CharacterController controller;
@@ -22,13 +22,13 @@ public class PlayerController : MonoBehaviour
 
     //カメラの参照
     [SerializeField] private Camera Camera;
-    public bool isActive;
+    public bool isPlayerActive;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        isActive = true;
+        isPlayerActive = true;
     }
 
     void Update()
@@ -176,5 +176,17 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(rayRight.origin, rayRight.direction * rayDistance, Color.blue);
 
         return isGrounded;
+    }
+
+    public void LoadPlayerDate(GameData gameData)
+    {
+        transform.position = gameData.playerPos;
+        Debug.Log(gameData.playerPos.ToString());
+        Debug.Log(transform.position.ToString());
+    }
+
+    public bool IsReady()
+    {
+       return isPlayerActive;
     }
 }

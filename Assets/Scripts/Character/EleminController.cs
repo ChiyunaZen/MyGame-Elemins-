@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 using System;
 
 [System.Serializable]
-public class EleminController : MonoBehaviour, IFollowMov
+public class EleminController : MonoBehaviour, IFollowMov, ISceneLoadCheck
 {
     public Material material;
     public float alphaDecreaseAmount = 0.05f; // 透明度をあげる量
@@ -28,6 +28,8 @@ public class EleminController : MonoBehaviour, IFollowMov
     [SerializeField] CameraController cameraController;
 
     [SerializeField] EndingCamera endingCam;
+
+    public bool isEleminActive;
 
 
 
@@ -321,7 +323,9 @@ public class EleminController : MonoBehaviour, IFollowMov
         }
     }
 
-   
-   
+    public bool IsReady()
+    {
+        return isEleminActive;
+    }
 }
 

@@ -82,7 +82,7 @@ public class FootPrintController : MonoBehaviour
         transform.position = data.position;
         isBlooming = data.isBlooming;
 
-        if (footPrintLight)
+       // if (footPrintLight)
         {
             Destroy(footPrintLight);
         }
@@ -103,6 +103,12 @@ public class FootPrintController : MonoBehaviour
 
             spawnedFlowers.Add(spawnedFlower);
         }
+    }
+
+    //ロード時にライトを直接削除
+    public void LightDestroy()
+    {
+        Destroy(footPrintLight);
     }
 }
 

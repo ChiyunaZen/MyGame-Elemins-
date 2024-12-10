@@ -107,7 +107,7 @@ public class UI_Loading : MonoBehaviour
             if (player != null)
             {
                 PlayerController playerController = player.GetComponent<PlayerController>();
-                if (playerController != null && playerController.isActive)
+                if (playerController != null && playerController.isPlayerActive)
                 {
                     OnSceneLoaded?.Invoke(nextScene);
                     yield break;

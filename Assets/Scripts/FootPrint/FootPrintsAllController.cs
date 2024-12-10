@@ -6,15 +6,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class FootPrintsAllController : MonoBehaviour
+public class FootPrintsAllController : MonoBehaviour, ISceneLoadCheck
 {
     FootPrintController[] footPrints;
     [SerializeField] float bloomInterval = 0.1f; //次の花が咲くまでの待ち時間
 
+    public bool isFootPrintAllActive;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        footPrints = FindObjectsByType<FootPrintController>(FindObjectsSortMode.None);
     }
 
     // Update is called once per frame
@@ -74,7 +76,14 @@ public class FootPrintsAllController : MonoBehaviour
         {
             FootPrintController footprint = Instantiate(footPrintPrefab, footprintData.position, Quaternion.identity);
             footprint.LoadFootPrintData(footprintData);
+            footprint.LightDestroy();
             LoadFootPrints.Add(footprint);
         }
+    }
+
+    public bool IsReady()
+    {
+        return isFootPrintAllActive && footPrints != null && footPrints.Length > 0;
+        //FootPrintが一つ以上存在するか
     }
 }

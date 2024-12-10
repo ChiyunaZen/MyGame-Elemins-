@@ -251,12 +251,10 @@ public class GameManager : MonoBehaviour
         // ui_Loading.LoadingScene(gameData.sceneName); 
 
         // プレイヤーの位置を設定
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PlayerController player = FindObjectOfType<PlayerController>();
         if (player != null)
         {
-            player.transform.position = gameData.playerPos;
-            Debug.Log(gameData.playerPos.ToString());
-            Debug.Log(player.transform.position.ToString());
+            player.LoadPlayerDate(gameData);
         }
 
         // Eleminデータの復元
