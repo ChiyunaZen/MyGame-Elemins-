@@ -30,14 +30,12 @@ public class UI_Loading : MonoBehaviour
 
 
 
-   public void ResetLoadingUI()
+    public void ResetLoadingUI()
     {
+        slider.enabled = true;
         animator.SetBool("IsLoading", false);
-
-        //ここで0.2秒待つ
-
         raycaster.enabled = false;
-        slider.value = 0;
+       // slider.value = 0;
 
     }
     public void LoadingScene(string targetScene)
@@ -56,26 +54,34 @@ public class UI_Loading : MonoBehaviour
         animator.SetBool("IsLoading", true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene); //読み込み状況を取得
                                                                                 // asyncOperation.allowSceneActivation = false; //読み込み完了後自動で遷移しない
-        if (nextScene != "TitleScene"|| !GameManager.Instance.IsSaved)
+        if (nextScene == "TitleScene")
         {
-            while (!asyncOperation.isDone)
+            slider.enabled = false;
+            yield return null;
+            
+            SceneManager.LoadScene("TitleScene");
+            yield return null;
+            ResetLoadingUI();
+        }
+        else if(!GameManager.Instance.IsSaved)
+        {
+            slider.enabled = false;
+            yield return null;
+
+            SceneManager.LoadScene("Level1Scene");
+            yield return null;
+
+            if (lightingManager.SunDirectionalLight == null)
             {
-                slider.value = asyncOperation.progress; // 読み込み進行状況をスライダーに反映
-
-                Debug.Log($"Loading Progress: {asyncOperation.progress}");
-
-                if (asyncOperation.progress >= 0.9f)
-                {
-                    // スライダーを最大値に設定
-                    slider.value = 1f;
-
-                }
-
+                //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
+                lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
             }
+            yield return null;
+
+            GameManager.Instance.SaveGame();
 
             ResetLoadingUI();
         }
-
         else
         {
 

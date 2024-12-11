@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
-    public bool IsSaved { get; private set; } //セーブデータが存在するか
+    public bool IsSaved { get; private set; } //セーブしたJsonデータが存在するか
 
     [SerializeField] AllSymbolManager symbolManager;
 
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Delete))
         {
-            SaveSystem.DeleteSaveData();
+            SaveSystem.ResetToInitialData();
         }
 
     }
@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("レベル１シーンに遷移します");
         ui_Loading.LoadingScene("Level1Scene");
-        //  lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+       
     }
 
     public void SaveGame()
@@ -255,52 +255,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private void RestoreGameState(GameData gameData)
-    //{
-    //    // セーブデータに基づいてゲームを復元
-    //    //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
-        
-    //    // ui_Loading.LoadingScene(gameData.sceneName); 
-
-    //    // プレイヤーの位置を設定
-    //    GameObject player = GameObject.FindGameObjectWithTag("Player");
-    //    if (player != null)
-    //    {
-    //        player.transform.position = gameData.playerPos;
-    //        Debug.Log(gameData.playerPos.ToString());
-    //        Debug.Log(player.transform.position.ToString());
-    //    }
-
-    //    // Eleminデータの復元
-    //    EleminController elemin = FindObjectOfType<EleminController>();
-    //    if (elemin != null)
-    //    {
-    //        elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
-    //    }
-
-    //    // 足跡データの復元
-    //    FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
-    //    if (footPrintController != null)
-    //    {
-    //        footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
-    //    }
-
-    //    // シンボルデータの復元
-    //    AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
-    //    if (symbolManager != null)
-    //    {
-    //        symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
-    //    }
-
-    //    if (lightingManager.SunDirectionalLight == null)
-    //    {
-    //        //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
-    //        lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
-    //    }
-    //    // ゲーム時間の復元
-    //    SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
-    //}
-
+   
 
     IEnumerator RugRestoreGameState(GameData gameData)
     {
