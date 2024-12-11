@@ -15,13 +15,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject backTitleDialog; //タイトルに戻る確認用ダイアログパネル
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
+
+  //  [SerializeField] GameObject resetDialog; //初期化確認ダイアログ
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
+    public bool IsSaved { get; private set; } //セーブしたJsonデータが存在するか
 
     [SerializeField] AllSymbolManager symbolManager;
 
     [SerializeField] UI_Loading ui_Loading;
 
     private GameData currentGameData; // ゲームデータを保持
+
+    [SerializeField]LightingManager lightingManager;
 
 
 
@@ -54,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
+
         IsOpenExitDialog = false;
 
     }
@@ -85,6 +91,11 @@ public class GameManager : MonoBehaviour
             LoadGame();
         }
 
+        if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            SaveSystem.ResetToInitialData();
+        }
+
     }
 
     //タイトルに戻る確認ダイアログの表示
@@ -102,7 +113,9 @@ public class GameManager : MonoBehaviour
         {
             backTitleDialog.SetActive(false);
         }
-    }
+    } 
+    
+   
 
 
     //ゲーム終了確認ダイアログの表示
@@ -164,7 +177,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("レベル１シーンに遷移します");
         ui_Loading.LoadingScene("Level1Scene");
-        //  lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+       
     }
 
     public void SaveGame()
@@ -208,6 +221,7 @@ public class GameManager : MonoBehaviour
         {
             // ゲームデータが存在する場合は、それを保持
             currentGameData = loadedData;
+            IsSaved = true;
             // シーン遷移後にデータを再設定する
             LoadSceneWithGameData(loadedData);
         }
@@ -215,6 +229,7 @@ public class GameManager : MonoBehaviour
         {
             // セーブデータが見つからない場合、初期化せずにそのままゲーム開始
             Debug.Log("セーブデータが見つかりません。初期状態からゲームを開始します。");
+            IsSaved = false;
             StartNewGame();
         }
     }
@@ -245,48 +260,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RestoreGameState(GameData gameData)
-    {
-        // セーブデータに基づいてゲームを復元
-        //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
-        
-        // ui_Loading.LoadingScene(gameData.sceneName); 
-
-        // プレイヤーの位置を設定
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = gameData.playerPos;
-            Debug.Log(gameData.playerPos.ToString());
-            Debug.Log(player.transform.position.ToString());
-        }
-
-        // Eleminデータの復元
-        EleminController elemin = FindObjectOfType<EleminController>();
-        if (elemin != null)
-        {
-            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
-        }
-
-        // 足跡データの復元
-        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
-        if (footPrintController != null)
-        {
-            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
-        }
-
-        // シンボルデータの復元
-        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
-        if (symbolManager != null)
-        {
-            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
-        }
-
-        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
-        // ゲーム時間の復元
-        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
-    }
-
+   
 
     IEnumerator RugRestoreGameState(GameData gameData)
     {
@@ -321,7 +295,11 @@ public class GameManager : MonoBehaviour
             symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
         }
 
-        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        if (lightingManager.SunDirectionalLight == null)
+        {
+            //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
+            lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
+        }
         // ゲーム時間の復元
         SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }
@@ -394,6 +372,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+   
 
 
 }
