@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject backTitleDialog; //タイトルに戻る確認用ダイアログパネル
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
+
+  //  [SerializeField] GameObject resetDialog; //初期化確認ダイアログ
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
     public bool IsSaved { get; private set; } //セーブしたJsonデータが存在するか
 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         backTitleDialog.SetActive(false);
         exitDialog.SetActive(false); //修了確認ダイアログは非アクティブ
+
         IsOpenExitDialog = false;
 
     }
@@ -110,7 +113,9 @@ public class GameManager : MonoBehaviour
         {
             backTitleDialog.SetActive(false);
         }
-    }
+    } 
+    
+   
 
 
     //ゲーム終了確認ダイアログの表示

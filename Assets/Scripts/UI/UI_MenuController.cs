@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class UI_MenuController : MonoBehaviour
 {
     //public static UI_MenuController Instance { get; private set; }
-    public bool isOptionmenu {  get; private set; }
+    public bool isOptionmenu { get; private set; }
 
     private CanvasGroup canvasGroup;
     [SerializeField] private CanvasGroup topCanvasGroup;
     [SerializeField] private CanvasGroup soundCanvasGroup;
+    [SerializeField] private CanvasGroup dataResetGroup;
 
    // private bool isMenuOpened; //メニュー画面が開いているかのフラグ
     private bool isTopMenu; //現在TOPメニューの表示かのフラグ
@@ -40,6 +41,7 @@ public class UI_MenuController : MonoBehaviour
         isOptionmenu = false;
         topCanvasGroup.interactable = false;
         soundCanvasGroup.interactable = false;
+        dataResetGroup.interactable = false;
     }
 
     private void Update()
@@ -108,6 +110,14 @@ public class UI_MenuController : MonoBehaviour
         }
         topCanvasGroup.interactable = true;
         soundCanvasGroup.interactable = false;
+    }
+
+    public void OtherMenuOpen()
+    {
+        if(isTopMenu)
+        {
+
+        }
     }
 
 }
