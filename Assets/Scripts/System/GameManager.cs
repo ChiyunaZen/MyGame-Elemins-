@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     private GameData currentGameData; // ゲームデータを保持
 
+    [SerializeField]LightingManager lightingManager;
+
 
 
     private void Awake()
@@ -245,47 +247,51 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RestoreGameState(GameData gameData)
-    {
-        // セーブデータに基づいてゲームを復元
-        //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
+    //private void RestoreGameState(GameData gameData)
+    //{
+    //    // セーブデータに基づいてゲームを復元
+    //    //SceneManager.LoadScene(gameData.sceneName);  // シーンを読み込む
         
-        // ui_Loading.LoadingScene(gameData.sceneName); 
+    //    // ui_Loading.LoadingScene(gameData.sceneName); 
 
-        // プレイヤーの位置を設定
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = gameData.playerPos;
-            Debug.Log(gameData.playerPos.ToString());
-            Debug.Log(player.transform.position.ToString());
-        }
+    //    // プレイヤーの位置を設定
+    //    GameObject player = GameObject.FindGameObjectWithTag("Player");
+    //    if (player != null)
+    //    {
+    //        player.transform.position = gameData.playerPos;
+    //        Debug.Log(gameData.playerPos.ToString());
+    //        Debug.Log(player.transform.position.ToString());
+    //    }
 
-        // Eleminデータの復元
-        EleminController elemin = FindObjectOfType<EleminController>();
-        if (elemin != null)
-        {
-            elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
-        }
+    //    // Eleminデータの復元
+    //    EleminController elemin = FindObjectOfType<EleminController>();
+    //    if (elemin != null)
+    //    {
+    //        elemin.LoadEleminData(gameData.eleminData);  // Eleminのデータを復元
+    //    }
 
-        // 足跡データの復元
-        FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
-        if (footPrintController != null)
-        {
-            footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
-        }
+    //    // 足跡データの復元
+    //    FootPrintsAllController footPrintController = FindObjectOfType<FootPrintsAllController>();
+    //    if (footPrintController != null)
+    //    {
+    //        footPrintController.LoadFootprints(gameData.footPrints);  // 足跡の復元
+    //    }
 
-        // シンボルデータの復元
-        AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
-        if (symbolManager != null)
-        {
-            symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
-        }
+    //    // シンボルデータの復元
+    //    AllSymbolManager symbolManager = FindObjectOfType<AllSymbolManager>();
+    //    if (symbolManager != null)
+    //    {
+    //        symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
+    //    }
 
-        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
-        // ゲーム時間の復元
-        SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
-    }
+    //    if (lightingManager.SunDirectionalLight == null)
+    //    {
+    //        //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
+    //        lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
+    //    }
+    //    // ゲーム時間の復元
+    //    SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
+    //}
 
 
     IEnumerator RugRestoreGameState(GameData gameData)
@@ -321,7 +327,11 @@ public class GameManager : MonoBehaviour
             symbolManager.LoadSymbolDataList(gameData.symbols);  // シンボルの復元
         }
 
-        // lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<footPrintLight>();
+        if (lightingManager.SunDirectionalLight == null)
+        {
+            //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
+            lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
+        }
         // ゲーム時間の復元
         SunTimeManager.Instance.lightingManager.TimeOfDay = gameData.gameTime;
     }

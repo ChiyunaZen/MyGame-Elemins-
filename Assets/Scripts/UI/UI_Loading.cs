@@ -8,7 +8,7 @@ using Sydewa;
 public class UI_Loading : MonoBehaviour
 {
     Animator animator;
-    Slider slider;
+    public Slider slider;
     GraphicRaycaster raycaster;
     //string targetScene; //遷移先のシーン名
 
@@ -28,11 +28,14 @@ public class UI_Loading : MonoBehaviour
     }
 
 
-    
 
-    void ResetLoadingUI()
+
+   public void ResetLoadingUI()
     {
         animator.SetBool("IsLoading", false);
+
+        //ここで0.2秒待つ
+
         raycaster.enabled = false;
         slider.value = 0;
 
@@ -53,32 +56,22 @@ public class UI_Loading : MonoBehaviour
         animator.SetBool("IsLoading", true);
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(nextScene); //読み込み状況を取得
                                                                                 // asyncOperation.allowSceneActivation = false; //読み込み完了後自動で遷移しない
-       
 
-        while (!asyncOperation.isDone)
+
+        // シーンロード進捗を20%がマックスになるように反映
+        while (asyncOperation.progress < 0.9f)
         {
-            slider.value = asyncOperation.progress; // 読み込み進行状況をスライダーに反映
-
-            Debug.Log($"Loading Progress: {asyncOperation.progress}");
-
-
-            if (asyncOperation.progress >= 0.9f) 
-            {
-                // スライダーを最大値に設定
-                slider.value = 1f;
-                //yield return new WaitForSeconds(0.2f); // アニメーション完了待機
-
-            }
-
+            slider.value = Mathf.Lerp(0f, 0.2f, asyncOperation.progress / 0.9f);
             yield return null;
         }
-        if (lightingManager.SunDirectionalLight == null)
-        {
-            //LightingManagerのSunDirectionalLightがnullならシーンのDirectionalLightをセットする
-            lightingManager.SunDirectionalLight = GameObject.FindWithTag("DirectionalLight").GetComponent<Light>();
-        }
 
-        if(nextScene!="TitleScene") yield return new WaitForSeconds(1f);
-        ResetLoadingUI();
+        
+
+        slider.value = 0.2f; // 20%で固定
+
+       
+
+        //if (nextScene != "TitleScene") yield return new WaitForSeconds(1f);
+      //  ResetLoadingUI();
     }
 }

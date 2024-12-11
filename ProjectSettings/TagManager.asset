@@ -16,6 +16,7 @@ TagManager:
   - GoalTarget
   - Enemy
   - Ground
+  - LoadSlider
   layers:
   - Default
   - TransparentFX
