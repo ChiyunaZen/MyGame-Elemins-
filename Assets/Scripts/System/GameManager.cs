@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject exitDialog;  // 確認ダイアログ用の UI パネル
     public bool IsOpenExitDialog { get; private set; } //修了確認用ダイアログが開いているか
+    public bool IsSaved { get; private set; } //セーブデータが存在するか
 
     [SerializeField] AllSymbolManager symbolManager;
 
@@ -85,6 +86,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightAlt))
         {
             LoadGame();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Delete))
+        {
+            SaveSystem.DeleteSaveData();
         }
 
     }
@@ -210,6 +216,7 @@ public class GameManager : MonoBehaviour
         {
             // ゲームデータが存在する場合は、それを保持
             currentGameData = loadedData;
+            IsSaved = true;
             // シーン遷移後にデータを再設定する
             LoadSceneWithGameData(loadedData);
         }
@@ -217,6 +224,7 @@ public class GameManager : MonoBehaviour
         {
             // セーブデータが見つからない場合、初期化せずにそのままゲーム開始
             Debug.Log("セーブデータが見つかりません。初期状態からゲームを開始します。");
+            IsSaved = false;
             StartNewGame();
         }
     }
@@ -404,6 +412,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+   
 
 
 }
