@@ -65,6 +65,10 @@ public class FootPrintLight : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    public void AbsorbLight()
+    {
+        animator.SetTrigger("FootLightEaten");
+        StartCoroutine(LightDestroy(0.51f));
+    }
 
 }

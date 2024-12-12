@@ -11,6 +11,8 @@ public class Mushroom : MonoBehaviour
    // public bool isExit; //踏まれたあとにプレイヤーが一度離れたかの判定
     public bool isClush; //キノコがこわれたかのフラグ
 
+    public float absorptionRadius = 1.5f; // 足跡を吸収する範囲の半径
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -58,7 +60,7 @@ public class Mushroom : MonoBehaviour
         {
                 animator.SetTrigger("Stepped");
                // isBorn = true;
-           
+           AbsorbFootprints();
         }
 
     }
@@ -67,5 +69,21 @@ public class Mushroom : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         //アニメーションの再生待ちのため3秒待って非アクティブにする
         gameObject.SetActive(false);
+    }
+
+    public void AbsorbFootprints()
+    {
+        // 半径1.5m以内のコライダーを取得
+        Collider[] colliders = Physics.OverlapSphere(transform.position, absorptionRadius);
+
+        foreach (Collider collider in colliders)
+        {
+            // FootPrintLightがアタッチされたオブジェクトか確認
+            FootPrintLight footPrintLight = collider.GetComponent<FootPrintLight>();
+            if (footPrintLight != null)
+            {
+                footPrintLight.AbsorbLight();
+            }
+        }
     }
 }
