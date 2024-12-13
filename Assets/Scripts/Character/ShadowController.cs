@@ -8,6 +8,8 @@ public class ShadowController : MonoBehaviour, IFollowMov
     Transform eleminTransform;
     NavMeshAgent navMeshAgent;
     EleminController eleminController;
+    [SerializeField] Material material;
+    [SerializeField] int addColor;
 
     public float getLightIntensity = 0.2f; // Eleminから奪う光量
     public float getLightRange = 2f;　// Eleminから奪う照らす範囲
@@ -83,5 +85,12 @@ public class ShadowController : MonoBehaviour, IFollowMov
         navMeshAgent.isStopped = false;
     }
 
+    void AddShadowWhite()
+    {
+        if(!material)
+        {
+            
+        }
+    }
 
 }

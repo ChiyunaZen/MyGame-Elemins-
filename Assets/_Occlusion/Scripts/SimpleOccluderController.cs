@@ -29,7 +29,7 @@ public class SimpleOccluderController : MonoBehaviour
     /// <summary>
     /// alpha を変更する
     /// </summary>
-    /// <param name="renderer">alpha を変更する Material を持った Renderer</param>
+    /// <param name="renderer">alpha を変更する material を持った Renderer</param>
     /// <param name="targetAlpha">alpha を変更したい値</param>
     void ChangeAlpha(Renderer renderer, float targetAlpha)
     {
