@@ -38,6 +38,7 @@ public class ShadowController : MonoBehaviour, IFollowMov
 
     public void StartFollowing()
     {
+       if(! eleminController)
         navMeshAgent.destination = eleminTransform.position;
     }
 
