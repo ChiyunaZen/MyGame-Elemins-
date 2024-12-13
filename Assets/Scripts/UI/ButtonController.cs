@@ -5,8 +5,16 @@ using UnityEngine.Events;
 
 public class ButtonController : MonoBehaviour
 {
-   
+   GameManager gameManager;
+    UI_MenuController uI_MenuController;
+
     public UnityEvent buttonSelectEvent; // アニメーション終了時に呼ばれるイベント
+
+    private void Start()
+    {
+        gameManager = GameObject.FindAnyObjectByType<GameManager>();
+        uI_MenuController = GameObject.FindAnyObjectByType<UI_MenuController>();
+    }
 
     // アニメーションイベント用メソッド
     public void OnAnimationEnd()
@@ -28,6 +36,17 @@ public class ButtonController : MonoBehaviour
         {
             Debug.LogError("GameManagerのインスタンスが見つかりません！");
         }
+    }
+
+    public void ExitGame()
+    {
+        gameManager.ShowExitDialog();
+
+    }
+
+    public void OpenMenu()
+    {
+        uI_MenuController.OpenMenu();
     }
 }
 
