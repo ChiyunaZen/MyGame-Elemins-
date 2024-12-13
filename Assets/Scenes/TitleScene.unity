@@ -523,9 +523,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1697772151}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ShowExitDialog
+      - m_Target: {fileID: 377487113}
+        m_TargetAssemblyTypeName: ButtonController, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1993,17 +1993,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2081307580}
   m_SourcePrefab: {fileID: 100100000, guid: 7bcd89b84ac767e47925918fa90155d6, type: 3}
---- !u!114 &1424895589 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2222205763164436301, guid: 98d092fa0086f1641a509721d765a3da, type: 3}
-  m_PrefabInstance: {fileID: 1585870122429237784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d342ea6e96ff0dc43825a31a1dcdd2ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1549388595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,17 +2398,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69e2fd5e1652d324dafc4484cc185787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1697772151 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2923608517371094899, guid: 98d092fa0086f1641a509721d765a3da, type: 3}
-  m_PrefabInstance: {fileID: 1585870122429237784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031364514cf63784abf3c17fe7049853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1703755016
@@ -3230,7 +3208,7 @@ PrefabInstance:
     - target: {fileID: 7826517303554046701, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1424895589}
+      objectReference: {fileID: 2162904626278711746}
     - target: {fileID: 7826517303554046701, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3241,7 +3219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7826517303554046701, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI_MenuController, Assembly-CSharp
+      value: ButtonController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7826517303554046701, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3252,6 +3230,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
+--- !u!114 &2162904626278711746 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1036162009591067368, guid: 7ba0d536e7cf8cc469c0e07285b6c381, type: 3}
+  m_PrefabInstance: {fileID: 2162904626278711745}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa09f4b53b7d624d9bdd7769da46c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
