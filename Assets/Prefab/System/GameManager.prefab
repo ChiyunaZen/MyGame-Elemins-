@@ -516,6 +516,7 @@ Transform:
   - {fileID: 1067622367774304717}
   - {fileID: 5301068838854531918}
   - {fileID: 7125372273910401033}
+  - {fileID: 2539832471898413169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2923608517371094899
@@ -973,7 +974,7 @@ MonoBehaviour:
   rotationAxis: 0
   IsDayCycleOn: 0
   RandomStartTime: 0
-  TimeOfDay: 11.6
+  TimeOfDay: 11.4
   StartTime: 11.3
   CycleDuration: 253
   morningInterval: {x: 0, y: 0.5}
@@ -1006,8 +1007,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightingManager: {fileID: 6411398398642756000}
-  footPrintsAllController: {fileID: 0}
-  startTimeOfDay: 2
+  footPrintsAllController: {fileID: 177150973082958896}
+  startTimeOfDay: 2.5
   targetTimeOfDay: 12
   sunRiseSpeed: 1
   startBloomSunTime: 6
@@ -1718,6 +1719,53 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &6885223172725188936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2539832471898413169}
+  - component: {fileID: 177150973082958896}
+  m_Layer: 0
+  m_Name: FootPrints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2539832471898413169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6885223172725188936}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1038.3538, y: -881.47723, z: -41.79079}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6518082077115939905}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &177150973082958896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6885223172725188936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb866d47e87a2534da97b5181bb13cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloomInterval: 0.1
+  LoadFootPrints: []
+  footPrintPrefab: {fileID: 6300963484562446650, guid: 55e2faad68c790945a43c59d25c58e49, type: 3}
 --- !u!1 &7198809808880243893
 GameObject:
   m_ObjectHideFlags: 0
