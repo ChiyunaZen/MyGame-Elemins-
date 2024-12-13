@@ -26,4 +26,6 @@ public class El_CollisionDetector : MonoBehaviour
         }
         
     }
+
+   
 }

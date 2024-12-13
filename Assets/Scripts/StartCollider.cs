@@ -45,8 +45,8 @@ public class StartCollider : MonoBehaviour
     IEnumerator  EnemyDestroy()
     {
         yield return new WaitForSeconds(1);
-        Destroy(followObj);
-        Destroy(gameObject);
+        followObj.SetActive(false);
+       gameObject.SetActive(false);
 
     }
 }

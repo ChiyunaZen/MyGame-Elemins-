@@ -34,7 +34,7 @@ public class OccludeeController : MonoBehaviour
         }
         else
         {
-            Debug.LogError(name + " needs Renderer and Material for occulusion.");
+            Debug.LogError(name + " needs Renderer and material for occulusion.");
         }
     }
 
