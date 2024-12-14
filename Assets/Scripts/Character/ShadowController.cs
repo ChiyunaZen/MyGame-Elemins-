@@ -12,8 +12,8 @@ public class ShadowController : MonoBehaviour, IFollowMov
     [SerializeField] int addColor;
 
     public float getLightIntensity = 0.2f; // Eleminから奪う光量
-    public float getLightRange = 2f;　// Eleminから奪う照らす範囲
-   // public float navMeshSpeed = 1.5f; //NavMeshの追跡速度
+    public float getLightRange = 2f; // Eleminから奪う照らす範囲
+                                     // public float navMeshSpeed = 1.5f; //NavMeshの追跡速度
 
     // Start is called before the first frame update
     void Start()
@@ -23,22 +23,22 @@ public class ShadowController : MonoBehaviour, IFollowMov
         {
             //navMeshAgent.obstacleAvoidanceType = NavMeshObstacleAvoidanceType.None; // 衝突回避を無効化
             navMeshAgent.avoidancePriority = 0; // 他のエージェントと衝突しないように優先度を最小に設定
-           // navMeshAgent.moveSpeed = navMeshSpeed;
+                                                // navMeshAgent.moveSpeed = navMeshSpeed;
         }
 
-        eleminTransform = GameObject.FindGameObjectWithTag("SubCharacter").transform; // elemminを見つけて設定
-        eleminController = GameObject.FindGameObjectWithTag("SubCharacter").GetComponent<EleminController>();
-    }
+        eleminTransform = GameObject.FindAnyObjectByType<EleminController>().transform; // elemminを見つけて設定
+        eleminController = GameObject.FindAnyObjectByType<EleminController>();
 
-    // Update is called once per frame
-    void Update()
+    }
+        // Update is called once per frame
+        void Update()
     {
 
     }
 
     public void StartFollowing()
     {
-       if(! eleminController)
+       if( eleminController)
         navMeshAgent.destination = eleminTransform.position;
     }
 
