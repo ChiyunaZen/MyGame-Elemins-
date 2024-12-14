@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,20 +25,20 @@ public class GameData
 [System.Serializable]
 public class EleminData
 {
-    public Vector3 eleminPos;　//Eleminの現在位置 →初期値はVecter3(-2,0.37,26.97)
-    public float eleminAlpha;　//Eleminの現在のマテリアルカラーのアルファ値 →初期値は0
-    public float eleminRange; //Eleminに着けているのライトのRangeの値　→初期値は0
-    public float eleminIntensity;　//Eleminに着けているライトのIntensityの値　→初期値は0
+    public Vector3 eleminPos;　//Eleminの現在位置 
+    public float eleminAlpha;　//Eleminの現在のマテリアルカラーのアルファ値 
+    public float eleminRange; //Eleminに着けているのライトのRangeの値
+    public float eleminIntensity;　//Eleminに着けているライトのIntensityの値
 }
 
 //シンボルのデータ
 [System.Serializable]
 public class SymbolData
 {
-    public int symbolId; //シンボルのID　→初期値　振り分けたものをそのまま使用してもいい
-    public float symbolLightRange; //シンボルライトのRange値　→初期値0
-    public float symbolLightIntensity;　//シンボルのライトのIntensity値　→初期値0
-    public bool isLighting; //ライトがついているかのフラグ　→初期値false
+    public int symbolId; //シンボルのID
+    public float symbolLightRange; //シンボルライトのRange値
+    public float symbolLightIntensity;　//シンボルのライトのIntensity値　
+    public bool isLighting; //ライトがついているかのフラグ
 
 }
 
