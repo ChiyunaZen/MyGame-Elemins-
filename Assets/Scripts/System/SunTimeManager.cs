@@ -1,3 +1,4 @@
+using Cinemachine;
 using Sydewa;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ public class SunTimeManager : MonoBehaviour
     [SerializeField] float targetTimeOfDay = 12f;　//太陽が昇ったときの時刻設定
     [SerializeField] float sunRiseSpeed = 1f;　//太陽の上るスピード
     [SerializeField] float startBloomSunTime = 6f; //花が咲き始める時刻
+
+    CinemachineVirtualCamera endcam;
 
 
 
@@ -72,5 +75,12 @@ public class SunTimeManager : MonoBehaviour
 
         // 最終的に目標時刻にそろえる
         lightingManager.TimeOfDay = targetTimeOfDay;
+
+        endcam = GameObject.FindWithTag("EndCam").GetComponent<CinemachineVirtualCamera>();
+        if (endcam != null)
+        {
+            endcam.Priority = 50;
+        }
+
     }
 }

@@ -8,18 +8,24 @@ public class Mushroom : MonoBehaviour
     Animator animator;
     ParticleSystem particle;
     public bool isBorn; //キノコが生えたかのフラグ
-   // public bool isExit; //踏まれたあとにプレイヤーが一度離れたかの判定
+                        // public bool isExit; //踏まれたあとにプレイヤーが一度離れたかの判定
     public bool isClush; //キノコがこわれたかのフラグ
 
     public float absorptionRadius = 1.5f; // 足跡を吸収する範囲の半径
+
+    [SerializeField] AudioClip bornClip;
+    [SerializeField] AudioClip clushClip;
+
+    AudioSource audioSource;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         particle = GetComponentInChildren<ParticleSystem>();
         isBorn = false;
-     //   isExit = false;
+        //   isExit = false;
         isClush = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -46,11 +52,13 @@ public class Mushroom : MonoBehaviour
         if (other.gameObject.name == "StepCollider" && isBorn && !isClush)
         {
 
-                animator.SetTrigger("MushClush");
-                isClush = true;
+            animator.SetTrigger("MushClush");
+            isClush = true;
 
-                StartCoroutine(EnableMush());
-            
+            StartCoroutine(EnableMush());
+            audioSource.clip = clushClip;
+            audioSource.Play();
+
         }
     }
 
@@ -58,9 +66,11 @@ public class Mushroom : MonoBehaviour
     {
         if (other.gameObject.name == "StepCollider" && !isBorn)
         {
-                animator.SetTrigger("Stepped");
-               // isBorn = true;
-           AbsorbFootprints();
+            animator.SetTrigger("Stepped");
+            // isBorn = true;
+            AbsorbFootprints();
+            audioSource.clip = bornClip;
+            audioSource.Play();
         }
 
     }

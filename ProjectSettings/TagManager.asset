@@ -17,6 +17,7 @@ TagManager:
   - Enemy
   - Ground
   - LoadSlider
+  - EndCam
   layers:
   - Default
   - TransparentFX
