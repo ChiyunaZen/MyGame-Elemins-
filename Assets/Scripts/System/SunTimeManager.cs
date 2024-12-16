@@ -88,6 +88,7 @@ public class SunTimeManager : MonoBehaviour
     //クリア後にタイトルに戻る
     IEnumerator  EndGame()
     {
+        GameManager.Instance.SaveGame();
         yield return new WaitForSeconds(15f);
         GameManager.Instance.BackTitleScene();
     }
