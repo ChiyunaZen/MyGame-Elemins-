@@ -275,7 +275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Other
+  m_text: Reset Data
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
   m_sharedMaterial: {fileID: -7061103767339690545, guid: 9cf226bd8ddc01b4e8a409796e66564e, type: 2}
@@ -2768,19 +2768,19 @@ PrefabInstance:
       objectReference: {fileID: 4605499487700009293}
     - target: {fileID: 3408590435165787457, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3408590435165787457, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3408590435165787457, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3408590435165787457, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 4046158138650873565, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2798,6 +2798,34 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 4605499487700009293}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5069224867567463297}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetToInitialData
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638391528828743064, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4943041866389500068, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2809,6 +2837,10 @@ PrefabInstance:
     - target: {fileID: 4943041866389500068, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457460753148431555, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_text
+      value: Deleat Data
       objectReference: {fileID: 0}
     - target: {fileID: 5718021528372381867, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_Pivot.x
@@ -2898,6 +2930,10 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6757445892580875819, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7121504293007986944, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_Name
       value: MenuCanvas
@@ -2905,6 +2941,14 @@ PrefabInstance:
     - target: {fileID: 7121504293007986944, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424521272655989022, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1150685206895798050}
+    - target: {fileID: 8424521272655989022, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8713175337861361766, guid: a757e099a265dbc469e5f46f527ab442, type: 3}
       propertyPath: m_AnchorMax.y
