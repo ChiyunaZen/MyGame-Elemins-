@@ -81,20 +81,20 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            SaveGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftAlt))
+        //{
+        //    SaveGame();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.RightAlt))
-        {
-            LoadGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.RightAlt))
+        //{
+        //    LoadGame();
+        //}
 
-        if(Input.GetKeyDown(KeyCode.Delete))
-        {
-            SaveSystem.ResetToInitialData();
-        }
+        //if(Input.GetKeyDown(KeyCode.Delete))
+        //{
+        //    SaveSystem.ResetToInitialData();
+        //}
 
     }
 

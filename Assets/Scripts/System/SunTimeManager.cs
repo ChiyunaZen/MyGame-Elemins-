@@ -82,5 +82,13 @@ public class SunTimeManager : MonoBehaviour
             endcam.Priority = 50;
         }
 
+        StartCoroutine(EndGame());
+    }
+
+    //クリア後にタイトルに戻る
+    IEnumerator  EndGame()
+    {
+        yield return new WaitForSeconds(15f);
+        GameManager.Instance.BackTitleScene();
     }
 }
